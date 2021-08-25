@@ -1,0 +1,34 @@
+{
+  "name": "youtube-notification",
+  "version": "1.1.0",
+  "description": "A youtube wrapper for https://pubsubhubbub.appspot.com/",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "eslint src/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizanyx/Youtube-Notification.git"
+  },
+  "keywords": [
+    "Youtube",
+    "Notifcation",
+    "Pubsub",
+    "pubsubhubbub",
+    "youtubevideo"
+  ],
+  "author": "wizanyx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wizanyx/Youtube-Notification/issues"
+  },
+  "homepage": "https://github.com/wizanyx/Youtube-Notification#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
+}

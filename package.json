@@ -1,0 +1,52 @@
+{
+  "name": "auto-vikkivuk-2.2",
+  "version": "1.0.0",
+  "description": "The third version of Auto VikkiVuk",
+  "main": "index.js",
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/voice": "^0.6.0",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "canvas": "^2.8.0",
+    "chartjs-node-canvas": "^3.2.0",
+    "dialogflow": "^1.2.0",
+    "discord-nsfw": "^1.3.0",
+    "discord.js": "^13.1.0",
+    "ffmpeg-static": "^4.4.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "hotword": "^1.0.9",
+    "libsodium-wrappers": "^0.7.9",
+    "module-alias": "^2.2.2",
+    "mongoose": "^5.13.5",
+    "nodemon": "^2.0.12",
+    "trello": "^0.10.0",
+    "urban-dictionary": "^3.0.1",
+    "urban-dictionary-client": "^3.1.0",
+    "youtube-notification": "^1.1.0",
+    "ytdl-core": "^4.9.1",
+    "ytsr": "^3.5.3"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VikkiVuk/auto-vikkivuk-2.2.git"
+  },
+  "author": "VikkiVuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VikkiVuk/auto-vikkivuk-2.2/issues"
+  },
+  "homepage": "https://github.com/VikkiVuk/auto-vikkivuk-2.2#readme",
+  "_moduleAliases": {
+    "@root": ".",
+    "@util": "./util",
+    "@schemas": "./schemas",
+    "@commands": "./commands",
+    "@events": "./events"
+  },
+  "engines": {
+    "node": "16.6.1"
+  }
+}
