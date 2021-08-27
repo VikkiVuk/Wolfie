@@ -49,8 +49,6 @@ module.exports = {
         .setFooter("Greeting Bot")
         .setColor('#3483eb')
 
-        member.guild.channels.cache.get('874953955455676426').send({ files: [attachment], embeds: [embed] })
-
-        member.roles.add(member.guild.roles.cache.get('688381358179221566'))
+        member.guild.channels.cache.get('878774773247799297').send({ files: [attachment], embeds: [embed] })
     }
 }

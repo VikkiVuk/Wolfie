@@ -1,14 +1,13 @@
 const firstmessage = require('./first-message.js')
 
 module.exports = (client) => {
-    const channelId = "879751537805631528"
+    const channelId = "879842580907585596"
 
     const getEmoji = key => client.emojis.cache.find(emoji => emoji.name === key)
 
     const emojies = {
         naughtycat: "[🔞] Perverzan",
-        '95_CryThumbsUp': "[🔥] Bruh Gang",
-        PaimonShock: "[🗑] Raspala Žica",
+        thumbsup_cry: "[🔥] Bruh Gang",
         cuteturtle: "[🏅] Gold Role"
     }
 

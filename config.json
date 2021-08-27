@@ -1,9 +1,9 @@
 {
-    "token": "Nzk2NzY3NzMwNjAxNTU4MTI3.X_ctxg.QeMOagAHqE9En-QuXyh7KejleYE",
+    "token": "ODgwMDQ5NDcyMjQ2Mjg0MzI4.YSYn8A.BdvTutPpbxMGzOO6T_MsH3dGp60",
     "localMongoPath": "mongodb://localhost:27017",
     "mongoPath": "mongodb+srv://vikkivuk:vikimiki123@discord.lb9th.mongodb.net/bot?retryWrites=true&w=majority",
     "defaultEmbedColor": "#34a4eb",
     "defaultPrefix": "v.",
     "ytChannelId": ["UCEKi4EGLAk7ernGGrlPSNkw"],
-    "ytServerChannelIdNotify": "740136735211651163"
+    "ytServerChannelIdNotify": "878774622135418990"
 }

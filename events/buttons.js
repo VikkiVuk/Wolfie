@@ -6,12 +6,7 @@ module.exports = {
 
         if (!interaction.isButton()) return;
         if (interaction.customId == 'verify') {
-            const verifiedRole = interaction.guild.roles.cache.get('687599618002911239');
-            const unverifiedRole = interaction.guild.roles.cache.get('688381358179221566');
-
-            if (interaction.member.roles.cache.has(unverifiedRole.id)) {
-                interaction.member.roles.remove(unverifiedRole)
-            }
+            const verifiedRole = interaction.guild.roles.cache.get('878606227045756952');
 
             interaction.member.roles.add(verifiedRole)
             

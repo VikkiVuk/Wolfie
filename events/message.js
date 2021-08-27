@@ -6,7 +6,7 @@ module.exports = {
 
         const economy = require('../utility/economy.js')
 
-        if (message.channel.id == '870244833539788810' || message.channel.id == '778745651525189652' || message.channel.id == '791996061803216926' || message.channel.id == '873869795563565106') {
+        if (message.channel.id == '878606227595227164' || message.channel.id == '878606227595227165' || message.channel.id == '878606227800719440' || message.channel.id == '878606227800719441') {
             message.delete()
         }
 

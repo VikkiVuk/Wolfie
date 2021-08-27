@@ -10,10 +10,10 @@ module.exports = {
     async execute(interaction) {
         const member = interaction.options.getMember('korisnik')
 
-        member.roles.remove(member.guild.roles.cache.get('690858597969690624')).catch(async (e) => {
+        member.roles.remove(member.guild.roles.cache.get('878606227045756954')).catch(async (e) => {
             await interaction.reply({ content: `Korisnik nije ni bio mutav.` })
         })
-        member.roles.add(member.guild.roles.cache.get('687599618002911239'))
+        member.roles.add(member.guild.roles.cache.get('878606227045756952'))
 
         await interaction.reply({ content: `Korisnik <@${member.user.id}> vise nije mutav.` })
     },

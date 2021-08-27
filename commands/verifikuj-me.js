@@ -7,7 +7,7 @@ module.exports = {
     .setDescription('Um, verifikuj se? Sta drugo ti kazem.'),
   
   async execute(interaction) {
-    if (interaction.member.roles.cache.has('687599618002911239')) {
+    if (interaction.member.roles.cache.has('878606227045756952')) {
         await interaction.reply({content: '❌ Vec si verifikovan!', ephemeral: true})
     } else {
         const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('verify').setLabel('Ja sam covek').setStyle('PRIMARY'));

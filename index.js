@@ -24,7 +24,7 @@ for (const file of eventFiles) { const event = require(`./events/${file}`); if (
 client.once('ready', async () => {
 	const rest = new REST({ version: '9' }).setToken(config.token);
 
-	await rest.put(Routes.applicationGuildCommands('796767730601558127', '629728204780994590'), { body: commands });
+	await rest.put(Routes.applicationGuildCommands('880049472246284328', '878606227045756948'), { body: commands });
 
     console.log(">>> I'm all good already so moved on im steady- Im just where you left me. Im online. Actually idle but ok.")
 
@@ -32,17 +32,18 @@ client.once('ready', async () => {
 
 	advancedPolls(client)
 	selfRole(client)
+
+	//------------------
 	
-	/*const command = await client.guilds.cache.get('629728204780994590').commands.fetch('879700375362478080');
+	const command = await client.guilds.cache.get('878606227045756948').commands.fetch('880101873812668511');
 
 	const permissions = [{
-		id: '690854855299825694',
+		id: '878606227045756952',
 		type: 'ROLE',
-		permission: true,
+		permission: false
 	}];
 	
-	await command.permissions.add({ permissions });*/
-	
+	await command.permissions.add({ permissions });
 })
 
 // Slash commands run

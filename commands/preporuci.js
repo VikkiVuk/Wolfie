@@ -16,17 +16,17 @@ module.exports = {
       if (idea.toString().length <= 10) {
           await interaction.reply({ content: 'Molim vas napravite ideju duzu, ovo je sistem napravljen za ideje ne za zezanje, ukoliko se zezate, dobicete verovatno ban s komande i necete moci da koristite komandu.', ephemeral: true })
       } else {
-          if (interaction.channelId == '870244833539788810') {
+          if (interaction.channelId == '878606227595227164') {
               // Sta da snimam
               trello.addCard(idea, `Sent by: <@${interaction.member.user.id}>`, '6113903cc6068656df64a8ef');
 
               await interaction.reply({ embeds: [successEmbed] })
-          } else if (interaction.channelId == '778745651525189652') {
+          } else if (interaction.channelId == '878606227595227165') {
               // Auto VikkiVuk ideje
               trello.addCard(idea, `Sent by: <@${interaction.member.user.id}>`, '6113904f6f163a7d919d2481');
 
               await interaction.reply({ embeds: [successEmbed] })
-          } else if (interaction.channelId == '791996061803216926') {
+          } else if (interaction.channelId == '878606227800719440') {
               // Specijal ideje
               trello.addCard(idea, `Sent by: <@${interaction.member.user.id}>`, '6113905b2a1f784cd57db3a7');
 

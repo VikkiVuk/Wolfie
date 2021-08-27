@@ -13,10 +13,10 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand()
 
         if (subcommand == "lock") {
-            chnl.permissionOverwrites.edit('687599618002911239', { SEND_MESSAGES: false });
+            chnl.permissionOverwrites.edit('878606227045756952', { SEND_MESSAGES: false });
             await interaction.reply({ content: "Kanal je zakljucan, svi koji su verifikovani ne mogu da pisu ovde."})
         } else {
-            chnl.permissionOverwrites.edit('687599618002911239', { SEND_MESSAGES: true });
+            chnl.permissionOverwrites.edit('878606227045756952', { SEND_MESSAGES: true });
             await interaction.reply({ content: "Kanal je otkljucan, svi koji su verifikovani sada mogu da pisu."})
         }
     },

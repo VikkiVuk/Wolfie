@@ -26,7 +26,7 @@ module.exports = {
         guild.channels.create(`ticket-${user.id}`, {
           type: "GUILD_TEXT"
         }).then(async (channel) => {
-          channel.setParent('877157500997218345');
+          channel.setParent('878606227414868033');
           await wait(1000)
 
           channel.permissionOverwrites.create(guild.id, { VIEW_CHANNEL: false });
@@ -37,7 +37,7 @@ module.exports = {
           await interaction.editReply({ content: `Ok, otvorio sam ti ticket.` })
         }).catch(console.error);
     } else if (subcommand == "zatvori") {
-      if (interaction.member.roles.cache.has('687600331206819845')) {
+      if (interaction.member.roles.cache.has('878606227058335828')) {
          if (interaction.channel.name.includes(`ticket-`)) {
            await interaction.editReply({ content: 'Ok, ovaj ticket ce se zatvoriti u roku od 5 sekundi.' })
            await wait(5000)

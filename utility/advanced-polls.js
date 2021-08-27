@@ -1,6 +1,6 @@
 module.exports = (client) => {
     client.on('messageCreate', (msg) => {
-        if (msg.channel.id == "719162341991645184") {
+        if (msg.channel.id == "878606227414868036") {
             const { content } = msg
             const eachLine = content.split('\n')
 
