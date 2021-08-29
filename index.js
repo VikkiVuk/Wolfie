@@ -6,7 +6,6 @@ const { Routes } = require('discord-api-types/v9');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "you", type: "LISTENING" }] } })
 const config = require('./config.json')
 const mongo = require('./utility/mongo.js')
-const polls = require('./utility/advanced-polls.js');
 const advancedPolls = require('./utility/advanced-polls.js');
 const selfRole = require('./utility/self-role.js')
 
