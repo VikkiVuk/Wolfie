@@ -3,15 +3,15 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('clear')
-       .setDescription('Ovako ocistite poruke u channel.')
-       .addIntegerOption(option => option.setName("koliko").setDescription("Koliko poruka zelite da ocistite? Limit: 100").setRequired(true)),
-  
+        .setName('clear')
+        .setDescription('Ovako ocistite poruke u channel.')
+        .addIntegerOption(option => option.setName("koliko").setDescription("Koliko poruka zelite da ocistite? Limit: 100").setRequired(true)),
+
     async execute(interaction) {
         await interaction.reply({ content: "Ok." })
 
         const numberof = interaction.options.getInteger("koliko")
-        let n 
+        let n
         if (numberof <= 100) {
             n = numberof
         } else {

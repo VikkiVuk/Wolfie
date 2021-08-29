@@ -3,10 +3,10 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('unmute')
-       .setDescription('Ovako moderatori mogu unmute-aju ljude.')
-       .addUserOption(option => option.setName("korisnik").setDescription("Koga da un-muteas??").setRequired(true)),
-  
+        .setName('unmute')
+        .setDescription('Ovako moderatori mogu unmute-aju ljude.')
+        .addUserOption(option => option.setName("korisnik").setDescription("Koga da un-muteas??").setRequired(true)),
+
     async execute(interaction) {
         const member = interaction.options.getMember('korisnik')
 

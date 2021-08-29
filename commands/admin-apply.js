@@ -5,9 +5,9 @@ var trello = new Trello("03a9e1dbf3c557e05b45fecc95f68913", "1e5e621c8093255ae07
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('admin-apply')
-       .setDescription('Ovako mozes da se applyas da budes prvo trial mod pa mod pa admin.'),
-  
+        .setName('admin-apply')
+        .setDescription('Ovako mozes da se applyas da budes prvo trial mod pa mod pa admin.'),
+
     async execute(interaction) {
         const questions = [
             'Kako se zoves:',
@@ -27,42 +27,42 @@ module.exports = {
             'Da li si procitao sva pravila:',
             'Da li si na sve odgovorio iskreno:',
             'Da li prihvatas uslove VikkiVuk Community:'
-        ] 
-        
+        ]
+
         await interaction.reply({ content: 'Proveri DM, imas 10 minuta da na sva pitanja odgovoris.', ephemeral: true })
-          
+
         interaction.user.createDM().then(async (channel) => {
             let counter = 0
-      
-            const filter = m => m.author.id === interaction.user.id            
+
+            const filter = m => m.author.id === interaction.user.id
 
             const collector = await channel.createMessageCollector({
-              filter,  
-              max: questions.length,
-              time: 1000 * 600, // 15s
+                filter,
+                max: questions.length,
+                time: 1000 * 600, // 15s
             })
-        
+
             interaction.user.send(questions[counter++]).catch(() => {return})
 
             collector.on('collect', (m) => {
-              if (counter < questions.length) {
-                interaction.user.send(questions[counter++])
-              }
+                if (counter < questions.length) {
+                    interaction.user.send(questions[counter++])
+                }
             })
-        
-            collector.on('end', (collected) => {
-              if (collected.size < questions.length) {
-                  interaction.user.send('Nisi odgovorio na vreme').catch(() => { return })
-              }
-        
-              let counter = 0
-              let last = ""
-              collected.forEach((value) => {
-                last += `${questions[counter++]} ${value.content} \n \n`
-              })
 
-              trello.addCard(`${interaction.user.username} (${interaction.user.id})`, last, '61139c7450d95e703ee845eb');
-            })  
+            collector.on('end', (collected) => {
+                if (collected.size < questions.length) {
+                    interaction.user.send('Nisi odgovorio na vreme').catch(() => { return })
+                }
+
+                let counter = 0
+                let last = ""
+                collected.forEach((value) => {
+                    last += `${questions[counter++]} ${value.content} \n \n`
+                })
+
+                trello.addCard(`${interaction.user.username} (${interaction.user.id})`, last, '61139c7450d95e703ee845eb');
+            })
         }).catch(() => {return})
     }
 }

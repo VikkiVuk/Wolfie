@@ -4,11 +4,11 @@ const economy = require("../utility/economy.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('plati')
-       .setDescription('Ovo je komanda za testiranje uglavnom.')
-       .addUserOption(option => option.setName("korisnik").setDescription("Kome zelis da das novac?").setRequired(true))
-       .addIntegerOption(option => option.setName("koliko").setDescription("Koliko novca zelis da das?").setRequired(true)),
-  
+        .setName('plati')
+        .setDescription('Ovo je komanda za testiranje uglavnom.')
+        .addUserOption(option => option.setName("korisnik").setDescription("Kome zelis da das novac?").setRequired(true))
+        .addIntegerOption(option => option.setName("koliko").setDescription("Koliko novca zelis da das?").setRequired(true)),
+
     async execute(interaction) {
         const user = interaction.options.getUser("korisnik")
         const amnt = interaction.options.getInteger("koliko")

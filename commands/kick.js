@@ -3,10 +3,10 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-       .setName('sutni')
-       .setDescription('Da... Kickujes nekog')
-       .addUserOption(option => option.setName('korisnik').setDescription("Koga da kickujes/sutnes?").setRequired(true)),
-  
+        .setName('sutni')
+        .setDescription('Da... Kickujes nekog')
+        .addUserOption(option => option.setName('korisnik').setDescription("Koga da kickujes/sutnes?").setRequired(true)),
+
     async execute(interaction) {
         const user = interaction.options.getMember('korisnik')
 

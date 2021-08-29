@@ -54,7 +54,9 @@ client.on('interactionCreate', async (interaction) => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato <@533692905387196429>', ephemeral: true })
+		await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato <@533692905387196429>', ephemeral: true }).catch(async(err) => {
+			await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato <@533692905387196429>', ephemeral: true })
+		})
 	}
 });
 
