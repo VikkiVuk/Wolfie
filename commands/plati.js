@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const economy = require("../utility/economy.js")
+const handler = require('../utility/user-handler')
 const config = require("../config.json")
 
 module.exports = {
@@ -14,8 +14,8 @@ module.exports = {
         const user = interaction.options.getUser("korisnik")
         const amnt = interaction.options.getInteger("koliko")
 
-        await economy.removeCoins(interaction.guildId, interaction.user.id, amnt)
-        await economy.addCoins(interaction.guildId, user.id, amnt)
+        await handler.changeMoney(interaction.user.id, false, amnt)
+        await handler.changeMoney(user.id, true, amnt)
 
         await interaction.reply(`✅ Uspesno si poslao **${amnt} novca** korisniku <@${user.id}>.`);
     },

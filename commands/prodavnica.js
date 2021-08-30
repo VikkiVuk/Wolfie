@@ -1,8 +1,8 @@
-const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu} = require('discord.js');
+const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const economy = require("../utility/economy");
-const inventory = require("../utility/inventory-handler");
+const handler = require('../utility/user-handler')
 const config = require("../config.json")
+const pagination = require('discordjs-button-pagination')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,48 +10,138 @@ module.exports = {
         .setDescription('Ovde mozete da kupite stvari.'),
 
     async execute(interaction) {
-        const items = ["Laptop:15000", "Stap za pecanje:10000", "Zlatni trofej: 50000", "Metla:1500", "Govno:69420"]
+        const items = config.shopItems
         let options = []
 
-        const embed = new MessageEmbed().setTitle("Prodavnica").setDescription("Zdravo! Hvala sto koristis mene, dole imas sve iteme koje mozes da uzmes. Kad si odlucio samo idi na ono skroz dole klikni na to i izaberi koji item zelis da kupis.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
+        const embedsArray = [new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)]
 
         items.forEach(function (item, index) {
-            const itemparts = item.split(':')
-            const name = itemparts[0]
-            const cost = itemparts[1]
+            if(index <= 2) {
+                const itemparts = item.split(':')
+                const name = itemparts[0]
+                const cost = itemparts[1]
 
-            embed.addField(name, `Ovaj item kosta **${cost}** novca.`)
-            const option = {label: name, description: `Ovaj item kosta ${cost} novca.`, value: name}
-            options.push(option)
+                embedsArray[0].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                const option = {label: name, description: null, value: name}
+                options.push(option)
+            } else if (index >= 2 && index <= 5) {
+                if (embedsArray[1]) {
+                    const itemparts = item.split(':')
+                    const name = itemparts[0]
+                    const cost = itemparts[1]
+
+                    embedsArray[1].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                    const option = {label: name, description: null, value: name}
+                    options.push(option)
+                } else {
+                    embedsArray.push(new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter))
+                    const itemparts = item.split(':')
+                    const name = itemparts[0]
+                    const cost = itemparts[1]
+
+                    embedsArray[1].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                    const option = {label: name, description: null, value: name}
+                    options.push(option)
+                }
+            } else if (index >= 6 && index <= 9) {
+                if (embedsArray[2]) {
+                    const itemparts = item.split(':')
+                    const name = itemparts[0]
+                    const cost = itemparts[1]
+
+                    embedsArray[2].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                    const option = {label: name, description: null, value: name}
+                    options.push(option)
+                } else {
+                    embedsArray.push(new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter))
+                    const itemparts = item.split(':')
+                    const name = itemparts[0]
+                    const cost = itemparts[1]
+
+                    embedsArray[2].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                    const option = {label: name, description: null, value: name}
+                    options.push(option)
+                }
+            } else if (index >= 9) {
+                if (embedsArray[3]) {
+                    const itemparts = item.split(':')
+                    const name = itemparts[0]
+                    const cost = itemparts[1]
+
+                    embedsArray[3].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                    const option = {label: name, description: null, value: name}
+                    options.push(option)
+                } else {
+                    embedsArray.push(new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter))
+                    const itemparts = item.split(':')
+                    const name = itemparts[0]
+                    const cost = itemparts[1]
+
+                    embedsArray[3].addField(name, `Ovaj item kosta **${cost}** novca.`)
+                    const option = {label: name, description: null, value: name}
+                    options.push(option)
+                }
+            }
         })
 
-        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select').setPlaceholder('Izaberi nesto da kupis.').addOptions(options));
+        const button1 = new MessageButton()
+            .setCustomId('previousbtn')
+            .setLabel('Proslo')
+            .setStyle('DANGER');
 
-        await interaction.reply({ embeds: [embed], components: [row] });
+        const button2 = new MessageButton()
+            .setCustomId('nextbtn')
+            .setLabel('Sledece')
+            .setStyle('SUCCESS');
 
-        const filter = i => { i.deferUpdate(); return i.user.id === interaction.user.id; };
+        let buttonList = [
+            button1,
+            button2
+        ]
 
-        interaction.fetchReply().then(async(reply) => {
-            reply.awaitMessageComponent({ filter, componentType: 'SELECT_MENU', time: 60000 }).then(async(interaction) => {
+        await pagination(interaction, embedsArray, buttonList, 60000);
+
+        /*
+            --------------------------------------------------------
+                                    Wolfie
+
+            Dole ispod je kod za kupovinu, nemoj nista dole da diras.
+            ---------------------------------------------------------
+         */
+
+        const selectMenu = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select').setPlaceholder('Izaberi nesto da kupis.').addOptions(options))
+
+        const mesage = await interaction.followUp({ content: `Dole izaberi koj item zelis da kupis.`, components: [selectMenu] });
+
+        const collector = mesage.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: 60000 });
+
+        collector.on('collect', async(selected) => {
+            if (selected.user.id === interaction.user.id) {
                 for (const item of items) {
                     const itemparts = item.split(':')
                     const name = itemparts[0]
                     const cost = itemparts[1]
 
-                    if (name === interaction.values[0]) {
-                        const usercoins = await economy.getCoins(interaction.guildId, interaction.user.id)
+                    if (name === selected.values[0]) {
+                        const usercoins = handler(interaction.user.id).money
 
                         if (usercoins >= cost) {
-                            await economy.removeCoins(interaction.guildId, interaction.user.id, cost)
-                            await inventory.addItem(interaction.user.id, 1, interaction.values[0])
+                            await handler.changeMoney(interaction.user.id, false, cost)
+                            await handler.addItem(interaction.user.id, 1, selected.values[0])
 
-                            await interaction.followUp({ content: `<@${interaction.user.id}> uspesno si kupio item: **${interaction.values[0]}** za **${cost} novca**.` })
+                            await selected.update({content: `<@${interaction.user.id}> uspesno si kupio item: **${selected.values[0]}** za **${cost} novca**.`, components: []})
                         } else {
-                            await interaction.followUp({ content: `<@${interaction.user.id}> nemas dovoljno novca za item: **${interaction.values[0]}**.`})
+                            await selected.update({content: `<@${interaction.user.id}> nemas dovoljno novca za item: **${selected.values[0]}**.`})
                         }
                     }
                 }
-            }).catch(err => interaction.followUp({ content: `<@${interaction.user.id}> vreme ti je isteklo. Molim te ponovo pokreni komandu.`}));
+            } else {
+                await selected.update({content: `Ovaj select menu nije za tebe.`, ephemeral: true});
+            }
+        });
+
+        collector.on('end', async(collected) => {
+            await mesage.edit({ content: "Vreme ti je isteklo.", components: [] })
         })
     },
 };

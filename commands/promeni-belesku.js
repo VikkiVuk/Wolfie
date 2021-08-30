@@ -1,5 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const handler = require('../utility/user-handler')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,12 +10,11 @@ module.exports = {
 
     async execute(interaction) {
         const note = interaction.options.getString('beleska')
-        const notepad = require('../utility/notepad.js')
 
         if(note.length > 2048) await interaction.reply({ content: 'Tvoja beleska ne moze biti veca od **2048** slova!' })
         if(note.length < 5) await interaction.reply({ content: 'Tvoja beleska mora da sadrzi barem **5** slova!' })
 
-        await notepad.setNote(interaction.user.id, note)
+        await handler.changeNote(interaction.user.id, note)
 
         await interaction.reply({ content: `Uspesno sam stavio tvoju belesku kao: \n\`${note}!\`` })
     },

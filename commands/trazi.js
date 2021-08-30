@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const economy = require("../utility/economy.js");
+const handler = require('../utility/user-handler')
 const config = require("../config.json")
 
 module.exports = {
@@ -8,14 +8,13 @@ module.exports = {
         .setName('trazi')
         .setDescription('Ovako mozes da trazis za novac, daje malo vise od moljenja.'),
     async execute(interaction) {
-        const economy = require('../utility/economy.js')
         const random = require('../utility/generateRandom.js')
 
         const isLucky = Math.random() < 0.6
         if (isLucky) {
             const randomNum = Math.floor(Math.random() * (2500 - 300) + 300)
 
-            await economy.addCoins(interaction.guildId, interaction.user.id, randomNum)
+            await handler.changeMoney(interaction.user.id, true, randomNum)
 
             const embed = new MessageEmbed()
                 .setTitle('TRAZENJE')
@@ -28,7 +27,7 @@ module.exports = {
         } else {
             const randomNum = Math.floor(Math.random() * (1500 - 300) + 300)
 
-            await economy.removeCoins(interaction.guildId, interaction.user.id, randomNum)
+            await handler.changeMoney(interaction.user.id, false, randomNum)
 
             const embed = new MessageEmbed()
                 .setTitle('TRAZENJE')

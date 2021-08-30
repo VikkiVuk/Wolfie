@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const notepad = require("../utility/notepad.js");
+const handler = require('../utility/user-handler')
 const config = require("../config.json")
 
 module.exports = {
@@ -9,11 +9,9 @@ module.exports = {
       .setDescription('Tvoj sopstevni discord notepad.'),
 
   async execute(interaction) {
-    const notepad = require('../utility/notepad.js')
+    const note = await handler(interaction.user.id).then(result => { return result.note })
 
-    var note = await notepad.getNote(interaction.user.id)
-
-    if(!note) await interaction.reply({ content: 'Ti jos uvek nema nista u beleskama.', ephemeral: true })
+    if(!note) await interaction.reply({ content: 'Ti jos uvek nema nista u beleskama.', ephemeral: true }); return;
 
     const avatarUrl = `https://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.member.user.avatar}.png`
     const notembed = new MessageEmbed()

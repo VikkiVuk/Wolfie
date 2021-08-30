@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const inventory = require("../utility/inventory-handler")
+const handler = require('../utility/user-handler')
 const config = require("../config.json")
 
 module.exports = {
@@ -9,8 +9,8 @@ module.exports = {
         .setDescription('Ovako mozete da vidite sta sve imate zaradjeno na botu.'),
 
     async execute(interaction) {
-        const items = await inventory.checkItems(interaction.user.id)
-        const embed = new MessageEmbed().setTitle("Tvoj ranac").setDescription("Ovde su tvoji itemi, iteme mozes da zaradis tako sto ides u shop ili koristis komande koje su podrzane.").setColor("GREEN").setTimestamp().setFooter(config.defaultFooter)
+        const items = await handler.checkItems(interaction.user.id)
+        const embed = new MessageEmbed().setTitle("Tvoj Ranac").setDescription("Ovde su tvoji itemi, iteme mozes da zaradis tako sto ides u shop ili koristis komande koje su podrzane.").setColor("GREEN").setTimestamp().setFooter(config.defaultFooter)
 
         items.forEach(function (item, index) {
             const itemparts = item.split(":")

@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
+const handler = require('../utility/user-handler')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,10 +9,9 @@ module.exports = {
       .setDescription('Ovako mozes da zaradis malo novca.'),
 
   async execute(interaction) {
-    const economy = require('../utility/economy.js')
     const randomNum = Math.floor(Math.random() * 250)
 
-    await economy.addCoins(interaction.guildId, interaction.user.id, randomNum)
+    await handler.changeMoney(interaction.user.id, true, randomNum)
 
     const embed = new MessageEmbed()
         .setTitle('MOLJENJE')

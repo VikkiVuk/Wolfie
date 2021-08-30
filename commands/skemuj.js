@@ -10,7 +10,6 @@ module.exports = {
     async execute(interaction) {
         const user = interaction.options.getUser('korisnik')
         try {
-
             await interaction.reply({ content: `Pokusavam da skemujem <@${user.id}>...`});
             await wait(2000)
             await interaction.editReply({ content: `Zovem korisnika...`})

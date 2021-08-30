@@ -54,9 +54,9 @@ module.exports = {
                     interaction.user.send('Nisi odgovorio na vreme').catch(() => { return })
                 }
 
-                interaction.user.send("Hvala sto si se applyovao za admina, vikkivuk ce uskoro da ti pregleda application. Dobices DM od mene ako si acceptan ili rejectan.").catch(() => {return})
+                interaction.user.send("Hvala sto si se applyovao za admina, vikkivuk ce uskoro da ti pregleda application.").catch(() => {return})
                 const appchannel = interaction.guild.channels.cache.get('881923593452281896')
-                const embed = new MessageEmbed().setTitle(`${interaction.user.username}-ov admin apply`).setDescription(`Ovde su njegovi odgovori, da bi ga prihvatio samo ukucaj "accept <@${interaction.user.id}>"`).setFooter(config.defaultFooter).setTimestamp().setColor("RED")
+                const embed = new MessageEmbed().setTitle(`${interaction.user.username}-ov admin apply`).setDescription(`Ovde su njegovi odgovori.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED")
 
                 let counter = 0
                 collected.forEach((value) => {

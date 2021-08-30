@@ -1,7 +1,6 @@
 const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const inventory = require("../utility/inventory-handler");
-const economy = require("../utility/economy");
+const handler = require('../utility/user-handler')
 const generateRandom = require("../utility/generateRandom");
 const config = require("../config.json")
 
@@ -11,18 +10,16 @@ module.exports = {
         .setDescription('Ovako mozes da iskoristis tvoj item iz ranca ako moze da se iskoristi.'),
 
     async execute(interaction) {
-        const currentItems = await inventory.checkItems(interaction.user.id)
+        const currentItems = await handler.checkItems(interaction.user.id)
         let options = []
 
-        const embed = new MessageEmbed().setTitle("Koriscenje").setDescription("Zdravo, dole imas sve tvoje iteme, kad se budes odlucio koji item zelis da iskoristis, samo ga izaberi dole.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
+        const embed = new MessageEmbed().setTitle("Koriscenje").setDescription("Dole imas select menu gde mozes da izaberes koji item zelis da iskoristis. Da vidis koliko itema i koje iteme imas ukucaj `/ranac`").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
 
         currentItems.forEach(function (item, index) {
             const itemparts = item.split(":")
-            const itemamnt = itemparts[1]
             const itemname = itemparts[0]
 
-            embed.addField(itemname, `Imas **${itemamnt}** ovog itema.`)
-            const option = {label: itemname, description: `Imas ${itemamnt} ovog itema.`, value: itemname}
+            const option = {label: itemname, description: null, value: itemname}
             options.push(option)
         })
 
@@ -44,29 +41,29 @@ module.exports = {
                     message.awaitMessageComponent({ filter, componentType: "BUTTON", time: 60000}).then(async(button) => {
                         const willBreak = Math.random() < 0.30
                         if (willBreak) {
-                            await inventory.removeItem(button.user.id, 1, "Laptop")
-                            await inventory.addItem(button.user.id, 1, "Cricket")
+                            await handler.removeItem(button.user.id, 1, "Laptop")
+                            await handler.addItem(button.user.id, 1, "Cricket")
                             await button.followUp({content: `Ups! Tvoj mim je bio smece i fanovi su ti unistili laptop. Ali, barem si dobio **1 Cricket**`})
                         } else {
                             const randomNum = await generateRandom.randomNumber(1500, 6000)
-                            await economy.addCoins(button.guild.id, button.user.id, randomNum)
+                            await handler.changeMoney(button.user.id, true, randomNum)
                             await button.followUp({ content: `Ljudima se svideo tvoj mim i dobio si **${randomNum}** novca.`})
                         }
                     })
                 } else if (itemname === "Stap za pecanje") {
                     const willBreak = Math.random() < 0.25
                     if (willBreak) {
-                        await inventory.removeItem(selected.user.id, 1, "Stap za pecanje")
+                        await handler.removeItem(selected.user.id, 1, "Stap za pecanje")
                         await selected.followUp({content: `Ah, izgleda kao da ti je ajkula zgrabila stap i pojela ga. Izgubio si tvoj stap.`})
                     } else {
                         const randomNum = await generateRandom.randomNumber(1500, 3000)
                         const randomFishes = await generateRandom.randomNumber(1, 5)
-                        await economy.addCoins(selected.guild.id, selected.user.id, randomNum)
-                        await inventory.addItem(selected.user.id, randomFishes, "Riba")
+                        await handler.changeMoney(selected.user.id, true, randomNum)
+                        await handler.addItem(selected.user.id, randomFishes, "Riba")
                         await selected.followUp({ content: `Uspesno si se vratio kuci i doneo **${randomFishes} riba** i **${randomNum} novca**.`})
                     }
                 } else if (itemname === "Metla") {
-                    await inventory.removeItem(selected.user.id, 1, "Metla")
+                    await handler.removeItem(selected.user.id, 1, "Metla")
                     await selected.followUp({ content: `Ocistio si svoju sobu, sad nema nista da te napadne dok spavas.` })
                 } else {
                     await interaction.followUp({ content: "Izvini, ovaj item nije interaktivan." })
