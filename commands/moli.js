@@ -1,5 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const config = require("../config.json")
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
         .setDescription(`:dollar: | <@${interaction.user.id}>, Neko ti je dao **${randomNum} novca!**!`)
         .setColor('#8CFF00')
         .setTimestamp()
-        .setFooter('Auto VikkiVuk')
+        .setFooter(config.defaultFooter)
 
     await interaction.reply({embeds: [embed]})
   },

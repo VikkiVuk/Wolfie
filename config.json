@@ -5,5 +5,6 @@
     "defaultEmbedColor": "#34a4eb",
     "defaultPrefix": "v.",
     "ytChannelId": ["UCEKi4EGLAk7ernGGrlPSNkw"],
-    "ytServerChannelIdNotify": "878774622135418990"
+    "ytServerChannelIdNotify": "878774622135418990",
+    "defaultFooter": "Wolfie"
 }

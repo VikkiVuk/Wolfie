@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const economy = require("../utility/economy.js")
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()

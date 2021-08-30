@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const economy = require("../utility/economy.js");
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
         const random = require('../utility/generateRandom.js')
 
         const isLucky = Math.random() < 0.6
-        if (isLucky == 1) {
+        if (isLucky) {
             const randomNum = Math.floor(Math.random() * (2500 - 300) + 300)
 
             await economy.addCoins(interaction.guildId, interaction.user.id, randomNum)
@@ -21,7 +22,7 @@ module.exports = {
                 .setDescription(`:dollar: | <@${interaction.user.id}>, Posrecilo ti se i dobio si **${randomNum} novca**!`)
                 .setColor('#2FFF0F')
                 .setTimestamp()
-                .setFooter('Auto VikkiVuk')
+                .setFooter(config.defaultFooter)
 
             await interaction.reply({embeds: [embed]})
         } else {
@@ -34,7 +35,7 @@ module.exports = {
                 .setDescription(`:dollar: | <@${interaction.user.id}>, Nisi bio srecan i izgubio si **${randomNum} novca**!`)
                 .setColor('#fc0303')
                 .setTimestamp()
-                .setFooter('Auto VikkiVuk')
+                .setFooter(config.defaultFooter)
 
             await interaction.reply({embeds: [embed]})
         }

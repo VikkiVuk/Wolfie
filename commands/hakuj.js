@@ -1,5 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,7 +21,7 @@ module.exports = {
             await interaction.reply({embeds: [waiting]});
             setTimeout(async () => {
                 const responses = [
-                    new MessageEmbed().setTitle('PRISTUP DOZVOLJEN').setDescription(`Cestitam! Ovo totalno pravo hakovanje <@${user.id}> je uspelo! Dobio si malo novca, dok je <@${user.id}> izgubio istu kolicinu novca.`).setTimestamp().setFooter('Hackbot 9000').setColor('#0FFF0F'),
+                    new MessageEmbed().setTitle('PRISTUP DOZVOLJEN').setDescription(`Cestitam! Ovo totalno pravo hakovanje <@${user.id}> je uspelo! Dobio si malo novca, dok je <@${user.id}> izgubio istu kolicinu novca.`).setTimestamp().setFooter(config.defaultFooter).setColor('#0FFF0F'),
                     new MessageEmbed().setTitle('PRISTUP ODBIJEN').setDescription(`Izvini! Izgleda kao da je <@${user.id}> imao antivirus. Vise srece sledeci put.`).setTimestamp().setFooter('Hackbot 9000').setColor('#FF0000')
                 ];
 

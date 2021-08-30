@@ -14,8 +14,8 @@ module.exports = {
         await interaction.deferReply()
         const subcommand = interaction.options.getSubcommand()
 
-        if (subcommand == "otvori") {
-            if(interaction.guild.channels.cache.some(channel => channel.name == `ticket-${interaction.user.id}`)) {
+        if (subcommand === "otvori") {
+            if(interaction.guild.channels.cache.some(channel => channel.name === `ticket-${interaction.user.id}`)) {
                 await interaction.editReply({ content: `Izvini, vec imas otvoren ticket, molim te ga zatvori pre nego sto nastavis.`, ephemeral: true })
                 return
             }
@@ -26,17 +26,17 @@ module.exports = {
             guild.channels.create(`ticket-${user.id}`, {
                 type: "GUILD_TEXT"
             }).then(async (channel) => {
-                channel.setParent('878606227414868033');
+                await channel.setParent('878606227414868033');
                 await wait(1000)
 
-                channel.permissionOverwrites.create(guild.id, { VIEW_CHANNEL: false });
-                channel.permissionOverwrites.create(user.id, { VIEW_CHANNEL: true });
+                await channel.permissionOverwrites.create(guild.id, {VIEW_CHANNEL: false});
+                await channel.permissionOverwrites.create(user.id, {VIEW_CHANNEL: true});
 
-                channel.send(`Zdravo! Korisnik <@${user.id}> je otvorio ovaj support ticket.`)
+                await channel.send(`Zdravo! Korisnik <@${user.id}> je otvorio ovaj support ticket.`)
 
                 await interaction.editReply({ content: `Ok, otvorio sam ti ticket.` })
             }).catch(console.error);
-        } else if (subcommand == "zatvori") {
+        } else if (subcommand === "zatvori") {
             if (interaction.member.roles.cache.has('878606227058335828')) {
                 if (interaction.channel.name.includes(`ticket-`)) {
                     await interaction.editReply({ content: 'Ok, ovaj ticket ce se zatvoriti u roku od 5 sekundi.' })

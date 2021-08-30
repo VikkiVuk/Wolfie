@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const notepad = require("../utility/notepad.js");
+const config = require("../config.json")
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -20,6 +21,7 @@ module.exports = {
         .addField('Beleska: ', `\n\`Moja Beleska:\` **${note}**`)
         .setColor("#9e34eb")
         .setTimestamp()
+        .setFooter(config.defaultFooter)
 
     await interaction.reply({embeds: [notembed]})
   },

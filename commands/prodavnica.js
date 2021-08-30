@@ -2,6 +2,7 @@ const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu} = r
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const economy = require("../utility/economy");
 const inventory = require("../utility/inventory-handler");
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,7 +13,7 @@ module.exports = {
         const items = ["Laptop:15000", "Stap za pecanje:10000", "Zlatni trofej: 50000", "Metla:1500", "Govno:69420"]
         let options = []
 
-        const embed = new MessageEmbed().setTitle("Prodavnica").setDescription("Zdravo! Hvala sto koristis mene, dole imas sve iteme koje mozes da uzmes. Kad si odlucio samo idi na ono skroz dole klikni na to i izaberi koji item zelis da kupis.").setColor("BLURPLE").setTimestamp().setFooter("Auto VikkiVuk")
+        const embed = new MessageEmbed().setTitle("Prodavnica").setDescription("Zdravo! Hvala sto koristis mene, dole imas sve iteme koje mozes da uzmes. Kad si odlucio samo idi na ono skroz dole klikni na to i izaberi koji item zelis da kupis.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
 
         items.forEach(function (item, index) {
             const itemparts = item.split(':')

@@ -3,6 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const inventory = require("../utility/inventory-handler");
 const economy = require("../utility/economy");
 const generateRandom = require("../utility/generateRandom");
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,7 +14,7 @@ module.exports = {
         const currentItems = await inventory.checkItems(interaction.user.id)
         let options = []
 
-        const embed = new MessageEmbed().setTitle("Koriscenje").setDescription("Zdravo, dole imas sve tvoje iteme, kad se budes odlucio koji item zelis da iskoristis, samo ga izaberi dole.").setColor("BLURPLE").setTimestamp().setFooter("Auto VikkiVuk")
+        const embed = new MessageEmbed().setTitle("Koriscenje").setDescription("Zdravo, dole imas sve tvoje iteme, kad se budes odlucio koji item zelis da iskoristis, samo ga izaberi dole.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
 
         currentItems.forEach(function (item, index) {
             const itemparts = item.split(":")
@@ -36,7 +37,7 @@ module.exports = {
                 const itemname = selected.values[0]
 
                 if (itemname === "Laptop") {
-                    const laptopEmbed = new MessageEmbed().setDescription("**POSTUJ MIM ONLAJN** \nNadaj se da ce ljudima da se svidi tvoj mim jer ako im se ne svidi oni ce ti POLOMITI LAPTOP.").setTimestamp().setFooter("Auto VikkiVuk").setColor("YELLOW")
+                    const laptopEmbed = new MessageEmbed().setDescription("**POSTUJ MIM ONLAJN** \nNadaj se da ce ljudima da se svidi tvoj mim jer ako im se ne svidi oni ce ti POLOMITI LAPTOP.").setTimestamp().setFooter(config.defaultFooter).setColor("YELLOW")
                     const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('fresh').setLabel('Novi').setStyle('PRIMARY'), new MessageButton().setCustomId('repost').setLabel('Repost').setStyle('PRIMARY'), new MessageButton().setCustomId('intellectual').setLabel('Pametni').setStyle('PRIMARY'), new MessageButton().setCustomId('copypasta').setLabel('Izkopiran').setStyle('PRIMARY'), new MessageButton().setCustomId('Kind').setLabel('Dobar').setStyle('PRIMARY'));
 
                     const message = await selected.followUp({ embeds: [laptopEmbed], components: [row]})

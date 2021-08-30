@@ -1,5 +1,6 @@
 const { MessageEmbed, MessageAttachment, MessageButton } = require('discord.js');
 const Canvas = require('canvas');
+const config = require("../config.json")
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -46,7 +47,7 @@ module.exports = {
         .setTitle("Dobar dan")
         .setDescription(`Zdravo <@${member.user.id}>, kako si? Hvala sto si usao, nadam se da ces lepo da se provedes ovde.`)
         .setTimestamp()
-        .setFooter("Greeting Bot")
+        .setFooter(config.defaultFooter)
         .setColor('#3483eb')
 
         member.guild.channels.cache.get('878774773247799297').send({ files: [attachment], embeds: [embed] })

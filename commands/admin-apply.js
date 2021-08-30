@@ -1,7 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Trello = require('trello')
-var trello = new Trello("03a9e1dbf3c557e05b45fecc95f68913", "1e5e621c8093255ae0752a7e67defc8384729a4fbc480fd7b01ec5923372b970");
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -55,13 +54,16 @@ module.exports = {
                     interaction.user.send('Nisi odgovorio na vreme').catch(() => { return })
                 }
 
+                interaction.user.send("Hvala sto si se applyovao za admina, vikkivuk ce uskoro da ti pregleda application. Dobices DM od mene ako si acceptan ili rejectan.").catch(() => {return})
+                const appchannel = interaction.guild.channels.cache.get('881923593452281896')
+                const embed = new MessageEmbed().setTitle(`${interaction.user.username}-ov admin apply`).setDescription(`Ovde su njegovi odgovori, da bi ga prihvatio samo ukucaj "accept <@${interaction.user.id}>"`).setFooter(config.defaultFooter).setTimestamp().setColor("RED")
+
                 let counter = 0
-                let last = ""
                 collected.forEach((value) => {
-                    last += `${questions[counter++]} ${value.content} \n \n`
+                    embed.addField(questions[counter++], value.content)
                 })
 
-                trello.addCard(`${interaction.user.username} (${interaction.user.id})`, last, '61139c7450d95e703ee845eb');
+                appchannel.send({ embeds: [embed] })
             })
         }).catch(() => {return})
     }

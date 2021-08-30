@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const economy = require("../utility/economy.js");
+const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,10 +16,10 @@ module.exports = {
         const coins = await economy.getCoins(interaction.guildId, user.id);
 
         if (user.id === interaction.user.id) {
-            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Trenutno imas **${coins} novca**!`).setColor('#32a852').setTimestamp().setFooter('Auto VikkiVuk')
+            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Trenutno imas **${coins} novca**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
             await interaction.reply({embeds: [embed]})
         } else {
-            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Korisnik <@${user.id}> ima **${coins} novca**!`).setColor('#32a852').setTimestamp().setFooter('Auto VikkiVuk')
+            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Korisnik <@${user.id}> ima **${coins} novca**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
             await interaction.reply({embeds: [embed]})
         }
     },
