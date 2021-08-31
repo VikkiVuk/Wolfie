@@ -65,9 +65,15 @@ module.exports.removeItem = async(userid, amnt, itemname) => {
             for (const item of items) {
                 const itemparts = item.split(":")
                 if (itemparts[0] === itemname) {
-                    const newItems = result.inventory.replace(`,${itemname}:${itemparts[1]}`, "").toString()
+                    if(itemparts[1] > amnt) {
+                        const newItems = result.inventory.replace(`,${itemname}:${itemparts[1]}`, `,${itemname}:${itemparts[1] - amnt}`).toString()
 
-                    await schema.updateOne({ userid: userid }, { inventory: newItems })
+                        await schema.updateOne({ userid: userid }, { inventory: newItems })
+                    } else {
+                        const newItems = result.inventory.replace(`,${itemname}:${itemparts[1]}`, "").toString()
+
+                        await schema.updateOne({ userid: userid }, { inventory: newItems })
+                    }
                 }
             }
         }

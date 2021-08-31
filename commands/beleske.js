@@ -11,11 +11,12 @@ module.exports = {
   async execute(interaction) {
     const note = await handler(interaction.user.id).then(result => { return result.note })
 
-    if(!note) await interaction.reply({ content: 'Ti jos uvek nema nista u beleskama.', ephemeral: true }); return;
+    if(!note) {
+      await interaction.reply({ content: 'Ti jos uvek nema nista u beleskama.', ephemeral: true })
+      return
+    }
 
-    const avatarUrl = `https://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.member.user.avatar}.png`
     const notembed = new MessageEmbed()
-        .setAuthor(`${interaction.user.username} Beleske`, avatarUrl)
         .addField('Beleska: ', `\n\`Moja Beleska:\` **${note}**`)
         .setColor("#9e34eb")
         .setTimestamp()

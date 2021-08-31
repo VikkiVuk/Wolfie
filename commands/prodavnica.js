@@ -12,91 +12,28 @@ module.exports = {
     async execute(interaction) {
         const items = config.shopItems
         let options = []
+        let embedsArray = []
 
-        const embedsArray = [new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)]
+        var i,j, temporary, chunk = 4;
+        for (i = 0,j = items.length; i < j; i += chunk) {
+            temporary = items.slice(i, i + chunk);
+            const newEmbed = new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
+            for (const item of temporary) {
+                const itemparts = item.split(":")
+                const itemname = itemparts[0]
+                const itemcost = itemparts[1]
 
-        items.forEach(function (item, index) {
-            if(index <= 2) {
-                const itemparts = item.split(':')
-                const name = itemparts[0]
-                const cost = itemparts[1]
-
-                embedsArray[0].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                const option = {label: name, description: null, value: name}
+                newEmbed.addField(itemname, `Ovaj item kosta **${itemcost} novca**.`)
+                const option = {label: itemname, description: null, value: itemname}
                 options.push(option)
-            } else if (index >= 2 && index <= 5) {
-                if (embedsArray[1]) {
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
-
-                    embedsArray[1].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                    const option = {label: name, description: null, value: name}
-                    options.push(option)
-                } else {
-                    embedsArray.push(new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter))
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
-
-                    embedsArray[1].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                    const option = {label: name, description: null, value: name}
-                    options.push(option)
-                }
-            } else if (index >= 6 && index <= 9) {
-                if (embedsArray[2]) {
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
-
-                    embedsArray[2].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                    const option = {label: name, description: null, value: name}
-                    options.push(option)
-                } else {
-                    embedsArray.push(new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter))
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
-
-                    embedsArray[2].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                    const option = {label: name, description: null, value: name}
-                    options.push(option)
-                }
-            } else if (index >= 9) {
-                if (embedsArray[3]) {
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
-
-                    embedsArray[3].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                    const option = {label: name, description: null, value: name}
-                    options.push(option)
-                } else {
-                    embedsArray.push(new MessageEmbed().setTitle("Prodavnica").setDescription("Dole imas sve iteme koje mozes da uzmes.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter))
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
-
-                    embedsArray[3].addField(name, `Ovaj item kosta **${cost}** novca.`)
-                    const option = {label: name, description: null, value: name}
-                    options.push(option)
-                }
             }
-        })
 
-        const button1 = new MessageButton()
-            .setCustomId('previousbtn')
-            .setLabel('Proslo')
-            .setStyle('DANGER');
-
-        const button2 = new MessageButton()
-            .setCustomId('nextbtn')
-            .setLabel('Sledece')
-            .setStyle('SUCCESS');
+            embedsArray.push(newEmbed)
+        }
 
         let buttonList = [
-            button1,
-            button2
+            new MessageButton().setCustomId('previousbtn').setLabel('Nazad').setStyle('DANGER'),
+            new MessageButton().setCustomId('nextbtn').setLabel('Sledece').setStyle('SUCCESS')
         ]
 
         await pagination(interaction, embedsArray, buttonList, 60000);
@@ -123,7 +60,7 @@ module.exports = {
                     const cost = itemparts[1]
 
                     if (name === selected.values[0]) {
-                        const usercoins = handler(interaction.user.id).money
+                        const usercoins = handler(interaction.user.id).then(result => { return result.money })
 
                         if (usercoins >= cost) {
                             await handler.changeMoney(interaction.user.id, false, cost)
