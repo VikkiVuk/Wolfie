@@ -1,43 +1,49 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
+const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const handler = require('../utility/user-handler')
 const config = require("../config.json")
+const {randomNumber} = require("../utility/generateRandom");
+const talkedRecently = []
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('trazi')
         .setDescription('Ovako mozes da trazis za novac, daje malo vise od moljenja.'),
     async execute(interaction) {
-        const random = require('../utility/generateRandom.js')
-
-        const isLucky = Math.random() < 0.6
-        if (isLucky) {
-            const randomNum = Math.floor(Math.random() * (2500 - 300) + 300)
-
-            await handler.changeMoney(interaction.user.id, true, randomNum)
-
-            const embed = new MessageEmbed()
-                .setTitle('TRAZENJE')
-                .setDescription(`:dollar: | <@${interaction.user.id}>, Posrecilo ti se i dobio si **${randomNum} novca**!`)
-                .setColor('#2FFF0F')
-                .setTimestamp()
-                .setFooter(config.defaultFooter)
-
-            await interaction.reply({embeds: [embed]})
+        if (talkedRecently.includes(interaction.user.id)) {
+            interaction.reply({ content: `Alou! Stop it, chill outaj. Znaci P L Z, sacekaj tvojih 20 sekundi pre nego sto ponovo komandu pokrenes.`})
         } else {
-            const randomNum = Math.floor(Math.random() * (1500 - 300) + 300)
+            const locations = config.searchZones
+            const chosenLocations = locations.sort(() => Math.random() - Math.random()).slice(0, 3)
 
-            await handler.changeMoney(interaction.user.id, false, randomNum)
+            let buttons = []
+            for (const location of chosenLocations) {
+                buttons.push(new MessageButton().setCustomId(location).setLabel(location).setStyle("PRIMARY"))
+            }
 
-            const embed = new MessageEmbed()
-                .setTitle('TRAZENJE')
-                .setDescription(`:dollar: | <@${interaction.user.id}>, Nisi bio srecan i izgubio si **${randomNum} novca**!`)
-                .setColor('#fc0303')
-                .setTimestamp()
-                .setFooter(config.defaultFooter)
+            const row = new MessageActionRow().addComponents(buttons)
 
-            await interaction.reply({embeds: [embed]})
+            await interaction.reply({ content: `**Gde zelis da trazis?** \n_Izaberi jednu od opcija dole i pocni da trazis!_`, components: [row] })
+
+            const filter = i => { i.deferUpdate(); return i.user.id === interaction.user.id; };
+
+            interaction.fetchReply().then(reply => {
+                reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 20000 }).then(async button => {
+                    const received = await randomNumber(100, 3000)
+                    await handler.changeMoney(interaction.user.id, true, received)
+
+                    const embed = new MessageEmbed().setTitle(`${interaction.user.username} je pretrazio ${button.customId}`).setDescription(`Ti si pretrazio ${button.customId}. Nasao si **${received} novca**`).setTimestamp().setFooter(config.defaultFooter).setColor("GREEN")
+                    await interaction.editReply({ content: null, embeds: [embed], components: [] })
+
+                    talkedRecently.push(interaction.user.id);
+                    setTimeout(() => {
+                        const index = talkedRecently.indexOf(interaction.user.id)
+                        talkedRecently.splice(index)
+                    }, 20000);
+                }).catch(async (err) => {
+                    await interaction.editReply({ content: `Wow, zasto si pokrenuo komandu a nisi izabrao nista, bezobrazno od tebe necu da lazem.`, components: [] })
+                })
+            })
         }
-
     },
 };

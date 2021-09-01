@@ -1,4 +1,3 @@
-require('module-alias/register')
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const fs = require('fs');
@@ -51,7 +50,7 @@ client.on('interactionCreate', async (interaction) => {
 	const command = client.commands.get(interaction.commandName);
 	if (!command) return;
 	try {
-		await command.execute(interaction);
+		await command.execute(interaction, client);
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato <@533692905387196429>', ephemeral: true }).catch(async(err) => {

@@ -4,13 +4,18 @@
   "description": "The third version of Auto VikkiVuk",
   "main": "index.js",
   "dependencies": {
+    "@discordjs/opus": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/voice": "^0.6.0",
     "canvas": "^2.8.0",
     "chartjs-node-canvas": "^3.2.0",
     "discord-api-types": "^0.22.0",
     "discord.js": "^13.1.0",
     "discordjs-button-pagination": "^2.0.0",
-    "module-alias": "^2.2.2",
+    "distube": "^3.0.0-beta.37",
+    "ffmpeg-static": "^4.4.0",
+    "got": "^11.8.2",
+    "libsodium-wrappers": "^0.7.9",
     "mongoose": "^5.13.5",
     "nodemon": "^2.0.12",
     "trello": "^0.10.0",
@@ -22,21 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VikkiVuk/auto-vikkivuk-2.2.git"
+    "url": "git+https://github.com/VikkiVuk/auto-vikkivuk-backup.git"
   },
   "author": "VikkiVuk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VikkiVuk/auto-vikkivuk-2.2/issues"
+    "url": "https://github.com/VikkiVuk/auto-vikkivuk-backup/issues"
   },
-  "homepage": "https://github.com/VikkiVuk/auto-vikkivuk-2.2#readme",
-  "_moduleAliases": {
-    "@root": ".",
-    "@util": "./util",
-    "@schemas": "./schemas",
-    "@commands": "./commands",
-    "@events": "./events"
-  },
+  "homepage": "https://github.com/VikkiVuk/auto-vikkivuk-backup#readme",
   "engines": {
     "node": "16.6.1"
   }

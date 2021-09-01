@@ -16,7 +16,7 @@ module.exports = {
         var i,j, temporary, chunk = 4;
         for (i = 0,j = items.length; i < j; i += chunk) {
             temporary = items.slice(i, i + chunk);
-            const newEmbed = new MessageEmbed().setTitle("Tvoj Ranac").setDescription("Ovde su tvoji itemi, iteme mozes da zaradis tako sto ides u shop ili koristis komande koje su podrzane.").setColor("GREEN").setTimestamp().setFooter(config.defaultFooter)
+            const newEmbed = new MessageEmbed().setTitle("Tvoj Ranac").setDescription("Ovde su itemi koje ti imas.").setColor("DARK_GREEN").setTimestamp().setFooter(config.defaultFooter)
             for (const item of temporary) {
                 const itemparts = item.split(":")
                 const itemname = itemparts[0]
