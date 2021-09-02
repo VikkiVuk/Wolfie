@@ -5,7 +5,7 @@ const config = require('../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('bori-se')
+        .setName('fight')
         .setDescription('Ovako mozes da se boris protiv nekog.')
         .addUserOption(option => option.setName("protivnik").setDescription("Protiv koga zelis da se boris?").setRequired(true)),
 
@@ -96,11 +96,11 @@ module.exports = {
                     if (health.attacker <= 0) {
                         // dead, lost
                         collector.stop()
-                        await button.deferUpdate()
+                        await button.deferUpdate().catch(() => {return})
                     } else if (health.defender <= 0) {
                         // dead, lost
                         collector.stop()
-                        await button.deferUpdate()
+                        await button.deferUpdate().catch(() => {return})
                     }
                 }
 
