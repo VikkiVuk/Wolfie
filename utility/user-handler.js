@@ -1,36 +1,47 @@
 const schema = require('./schemas/user-schema')
+const {Snowflake} = require("discord.js");
 
-module.exports = async(userid) => {
+module.exports = async(userid = Number) => {
     const result = await schema.findOne({ userid: userid })
-    if (result) { return result } else { await new schema({ userid: userid, money: 0, inventory: "Cricket:1", xp: 0, level: 0, note: "" }).save(); return "NEW" }
+    if (result) { return result } else { await new schema({ userid: userid, money: 0, inventory: "Cricket:1", xp: 0, level: 0, note: "", messages: "" }).save(); return "NEW" }
 }
 
-module.exports.changeMoney = async(userid, add, amnt) => {
+module.exports.changeMoney = async(userid = Number, add = Boolean, amnt = Number) => {
     const result = await schema.findOne({ userid: userid })
     if (result) { if (add) { await schema.updateOne({userid: userid}, {$inc: {money: +amnt}}) } else { await schema.updateOne({userid: userid}, {$inc: {money: -amnt}}) } }
 }
 
-module.exports.changeXP = async(userid, add, amnt) => {
+module.exports.changeXP = async(userid = Number, add = Boolean, amnt = Number) => {
     const result = await schema.findOne({ userid: userid })
     if (result) { if (add) { await schema.updateOne({userid: userid}, {$inc: {xp: +amnt}}) } else { await schema.updateOne({userid: userid}, {$inc: {xp: -amnt}}) } }
 }
 
-module.exports.changeLevel = async(userid, add, amnt) => {
+module.exports.changeLevel = async(userid = Number, add, amnt) => {
     const result = await schema.findOne({ userid: userid })
     if (result) { if (add) { await schema.updateOne({userid: userid}, {$inc: {level: +amnt}}) } else { await schema.updateOne({userid: userid}, {$inc: {level: -amnt}}) } }
 }
 
-module.exports.changeNote = async(userid, what) => {
+module.exports.changeNote = async(userid = Number, what = String) => {
     const result = await schema.findOne({ userid: userid })
     if (result) { await schema.updateOne({userid: userid}, {note: what}) }
 }
 
-module.exports.checkItems = async (userid) => {
+module.exports.sendMessage = async(receiver = Number, sender = Number, message = String) => {
+    const result = await schema.findOne({ userid: receiver })
+
+    if (result) {
+        const newMessages = result.messages.concat(`,${sender}:${message}`)
+
+        await schema.updateOne({ userid: receiver }, { messages: newMessages })
+    }
+}
+
+module.exports.checkItems = async (userid = Number) => {
     const result = await schema.findOne({ userid: userid })
     if (result) { return result.inventory.split(',') }
 }
 
-module.exports.addItem = async(userid, amnt, itemname) => {
+module.exports.addItem = async(userid = Number, amnt = Boolean, itemname = String) => {
     const result = await schema.findOne({ userid: userid })
     if (result) {
         const items = result.inventory.split(',')
@@ -55,7 +66,7 @@ module.exports.addItem = async(userid, amnt, itemname) => {
     }
 }
 
-module.exports.removeItem = async(userid, amnt, itemname) => {
+module.exports.removeItem = async(userid = Number, amnt = Boolean, itemname = String) => {
     const result = await schema.findOne({ userid: userid })
     if (result) {
         const items = result.inventory.split(',')
@@ -80,7 +91,7 @@ module.exports.removeItem = async(userid, amnt, itemname) => {
     }
 }
 
-module.exports.hasItem = async(userid, itemname) => {
+module.exports.hasItem = async(userid = Number, itemname = String) => {
     const result = await schema.findOne({ userid: userid })
     if (result) {
         const hasItem = result.inventory.includes(itemname)

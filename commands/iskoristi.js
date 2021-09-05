@@ -73,14 +73,28 @@ module.exports = {
                     const willBreak = Math.random() < 0.05
                     if (willBreak) {
                         await handler.removeItem(selected.user.id, 1, "Lopata")
-                        await interaction.editReply({content: `Wow ti stvarno nemas srece, imao si samo 0.05% sansu da izgubis lopatu i izgubio si je. :/`, embeds: [], components: []})
+                        await interaction.editReply({
+                            content: `Wow ti stvarno nemas srece, imao si samo 0.05% sansu da izgubis lopatu i izgubio si je. :/`,
+                            embeds: [],
+                            components: []
+                        })
                     } else {
                         const randomNum = await generateRandom.randomNumber(20, 120)
                         await handler.changeMoney(selected.user.id, true, randomNum)
-                        await interaction.editReply({ content: `Iskopao si **${randomNum} novca**... Pitam se ko je bio toliko ne srecan da im ispadne novac...`, embeds: [], components: []})
+                        await interaction.editReply({
+                            content: `Iskopao si **${randomNum} novca**... Pitam se ko je bio toliko ne srecan da im ispadne novac...`,
+                            embeds: [],
+                            components: []
+                        })
                     }
+                } else if(itemname === "Telefon") {
+
                 } else {
-                    await interaction.editReply({ content: "Izvini, ovaj item nije interaktivan.", embeds: [], components: [] })
+                    await interaction.editReply({
+                        content: "Izvini, ovaj item nije interaktivan.",
+                        embeds: [],
+                        components: []
+                    })
                 }
             }).catch(err => {
                 interaction.followUp({ content: `<@${interaction.user.id}> vreme ti je isteklo. Molim te ponovo pokreni komandu.`})

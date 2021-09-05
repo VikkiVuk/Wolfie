@@ -6,7 +6,8 @@ const profileSchema = new mongoose.Schema({
     inventory: String,
     xp: Number,
     level: Number,
-    note: String
+    note: String,
+    messages: String
 })
 
 module.exports = mongoose.model('users', profileSchema)
