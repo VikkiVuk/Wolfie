@@ -17,6 +17,10 @@ module.exports = {
         } else {
             const user = interaction.options.getUser('korisnik')
 
+            if (user.id === interaction.user.id) {
+                await interaction.reply({content: `Ne mozes samog sebe da hakujes.`})
+            }
+
             const waiting = new MessageEmbed().setTitle('HAKOVANJE U TOKU').setDescription('Trenutno pokusavam da hakujem <@' + user.id + '>...').setTimestamp().setFooter('Hackbot 9000').setColor('#804AFF')
             talkedRecently.push(interaction.user.id);
 
@@ -31,7 +35,7 @@ module.exports = {
 
             const response = responses[Math.floor(Math.random() * responses.length)];
             await interaction.editReply({embeds: [response]})
-            if (response === responses[0]) { await handler.changeMoney(interaction.user.id, true, randomNumber(100, 1000)) }
+            if (response === responses[0]) { await handler().then(async() => { await handler.changeMoney(interaction.user.id, true, randomNumber(100, 1000)) }) }
 
             await wait(20000)
             const index = talkedRecently.indexOf(interaction.user.id)

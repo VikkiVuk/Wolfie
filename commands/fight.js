@@ -10,6 +10,11 @@ module.exports = {
         .addUserOption(option => option.setName("protivnik").setDescription("Protiv koga zelis da se boris?").setRequired(true)),
 
     async execute(interaction) {
+        if (interaction.options.getUser("protivnik").id === interaction.user.id) {
+            await interaction.reply({ content: `Ne mozes protiv samog sebe da se boris. Izaberi nekog drugog.` })
+            return
+        }
+
         let users = [interaction.user, interaction.options.getUser("protivnik")]
         let health = { attacker: 100, defender: 100 }
         let defenses = { attacker: 0, defender: 0 } // max 4

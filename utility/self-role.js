@@ -8,7 +8,10 @@ module.exports = (client) => {
     const emojies = {
         naughtycat: "[🔞] Perverzan",
         thumbsup_cry: "[🔥] Bruh Gang",
-        cuteturtle: "[🏅] Gold Role"
+        cuteturtle: "[🏅] Gold Role",
+        flames: "Youtube Videos Ping",
+        imgoingcrazy: "Random Pings",
+        animatedexclamation: "Wolfie Updates Ping"
     }
 
     const reactions = []

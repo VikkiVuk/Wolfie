@@ -10,6 +10,8 @@ module.exports = {
         .setDescription('Ovako mozes da iskoristis tvoj item iz ranca ako moze da se iskoristi.'),
 
     async execute(interaction) {
+        await handler(interaction.user.id)
+
         const currentItems = await handler.checkItems(interaction.user.id)
         let options = []
 
@@ -88,7 +90,34 @@ module.exports = {
                         })
                     }
                 } else if(itemname === "Telefon") {
+                    const sendembed = new MessageEmbed().setTitle(`Posalji poruku`).setDescription("Kome zelis da posaljes poruku? Imas 20 sekundi da odgovoris, npr: @NotVikki ili tako nesto.").setColor("BLUE").setTimestamp().setFooter(config.defaultFooter)
+                    await interaction.editReply({ content: null, embeds: [sendembed], components: [] })
 
+                    const messagefilter = m => { return m.author.id === interaction.user.id; };
+
+                    interaction.channel.awaitMessages({ messagefilter, max: 1, time: 20000, errors: ['time'] }).then(async message => {
+                        if (message.first().mentions) {
+                            const mentioned = message.first().mentions.users.first()
+
+                            const messageembedd = new MessageEmbed().setTitle(`Posalji poruku`).setDescription("Sta zelis da mu posaljes? Imas 20 sekundi da odgovoris.").setColor("BLUE").setTimestamp().setFooter(config.defaultFooter)
+                            await interaction.followUp({ content: null, embeds: [messageembedd], components: [] })
+
+                            interaction.channel.awaitMessages({ messagefilter, max: 1, time: 20000, errors: ['time'] }).then(async message => {
+                                await handler(mentioned.id).then(async result => {
+                                    await handler.sendMessage(mentioned.id, interaction.user.username, message.first().content)
+                                })
+
+                                await interaction.followUp({ content: `Uspesno si poslao poruku \`\`\`${message.first().content}\`\`\` korisniku ${mentioned}.`, embeds: [], components: [] })
+                            }).catch(async(err) => {
+                                console.log(err)
+                                await interaction.editReply({ content: `Nisi odgovorio na vreme. Pokusaj ponovo.`, embeds: [], components: [] })
+                            });
+                        } else {
+                            await interaction.followUp({ content: `Molim te pinguj nekog, ne samo ime da napises ili tako nesto.`, emebds: [], components: [] })
+                        }
+                    }).catch(async(err) => {
+                        await interaction.editReply({ content: `Nisi odgovorio na vreme. Pokusaj ponovo.`, embeds: [], components: [] })
+                    });
                 } else {
                     await interaction.editReply({
                         content: "Izvini, ovaj item nije interaktivan.",

@@ -8,7 +8,7 @@ module.exports = {
         .addStringOption(option => option.setName("text").setDescription("sta zelis da pretvoris").setRequired(true)),
 
     async execute(interaction) {
-        const text = interaction.options.getString("text").split('')
+        const text = interaction.options.getString("text").toLowerCase().split('')
 
         let emojified = ""
         for (const t of text) {

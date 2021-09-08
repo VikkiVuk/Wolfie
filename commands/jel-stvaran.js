@@ -22,7 +22,7 @@ module.exports = {
       'Ti **NISI STVARAN**'
     ];
 
-    if (user.id == interaction.member.user.id) {
+    if (user.id === interaction.member.user.id) {
       const response = youResponses[Math.floor(Math.random() * youResponses.length)];
       await interaction.editReply({content: response})
     } else {

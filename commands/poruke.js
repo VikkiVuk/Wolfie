@@ -6,25 +6,25 @@ const pagination = require('discordjs-button-pagination')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('ranac')
-        .setDescription('Ovako mozete da vidite sta sve imate zaradjeno na botu.'),
+        .setName('poruke')
+        .setDescription('Pogledaj sve tvoje poruke.'),
 
     async execute(interaction) {
         await handler(interaction.user.id)
 
-        const items = await handler.checkItems(interaction.user.id)
+        const items = await handler.checkMessages(interaction.user.id)
         const embedsArray = []
 
-        var i,j, temporary, chunk = 4;
+        var i,j, temporary, chunk = 5;
         for (i = 0,j = items.length; i < j; i += chunk) {
             temporary = items.slice(i, i + chunk);
-            const newEmbed = new MessageEmbed().setTitle("Tvoj Ranac").setDescription("Ovde su itemi koje ti imas.").setColor("DARK_GREEN").setTimestamp().setFooter(config.defaultFooter)
+            const newEmbed = new MessageEmbed().setTitle("Tvoje Poruke").setDescription("Ovde su sve poruke koje su ti stigle.").setColor("GOLD").setTimestamp().setFooter(config.defaultFooter)
             for (const item of temporary) {
                 const itemparts = item.split(":")
-                const itemname = itemparts[0]
-                const itemamnt = itemparts[1]
+                const sender = itemparts[0]
+                const message = itemparts[1]
 
-                newEmbed.addField(itemname, `<:reply:884528743673135144> Imas **${itemamnt}** ovog itema.`)
+                newEmbed.addField(`${sender}`, `<:reply:884528743673135144> ${message}`)
             }
 
             embedsArray.push(newEmbed)

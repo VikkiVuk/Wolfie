@@ -14,7 +14,7 @@ module.exports = {
 
         notifier.on('notified', data => {
             client.guilds.cache.get('878606227045756948').channels.cache.get('878774622135418990').send(data)
-            client.guilds.cache.get('878606227045756948').channels.cache.get('878774622135418990').send(`@everyone **${data.channel.name}** je upravio objavio novi video koji se zove: ${data.video.title}`)
+            client.guilds.cache.get('878606227045756948').channels.cache.get('878774622135418990').send(`<@884870924468359300> **${data.channel.name}** je upravio objavio novi video koji se zove: ${data.video.title}`)
         });
            
         notifier.subscribe(config.ytChannelId);

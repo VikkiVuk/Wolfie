@@ -14,7 +14,9 @@ module.exports = {
         if(note.length > 2048) await interaction.reply({ content: 'Tvoja beleska ne moze biti veca od **2048** slova!' })
         if(note.length < 5) await interaction.reply({ content: 'Tvoja beleska mora da sadrzi barem **5** slova!' })
 
-        await handler.changeNote(interaction.user.id, note)
+        await handler(interaction.user.id).then(async () => {
+            await handler.changeNote(interaction.user.id, note)
+        })
 
         await interaction.reply({ content: `Uspesno sam stavio tvoju belesku kao: \n\`${note}!\`` })
     },

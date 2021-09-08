@@ -10,6 +10,12 @@ module.exports = {
 
     async execute(interaction) {
         const opponent = interaction.options.getUser("protivnik")
+        if (opponent.id === interaction.user.id) {
+            await interaction.reply({ content: `Ne mozes protiv sebe da se boris.` })
+            return;
+        }
+
+
         let buttons = [ new MessageButton().setCustomId("kamen").setLabel(`🪨 Kamen`).setStyle("PRIMARY"), new MessageButton().setCustomId("papir").setLabel("🧻 Papir").setStyle('PRIMARY'), new MessageButton().setCustomId("makaze").setLabel("✂ Makaze").setStyle("PRIMARY")]
         const row = new MessageActionRow().addComponents(buttons)
         let userPlayed = false

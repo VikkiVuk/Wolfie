@@ -30,7 +30,9 @@ module.exports = {
             interaction.fetchReply().then(reply => {
                 reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 20000 }).then(async button => {
                     const received = await randomNumber(100, 3000)
-                    await handler.changeMoney(interaction.user.id, true, received)
+                    await handler(interaction.user.id).then(async () => {
+                        await handler.changeMoney(interaction.user.id, true, received)
+                    })
 
                     const embed = new MessageEmbed().setTitle(`${interaction.user.username} je pretrazio ${button.customId}`).setDescription(`Ti si pretrazio ${button.customId}. Nasao si **${received} novca**`).setTimestamp().setFooter(config.defaultFooter).setColor("GREEN")
                     await interaction.editReply({ content: null, embeds: [embed], components: [] })

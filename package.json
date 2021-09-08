@@ -18,6 +18,7 @@
     "libsodium-wrappers": "^0.7.9",
     "mongoose": "^5.13.5",
     "nodemon": "^2.0.12",
+    "pretty-ms": "^7.0.1",
     "trello": "^0.10.0",
     "urban-dictionary-client": "^3.1.0",
     "youtube-notification": "^1.1.0"

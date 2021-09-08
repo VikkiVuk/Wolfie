@@ -23,7 +23,7 @@ module.exports = {
                 const itemname = itemparts[0]
                 const itemcost = itemparts[1]
 
-                newEmbed.addField(itemname, `Ovaj item kosta **${itemcost} novca**.`)
+                newEmbed.addField(`**${itemname}**`, `<:reply:884528743673135144> Ovaj item kosta **${itemcost} novca**.`)
                 const option = {label: itemname, description: null, value: itemname}
                 options.push(option)
             }

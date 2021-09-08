@@ -9,6 +9,8 @@ module.exports = {
       .setDescription('Tvoj sopstevni discord notepad.'),
 
   async execute(interaction) {
+    await handler(interaction.user.id)
+
     const note = await handler(interaction.user.id).then(result => { return result.note })
 
     if(!note) {

@@ -9,6 +9,12 @@ module.exports = {
 
     async execute(interaction) {
         const user = interaction.options.getUser("korisnik")
+
+        if (user.id === interaction.user.id) {
+            await interaction.reply({ content: `Ne mozes samog sebe da ubijes, to bi bilo samoubistvo.` })
+            return
+        }
+
         const poruke = [
             "je umro zbog moždanog udara.",
             "je umro prirodno.",

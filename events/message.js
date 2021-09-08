@@ -9,14 +9,20 @@ module.exports = {
         const loweredMsg = message.content.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
 
         if (message.channel.type !== 'DM') {
-            await handler.changeXP(message.author.id, true, 1)
-            const xp = await handler(message.author.id).then(result => { return result.xp })
-            const level = await handler(message.author.id).then(result => { return result.level })
+            await handler(message.author.id).then(async result => {
+                await handler.changeXP(message.author.id, true, 1)
+                const xp = await handler(message.author.id).then(result => {
+                    return result.xp
+                })
+                const level = await handler(message.author.id).then(result => {
+                    return result.level
+                })
 
-            if (xp > level * 40 + 15) {
-                await handler.changeLevel(message.author.id, true, 1)
-                message.channel.send(`<@${message.author.id}> Zdravo! Ti si se level upovao, ti si sad **level ${level + 1}**!`)
-            }
+                if (xp > level * 40 + 15) {
+                    await handler.changeLevel(message.author.id, true, 1)
+                    message.channel.send(`<@${message.author.id}> Zdravo! Ti si se level upovao, ti si sad **level ${level + 1}**!`)
+                }
+            })
 
             if (message.channel.id === '878606227595227164' || message.channel.id === '878606227595227165' || message.channel.id === '878606227800719440' || message.channel.id === '878606227800719441') {
                 message.delete()

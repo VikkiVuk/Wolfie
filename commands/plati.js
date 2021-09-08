@@ -12,10 +12,21 @@ module.exports = {
 
     async execute(interaction) {
         const user = interaction.options.getUser("korisnik")
+        if (user.id === interaction.user.id) {
+            await interaction.reply({ content: `Ne mozes samom sebi da das novac.` })
+            return
+        }
+
+
         const amnt = interaction.options.getInteger("koliko")
 
-        await handler.changeMoney(interaction.user.id, false, amnt)
-        await handler.changeMoney(user.id, true, amnt)
+        await handler(interaction.user.id).then(async () => {
+            await handler.changeMoney(interaction.user.id, false, amnt)
+        })
+
+        await handler(user.id).then(async() => {
+            await handler.changeMoney(user.id, true, amnt)
+        })
 
         await interaction.reply(`✅ Uspesno si poslao **${amnt} novca** korisniku <@${user.id}>.`);
     },

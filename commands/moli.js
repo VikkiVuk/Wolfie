@@ -15,7 +15,7 @@ module.exports = {
     } else {
       const randomNum = Math.floor(Math.random() * 250)
 
-      await handler.changeMoney(interaction.user.id, true, randomNum)
+      await handler(interaction.user.id).then(async () => { await handler.changeMoney(interaction.user.id, true, randomNum) })
 
       const embed = new MessageEmbed()
           .setTitle('MOLJENJE')

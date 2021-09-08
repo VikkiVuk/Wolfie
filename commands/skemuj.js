@@ -17,6 +17,11 @@ module.exports = {
             const user = interaction.options.getUser('korisnik')
             recentlyTalked.push(interaction.user.id)
 
+            if (user.id === interaction.user.id) {
+                await interaction.reply({ content: `Ne mozes samog sebe da skemujes, izaberi nekog drugog.` })
+                return
+            }
+
             await interaction.reply({ content: `Pokusavam da skemujem <@${user.id}>...`});
             await wait(2000)
             await interaction.editReply({ content: `Zovem korisnika...`})
@@ -35,8 +40,13 @@ module.exports = {
             await wait(3000)
             await interaction.editReply({ content: `Ovo totalno pravo skemovanje <@${user.id}> se zavrsilo, korisnik <@${interaction.user.id}> je dobio malo novca, dok je <@${user.id}> izgubio malo novca.`})
 
-            await handler.changeMoney(interaction.user.id, true, randomNumber(100, 1000))
-            await handler.changeMoney(user.id, false, randomNumber(1, 50))
+            await handler(interaction.user.id).then(async() => {
+                await handler.changeMoney(interaction.user.id, true, randomNumber(100, 1000))
+            })
+
+            await handler(user.id).then(async() => {
+                await handler.changeMoney(user.id, false, randomNumber(1, 50))
+            })
 
             await wait(30000)
             const index = recentlyTalked.indexOf(interaction.user.id)

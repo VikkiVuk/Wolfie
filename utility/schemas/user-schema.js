@@ -7,7 +7,8 @@ const profileSchema = new mongoose.Schema({
     xp: Number,
     level: Number,
     note: String,
-    messages: String
+    messages: String,
+    daily: Date
 })
 
 module.exports = mongoose.model('users', profileSchema)
