@@ -33,15 +33,20 @@ client.once('ready', async () => {
 
 	//------------------
 	
-	const command = await client.guilds.cache.get('878606227045756948').commands.fetch('880101873812668511');
+	/*const command = await client.guilds.cache.get('878606227045756948').commands.fetch('885619902684209152');
 
 	const permissions = [{
-		id: '878606227045756952',
+		id: '878606227045756948',
 		type: 'ROLE',
 		permission: false
-	}];
+	},
+		{
+			id: '878606227058335826',
+			type: 'ROLE',
+			permission: true
+		}];
 	
-	await command.permissions.add({ permissions });
+	await command.permissions.add({ permissions });*/
 })
 
 // Slash commands run
