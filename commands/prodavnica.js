@@ -10,7 +10,7 @@ module.exports = {
         .setDescription('Ovde mozete da kupite stvari.'),
 
     async execute(interaction) {
-        const items = config.shopItems
+        const items = await handler.getShopItems()
         let options = []
         let embedsArray = []
 

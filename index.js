@@ -33,7 +33,7 @@ client.once('ready', async () => {
 
 	//------------------
 	
-	/*const command = await client.guilds.cache.get('878606227045756948').commands.fetch('885619902684209152');
+	/*const command = await client.guilds.cache.get('878606227045756948').commands.fetch('887087334305189948');
 
 	const permissions = [{
 		id: '878606227045756948',
@@ -41,7 +41,7 @@ client.once('ready', async () => {
 		permission: false
 	},
 		{
-			id: '878606227058335826',
+			id: '878606227058335828',
 			type: 'ROLE',
 			permission: true
 		}];

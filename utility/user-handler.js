@@ -1,10 +1,12 @@
 const schema = require('./schemas/user-schema')
 const factorschema = require('./schemas/2fa-schema')
+const botschema = require('./schemas/bot-schema')
 const Stream = require('stream')
 const Discord = require('discord.js')
 const speakeasy = require('speakeasy')
 const qrcode = require('qrcode')
 const uuid = require('uuid')
+const config = require('../config.json')
 
 module.exports = async(userid = Number) => {
     const result = await schema.findOne({ userid: userid })
@@ -226,5 +228,32 @@ module.exports.hasItem = async(userid = Number, itemname = String) => {
         } else {
             return false
         }
+    }
+}
+
+module.exports.getShopItems = async() => {
+    const result = await botschema.findOne()
+    if (result) {
+        const customItems = result.customShopItems.split(";")
+        const items = config.shopItems.concat(customItems)
+
+        return items
+    } else {
+        if (result) {
+            return result
+        } else {
+            await new botschema({ customShopItems: "" }).save();
+            return config.shopItems
+        }
+    }
+}
+
+module.exports.addCustomShopItem = async(itemname = String, itemcost = Number) => {
+    const result = await botschema.findOne()
+    if (result) {
+        const customItems = result.customShopItems.concat(`;${itemname}:${itemcost}`)
+        await botschema.updateMany({ }, { customShopItems: customItems })
+    } else {
+        await new botschema({ customShopItems: `;${itemname}:${itemcost}` }).save();
     }
 }
