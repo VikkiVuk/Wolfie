@@ -9,14 +9,19 @@ module.exports = {
         .addStringOption(option => option.setName('naslov').setDescription('Koji naslov zelite na vasem embedu').setRequired(true))
         .addStringOption(option => option.setName('opis').setDescription('Sta ce da vam bude opis?').setRequired(true))
         .addStringOption(option => option.setName('boja').setDescription('Boja vaseg embeda, ovo bi trebalo da bude u hex boji a ne u obicnoj.').setRequired(false)),
+
     async execute(interaction) {
         const title = interaction.options.getString('naslov')
         const description = interaction.options.getString('opis')
         const color = interaction.options.getString('boja')
 
         let c
-        if (color.includes('#')) {
-            c = color
+        if (color) {
+            if (color.includes('#')) {
+                c = color
+            } else {
+                c = "#0077ff"
+            }
         } else {
             c = "#0077ff"
         }
