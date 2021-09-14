@@ -45,7 +45,7 @@ module.exports = {
                 message.author.send("stop vredjati se.").catch(() => {
                     message.reply('stop vredjati se.')
                 })
-            } else if (loweredMsg.includes("boba") || loweredMsg.includes("bubble tea")) {
+            } else if (loweredMsg.includes("boba") || loweredMsg.includes("bubbletea")) {
                 message.delete()
                 message.author.send("no bobas.").catch(() => {
                     message.reply('no bobas.')
