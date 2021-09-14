@@ -22,6 +22,17 @@ module.exports = {
                     await handler.changeLevel(message.author.id, true, 1)
                     message.channel.send(`<@${message.author.id}> Zdravo! Ti si se level upovao, ti si sad **level ${level + 1}**!`)
                 }
+
+                const levelroles = message.guild.roles.cache.filter(r => r.name.includes("Level:"))
+                for (const role of levelroles) {
+                    const roleName = role[1].name
+                    const roleValue = roleName.replace("Level: ", "")
+                    if (level >= roleValue) {
+                        if (!message.member.roles.cache.find(r => r.name === roleName)) {
+                            message.member.roles.add(role)
+                        }
+                    }
+                }
             })
 
             if (message.channel.id === '878606227595227164' || message.channel.id === '878606227595227165' || message.channel.id === '878606227800719440' || message.channel.id === '878606227800719441') {
