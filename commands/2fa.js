@@ -22,8 +22,10 @@ module.exports = {
                         } else {
                             const validated = await handler.validate2FA(interaction.user, message.content)
                             if (validated) {
+                                await interaction.user.send({ content: `Tvoj kod je bio tacan.` }).catch(e => {return})
                                 await interaction.editReply({ content: `Tvoj kod je bio tacan!` })
                             } else {
+                                await interaction.user.send({ content: `Tvoj kod je bio netacan.` }).catch(e => {return})
                                 await interaction.editReply({ content: "To nije tvoj kod!" })
                             }
                         }
@@ -35,8 +37,11 @@ module.exports = {
             })
         } else {
             const x = await new MessageAttachment(result.qrcode, "QRCode.png")
-            await interaction.user.send({content: "Skeniraj ovaj QR Kod dole u **Google Authenticator** ili **Authy**!", files: [x], ephemeral: false, fetchReply: true}).then(async() => {
+            await interaction.user.send({content: "Skeniraj ovaj QR Kod dole u **Google Authenticator** ili **Authy**. Ova poruka ce se obrisati za 20 sekundi.", files: [x], ephemeral: false, fetchReply: true}).then(async() => {
                 await interaction.editReply({ content: `✅ Proveri DM.`})
+                setTimeout(async () => {
+                    await interaction.deleteReply()
+                }, 20000)
             }).catch(async err => {
                 await interaction.editReply({content: `❌ Nisam mogao da ti posaljem DM.`})
             })
