@@ -115,6 +115,13 @@ module.exports.validate2FA = async(user = Discord.User, token = Number) => {
     }
 }
 
+module.exports.has2FA = async(user = Discord.User) => {
+    const result = await schema.findOne({ userid: user.id })
+    if (result) {
+        return !!result.uuid;
+    }
+}
+
 module.exports.warnUser = async(user = Discord.UserManager) => {
     const result = await schema.findOne({ userid: user.id })
     if (result) {
