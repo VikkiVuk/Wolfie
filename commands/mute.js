@@ -3,13 +3,13 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
 
 module.exports = {
-    data: {
-        name: "Mute",
-        type: 2
-    },
+    data: new SlashCommandBuilder()
+        .setName("mute")
+        .setDescription("Ovako moderatori mogu da muteaju ljude, da nebi pricali.")
+        .addUserOption(option => option.setName("korisnik").setDescription("Koga?").setRequired(true)),
 
     async execute(interaction) {
-        const member = interaction.options.getMember('user')
+        const member = interaction.options.getMember('korisnik')
 
         if (member.roles.cache.has('878606227045756954')) {
             await interaction.reply({ content: `Korisnik <@${member.user.id}> je vec mutav.` })

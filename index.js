@@ -28,10 +28,9 @@ client.once('ready', async () => {
 	selfRole(client)
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
-	
-	const command = await client.guilds.cache.get('878606227045756948').commands.fetch('888041883803201550');
-	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '878606227058335827', type: 'ROLE', permission: true }]
-	await command.permissions.add({ permissions });
+	/*const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('888113533093564476');
+	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '878606227058335828', type: 'ROLE', permission: true }]
+	await command1.permissions.add({ permissions });*/
 })
 
 // Slash commands run
@@ -39,6 +38,7 @@ client.on('interactionCreate', async (interaction) => {
 	if (interaction.isCommand()) {
 		const command = client.commands.get(interaction.commandName);
 		if (!command) return;
+		console.log(interaction.commandId)
 		try { await command.execute(interaction, client); } catch (error) {
 			console.error(error);
 			await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
