@@ -10,6 +10,7 @@
     "canvas": "^2.8.0",
     "chartjs-node-canvas": "^3.2.0",
     "discord-api-types": "^0.22.0",
+    "discord-temp-channels": "^3.0.1",
     "discord.js": "^13.1.0",
     "discordjs-button-pagination": "^2.0.0",
     "distube": "^3.0.0-beta.37",

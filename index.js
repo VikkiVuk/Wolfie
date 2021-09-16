@@ -1,7 +1,9 @@
 const { Client, Collection } = require('discord.js');
+const TempChannels = require('discord-temp-channels')
 const fs = require('fs');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "you", type: "LISTENING" }] } })
 const config = require('./config.json')
+const tempchnls = new TempChannels(client)
 const mongo = require('./utility/mongo.js')
 const advancedPolls = require('./utility/advanced-polls.js');
 const selfRole = require('./utility/self-role.js')
@@ -18,6 +20,13 @@ for (const file of ctxFiles) { const ctxmenu = require(`./context-menus/${file}`
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) { const event = require(`./events/${file}`); if (event.once) { client.once(event.name, (...args) => event.execute(...args, client)); } else { client.on(event.name, (...args) => event.execute(...args, client)) }}
+
+tempchnls.registerChannel("888127847414243349", {
+	childCategory: "888127800073142353",
+	childAutoDeleteIfEmpty: true,
+	childMaxUsers: 10,
+	childFormat: (member, count) => `#${count} | ${member.user.username}`
+});
 
 client.once('ready', async () => {
     console.log(">>> I'm all good already so moved on im steady- Im just where you left me. Im online. Actually idle but ok.")
