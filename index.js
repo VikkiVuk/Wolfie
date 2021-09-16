@@ -38,7 +38,6 @@ client.on('interactionCreate', async (interaction) => {
 	if (interaction.isCommand()) {
 		const command = client.commands.get(interaction.commandName);
 		if (!command) return;
-		console.log(interaction.commandId)
 		try { await command.execute(interaction, client); } catch (error) {
 			console.error(error);
 			await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
