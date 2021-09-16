@@ -1,8 +1,6 @@
 const { MessageEmbed, MessageAttachment, MessageActionRow, MessageButton, MessageCollector} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {randomNumber} = require("../utility/generateRandom");
 const config = require('../config.json')
-const reconlx = require('reconlx')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,114 +9,173 @@ module.exports = {
         .addUserOption(option => option.setName("protivnik").setDescription("Protiv koga zelis da igras?").setRequired(true)),
 
     async execute(interaction) {
-        if (interaction.options.getUser("protivnik").id === interaction.user.id) {
-            await interaction.reply({ content: `Ne mozes protiv samog sebe da se boris. Izaberi nekog drugog.` })
-            return
+        let opponent = interaction.options.getUser("protivnik")
+        let fighters = [interaction.user.id, opponent.id].sort(() => (Math.random() > .5) ? 1 : -1)
+        let Args = {
+            user: 0,
+            a1: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            a2: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            a3: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            b1: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            b2: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            b3: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            c1: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            c2: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            },
+            c3: {
+                style: "gray",
+                label: "➖",
+                disabled: false
+            }
         }
+        let msg = await message.channel.send(`**TicTacToe** | <@!${Args.userid}>'s turn (⭕)`)
+        tictactoe(msg)
+        async function tictactoe(m) {
+            Args.userid=fighters[Args.user]
+            let won = {
+                "⭕": false,
+                "❌": false
+            }
+            if (Args.a1.label == "⭕" && Args.b1.label == "⭕" && Args.c1.label == "⭕") won["⭕"] = true
+            if (Args.a2.label == "⭕" && Args.b2.label == "⭕" && Args.c2.label == "⭕") won["⭕"] = true
+            if (Args.a3.label == "⭕" && Args.b3.label == "⭕" && Args.c3.label == "⭕") won["⭕"] = true
+            if (Args.a1.label == "⭕" && Args.b2.label == "⭕" && Args.c3.label == "⭕") won["⭕"] = true
+            if (Args.a3.label == "⭕" && Args.b2.label == "⭕" && Args.c1.label == "⭕") won["⭕"] = true
+            if (Args.a1.label == "⭕" && Args.a2.label == "⭕" && Args.a3.label == "⭕") won["⭕"] = true
+            if (Args.b1.label == "⭕" && Args.b2.label == "⭕" && Args.b3.label == "⭕") won["⭕"] = true
+            if (Args.c1.label == "⭕" && Args.c2.label == "⭕" && Args.c3.label == "⭕") won["⭕"] = true
+            if (won["⭕"] != false) return m.edit('⭕ won!')
+            if (Args.a1.label == "❌" && Args.b1.label == "❌" && Args.c1.label == "❌") won["❌"] = true
+            if (Args.a2.label == "❌" && Args.b2.label == "❌" && Args.c2.label == "❌") won["❌"] = true
+            if (Args.a3.label == "❌" && Args.b3.label == "❌" && Args.c3.label == "❌") won["❌"] = true
+            if (Args.a1.label == "❌" && Args.b2.label == "❌" && Args.c3.label == "❌") won["❌"] = true
+            if (Args.a3.label == "❌" && Args.b2.label == "❌" && Args.c1.label == "❌") won["❌"] = true
+            if (Args.a1.label == "❌" && Args.a2.label == "❌" && Args.a3.label == "❌") won["❌"] = true
+            if (Args.b1.label == "❌" && Args.b2.label == "❌" && Args.b3.label == "❌") won["❌"] = true
+            if (Args.c1.label == "❌" && Args.c2.label == "❌" && Args.c3.label == "❌") won["❌"] = true
+            if (won["❌"] != false) return m.edit('❌ won!')
+            let a1 = new MessageButton()
+                .setStyle(Args.a1.style)
+                .setLabel(Args.a1.label)
+                .setID('a1')
+                .setDisabled(Args.a1.disabled);
+            let a2 = new MessageButton()
+                .setStyle(Args.a2.style)
+                .setLabel(Args.a2.label)
+                .setID('a2')
+                .setDisabled(Args.a2.disabled);
+            let a3 = new MessageButton()
+                .setStyle(Args.a3.style)
+                .setLabel(Args.a3.label)
+                .setID('a3')
+                .setDisabled(Args.a3.disabled);
+            let b1 = new MessageButton()
+                .setStyle(Args.b1.style)
+                .setLabel(Args.b1.label)
+                .setID('b1')
+                .setDisabled(Args.b1.disabled);
+            let b2 = new MessageButton()
+                .setStyle(Args.b2.style)
+                .setLabel(Args.b2.label)
+                .setID('b2')
+                .setDisabled(Args.b2.disabled);
+            let b3 = new MessageButton()
+                .setStyle(Args.b3.style)
+                .setLabel(Args.b3.label)
+                .setID('b3')
+                .setDisabled(Args.b3.disabled);
+            let c1 = new MessageButton()
+                .setStyle(Args.c1.style)
+                .setLabel(Args.c1.label)
+                .setID('c1')
+                .setDisabled(Args.c1.disabled);
+            let c2 = new MessageButton()
+                .setStyle(Args.c2.style)
+                .setLabel(Args.c2.label)
+                .setID('c2')
+                .setDisabled(Args.c2.disabled);
+            let c3 = new MessageButton()
+                .setStyle(Args.c3.style)
+                .setLabel(Args.c3.label)
+                .setID('c3')
+                .setDisabled(Args.c3.disabled);
+            let a = new MessageActionRow()
+                .addComponents([a1, a2, a3])
+            let b = new MessageActionRow()
+                .addComponents([b1, b2, b3])
+            let c = new MessageActionRow()
+                .addComponents([c1, c2, c3])
+            let buttons = { components: [a, b, c] }
+            m.edit(`**TicTacToe** | <@!${Args.userid}>'s turn (${Args.user == 0 ? "⭕" : "❌"})`, buttons)
+            const filter = (button) => button.clicker.user.id === Args.userid;
+            const collector = m.createButtonCollector(filter, { max: 1, time: 30000 });
 
-        let users = [interaction.user, interaction.options.getUser("protivnik")]
-        let fields = {
-            a1: false, a2: false, a3: false,
-            b1: false, b2: false, b3: false,
-            c1: false, c2: false, c3: false
-        }
-
-        let userPlayed = interaction.user
-
-        const acolon = [
-            new MessageButton().setCustomId("a1").setLabel("᲼᲼").setStyle("SECONDARY"),
-            new MessageButton().setCustomId("a2").setLabel("᲼᲼").setStyle("SECONDARY"),
-            new MessageButton().setCustomId("a3").setLabel("᲼᲼").setStyle("SECONDARY")
-        ]
-        const bcolon = [
-            new MessageButton().setCustomId("b1").setLabel("᲼᲼").setStyle("SECONDARY"),
-            new MessageButton().setCustomId("b2").setLabel("᲼᲼").setStyle("SECONDARY"),
-            new MessageButton().setCustomId("b3").setLabel("᲼᲼").setStyle("SECONDARY"),
-        ]
-        const ccolon = [
-            new MessageButton().setCustomId("c1").setLabel("᲼᲼").setStyle("SECONDARY"),
-            new MessageButton().setCustomId("c2").setLabel("᲼᲼").setStyle("SECONDARY"),
-            new MessageButton().setCustomId("c3").setLabel("᲼᲼").setStyle("SECONDARY"),
-        ]
-
-        const arow = new MessageActionRow().addComponents(acolon)
-        const brow = new MessageActionRow().addComponents(bcolon)
-        const crow = new MessageActionRow().addComponents(ccolon)
-        const startingscreen = new MessageEmbed().setTitle("Tic Tac Toe").setDescription(`**${interaction.user.username} vs ${users[1].username}** \n \n${users[0]} = ❌\n${users[1]} = ⭕ \n${users[1]} krece prvi`).setTimestamp().setFooter(config.defaultFooter).setColor("DARK_RED")
-
-        await interaction.reply({ content: null, embeds: [startingscreen], components: [arow, brow, crow], fetchReply: true }).then(async reply => {
-            const collector = reply.createMessageComponentCollector({ componentType: "BUTTON", time: 20000 })
-
-            collector.on("collect", async (button) => {
-                await button.deferUpdate()
-                if (button.user.id === userPlayed.id || !users.includes(button.user)) { await button.reply({ content: `Ovo dugme nije za tebe!`, ephemeral: true }) } else {
-                    userPlayed = button.user
-                    if (button.customId.startsWith("a")) {
-                        for (const btn of acolon) {
-                            if (btn.customId === button.customId) {
-                                btn.setDisabled(true)
-                                if (button.user.id === interaction.user.id) {
-                                    // Attacker
-                                    btn.setLabel("❌")
-                                } else {
-                                    btn.setLabel("⭕")
-                                }
-                            }
-                        }
-                    } else if(button.customId.startsWith("b")) {
-                        for (const btn of bcolon) {
-                            if (btn.customId === button.customId) {
-                                btn.setDisabled(true)
-                                if (button.user.id === users[0].id) {
-                                    // Attacker
-                                    btn.setLabel("❌")
-                                } else {
-                                    btn.setLabel("⭕")
-                                }
-                            }
-                        }
-                    } else if(button.customId.startsWith("c")) {
-                        for (const btn of ccolon) {
-                            if (btn.customId === button.customId) {
-                                btn.setDisabled(true)
-                                if (button.user.id === users[0].id) {
-                                    // Attacker
-                                    btn.setLabel("❌")
-                                } else {
-                                    btn.setLabel("⭕")
-                                }
-                            }
-                        }
+            collector.on('collect', b => {
+                if (Args.user == 0) {
+                    Args.user = 1
+                    Args[b.id] = {
+                        style: "green",
+                        label: "⭕",
+                        disabled: true
                     }
-
-                    let whom
-                    const index = users.indexOf(userPlayed)
-                    if (index === 0) {
-                        whom = users[1]
-                    } else {
-                        whom = users[0]
+                } else {
+                    Args.user = 0
+                    Args[b.id] = {
+                        style: "red",
+                        label: "❌",
+                        disabled: true
                     }
-
-                    const secondscreen = new MessageEmbed().setTitle("Tic Tac Toe").setDescription(`**${interaction.user.username} vs ${users[1].username}** \n \n${users[0]} = ❌\n${users[1]} = ⭕ \n${whom} je na redu!`).setTimestamp().setFooter(config.defaultFooter).setColor("DARK_RED")
-
-                    const arow = new MessageActionRow().addComponents(acolon)
-                    const brow = new MessageActionRow().addComponents(bcolon)
-                    const crow = new MessageActionRow().addComponents(ccolon)
-                    await interaction.editReply({ embeds: [secondscreen], components: [arow, brow, crow] })
-                    collector.resetTimer()
                 }
-            })
-
-            collector.on('end', async() => {
-                for (const button of acolon) { button.setDisabled(true) }
-                for (const button of bcolon) { button.setDisabled(true) }
-                for (const button of ccolon) { button.setDisabled(true) }
-                const arow = new MessageActionRow().addComponents(acolon)
-                const brow = new MessageActionRow().addComponents(bcolon)
-                const crow = new MessageActionRow().addComponents(ccolon)
-
-                await interaction.editReply({ components: [arow, brow, crow] })
-            })
-        })
+                b.defer()
+                const map = (obj, fun) =>
+                    Object.entries(obj).reduce(
+                        (prev, [key, value]) => ({
+                            ...prev,
+                            [key]: fun(key, value)
+                        }),
+                        {}
+                    );
+                const objectFilter = (obj, predicate) =>
+                    Object.keys(obj)
+                        .filter(key => predicate(obj[key]))
+                        .reduce((res, key) => (res[key] = obj[key], res), {});
+                let Brgs = objectFilter(map(Args, (_, fruit) => fruit.label == "➖"), num => num == true);
+                if (Object.keys(Brgs).length == 0) return m.edit('It\'s a tie!')
+                tictactoe(m)
+            });
+            collector.on('end', collected => {
+                if (collected.size == 0) m.edit(`<@!${Args.userid}> didn\'t react in time! (30s)`)
+            });
     },
 };
