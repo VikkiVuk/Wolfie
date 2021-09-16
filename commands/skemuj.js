@@ -41,11 +41,11 @@ module.exports = {
             await interaction.editReply({ content: `Ovo totalno pravo skemovanje <@${user.id}> se zavrsilo, korisnik <@${interaction.user.id}> je dobio malo novca, dok je <@${user.id}> izgubio malo novca.`})
 
             await handler(interaction.user.id).then(async() => {
-                await handler.changeMoney(interaction.user.id, true, randomNumber(100, 1000))
+                await handler.changeMoney(interaction.user.id, true, await randomNumber(100, 1000))
             })
 
             await handler(user.id).then(async() => {
-                await handler.changeMoney(user.id, false, randomNumber(1, 50))
+                await handler.changeMoney(user.id, false, await randomNumber(1, 50))
             })
 
             await wait(30000)

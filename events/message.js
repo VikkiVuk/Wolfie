@@ -20,7 +20,7 @@ module.exports = {
 
                 if (xp > level * 40 + 15) {
                     await handler.changeLevel(message.author.id, true, 1)
-                    message.channel.send(`<@${message.author.id}> Zdravo! Ti si se level upovao, ti si sad **level ${level + 1}**!`)
+                    message.channel.send(`Zdravo ${message.author}, ti si skocio na **level ${level + 1}**. Samo tako nastavi!`)
                 }
 
                 const levelroles = message.guild.roles.cache.filter(r => r.name.includes("Level:"))
@@ -39,17 +39,21 @@ module.exports = {
                 message.delete()
             }
 
-            if (loweredMsg.includes('glup') || loweredMsg.includes('dumb') || loweredMsg.includes('idiot') || loweredMsg.includes('nisipametan') || loweredMsg.includes('retard') || loweredMsg.includes('debil') || loweredMsg.includes('glupak') || loweredMsg.includes('stupid') || loweredMsg.includes('nesipametan') || loweredMsg.includes('stoopid') || loweredMsg.includes('nigga') || loweredMsg.includes('fuck') || loweredMsg.includes('kurac')) {
+            const englishInsults = ["nigga", "nigeria", "negus", "nickgurr", "nword", "tosser", "wanker", "slag", "cheeseeatingsurrendermonkeys", "losttheplot", "daftcow", "arsehole", "barmy", "chav", "dodgy", "git", "gormless", "manky", "minger", "muppet", "naff", "nutter", "pikey", "pillock", "plonker", "prat", "scrubber", "trollop", "uphillgardener", "twit", "knobhead", "pissoff", "bellend", "lazysod", "skiver", "knob", "wazzock", "ninny", "berk", "airyfairy", "anklebiters", "arselicker", "arsemonger", "chuffer", "daftasabush", "deadfromtheneckup", "gannet", "gonetothedogs", "ligger", "likeadogwithtwodicks", "madasabagofferrets", "maggot", "mingebag", "notbattingonafullwicket", "plugugly"]
+            const englishNsfwStuff = ["fuck", "fck", "fucku", "vagina", "daddy", "cunt", "pussy", "penis", "dick", "cock", "pp", "boobs", "ass", "bunda", "anus", "cum", "nsfw", "porn", "sperm", "shaft", "jizz"]
+            const serbianInsults = ["crnja", "cigan", "crn", "jebi", "nahasasmisetarzancica", "liznesmepodmisku", "rimtutitukiđumebaokao", "sisutiskrbavu", "celavatikeva", "smrditiizustakokonjuizdupeta", "pickatiseogadilakuractiseosladio", "pucaletijebokevu", "jebemlitisirairakiju", "seremtisepodsitnozito", "posrcesmiđanicunaslamcicu", "naprskamtiseprekopudera", "jedigovnasitpapijvode", "katizveknemsamarnigovnatinecebuduslatka", "shramtebilo"]
+            const serbianNsfwStuff = ["picka", "kurac", "sperme", "spermatozoid", "sperma", "vadzina", "vajijaj", "vadzajdzaj", "pičk", "dupe", "pickica"]
+
+            if (englishInsults.some(s => loweredMsg.includes(s)) || englishNsfwStuff.some(s => loweredMsg.includes(s)) || serbianInsults.some(s => loweredMsg.includes(s)) || serbianNsfwStuff.some(s => loweredMsg.includes(s))) {
                 if (message.author.id === client.user.id || message.member.roles.cache.has('873680682096947210')) return;
                 message.delete()
                 message.author.send("stop vredjati se.").catch(() => {
-                    message.reply('stop vredjati se.')
+                    message.channel.send(`${message.author} stop vredjati se.`)
                 })
             } else if (loweredMsg.includes("boba") || loweredMsg.includes("bubbletea")) {
                 message.delete()
-                message.author.send("no bobas.").catch(() => {
-                    message.reply('no bobas.')
-
+                message.author.send("NO. BOBA. ALLOWED.").catch(() => {
+                    message.channel.send(`${message.author} NO. BOBA. ALLOWED.`)
                 })
             }
         }

@@ -2,13 +2,13 @@ const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('unmute')
-        .setDescription('Ovako moderatori mogu unmute-aju ljude.')
-        .addUserOption(option => option.setName("korisnik").setDescription("Koga da un-muteas??").setRequired(true)),
+    data: {
+        name: "Unmute",
+        type: 2
+    },
 
     async execute(interaction) {
-        const member = interaction.options.getMember('korisnik')
+        const member = interaction.options.getMember('user')
 
         member.roles.remove(member.guild.roles.cache.get('878606227045756954')).catch(async (e) => {
             await interaction.reply({ content: `Korisnik nije ni bio mutav.` })

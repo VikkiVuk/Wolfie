@@ -20,6 +20,7 @@
     "nodemon": "^2.0.12",
     "pretty-ms": "^7.0.1",
     "qrcode": "^1.4.4",
+    "reconlx": "^2.4.3",
     "speakeasy": "^2.0.0",
     "trello": "^0.10.0",
     "urban-dictionary-client": "^3.1.0",

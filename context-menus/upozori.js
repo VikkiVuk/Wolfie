@@ -2,13 +2,13 @@ const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const handler = require("../utility/user-handler")
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('upozori')
-        .setDescription('Ovako moderatori mogu da upozore nekog.')
-        .addUserOption(option => option.setName("korisnik").setDescription("Koga zelis da upozoris?").setRequired(true)),
+    data: {
+        name: "Upozori",
+        type: 2
+    },
 
     async execute(interaction) {
-        const user = interaction.options.getUser("korisnik")
+        const user = interaction.options.getUser("user")
         await handler(user.id).then(async reply => {
             await handler.warnUser(user).then(async returned => {
                 if (returned === "SUCCESS") {
