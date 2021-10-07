@@ -177,5 +177,6 @@ module.exports = {
             collector.on('end', collected => {
                 if (collected.size == 0) m.edit(`<@!${Args.userid}> didn\'t react in time! (30s)`)
             });
-    },
-};
+    }
+}
+}
