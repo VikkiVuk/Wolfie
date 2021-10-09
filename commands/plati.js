@@ -28,6 +28,6 @@ module.exports = {
             await handler.changeMoney(user.id, true, amnt)
         })
 
-        await interaction.reply(`✅ Uspesno si poslao **${amnt} novca** korisniku <@${user.id}>.`);
+        await interaction.reply(`✅ Uspesno si poslao **W$ ${amnt}** korisniku <@${user.id}>.`);
     },
 };

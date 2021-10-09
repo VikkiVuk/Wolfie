@@ -25,7 +25,7 @@ module.exports = {
             await handler.changeMoney(interaction.user.id, true, randMoney)
             await handler.changeXP(interaction.user.id, true, randXP)
 
-            await interaction.reply({ content: `Uspesno si claimovao svoj daily reward od **${randMoney} novca** i **${randXP} xp-a**.` })
+            await interaction.reply({ content: `Uspesno si claimovao svoj daily reward od **W$ ${randMoney}** i **${randXP} xp-a**.` })
         }
     },
 };

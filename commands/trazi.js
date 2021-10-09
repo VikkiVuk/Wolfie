@@ -34,7 +34,7 @@ module.exports = {
                         await handler.changeMoney(interaction.user.id, true, received)
                     })
 
-                    const embed = new MessageEmbed().setTitle(`${interaction.user.username} je pretrazio ${button.customId}`).setDescription(`Ti si pretrazio ${button.customId}. Nasao si **${received} novca**`).setTimestamp().setFooter(config.defaultFooter).setColor("GREEN")
+                    const embed = new MessageEmbed().setTitle(`${interaction.user.username} je pretrazio ${button.customId}`).setDescription(`Ti si pretrazio ${button.customId}. Nasao si **W$ ${received}**`).setTimestamp().setFooter(config.defaultFooter).setColor("GREEN")
                     await interaction.editReply({ content: null, embeds: [embed], components: [] })
 
                     talkedRecently.push(interaction.user.id);

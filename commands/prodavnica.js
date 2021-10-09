@@ -23,7 +23,7 @@ module.exports = {
                 const itemname = itemparts[0]
                 const itemcost = itemparts[1]
 
-                newEmbed.addField(`**${itemname}**`, `<:reply:884528743673135144> Ovaj item kosta **${itemcost} novca**.`)
+                newEmbed.addField(`**${itemname}**`, `<:reply:884528743673135144> Ovaj item kosta **W$ ${itemcost}**.`)
                 const option = {label: itemname, description: null, value: itemname}
                 options.push(option)
             }
@@ -66,7 +66,7 @@ module.exports = {
                             await handler.changeMoney(interaction.user.id, false, cost)
                             await handler.addItem(interaction.user.id, 1, selected.values[0])
 
-                            await selected.update({content: `<@${interaction.user.id}> uspesno si kupio item: **${selected.values[0]}** za **${cost} novca**.`, components: []})
+                            await selected.update({content: `<@${interaction.user.id}> uspesno si kupio item: **${selected.values[0]}** za **W$ ${cost}**.`, components: []})
                         } else {
                             await selected.update({content: `<@${interaction.user.id}> nemas dovoljno novca za item: **${selected.values[0]}**.`})
                         }

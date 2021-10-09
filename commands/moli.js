@@ -19,7 +19,7 @@ module.exports = {
 
       const embed = new MessageEmbed()
           .setTitle('MOLJENJE')
-          .setDescription(`:dollar: | <@${interaction.user.id}>, Neko ti je dao **${randomNum} novca!**!`)
+          .setDescription(`:dollar: | <@${interaction.user.id}>, Neko ti je dao **W$ ${randomNum}!**!`)
           .setColor('#8CFF00')
           .setTimestamp()
           .setFooter(config.defaultFooter)

@@ -14,6 +14,6 @@ module.exports = {
         const itemcost = interaction.options.getInteger("cena")
 
         await handler.addCustomShopItem(itemname, itemcost)
-        await interaction.reply({content: `Uspesno si dodao item: **${itemname}** koji kosta **${itemcost} novca**.`})
+        await interaction.reply({content: `Uspesno si dodao item: **${itemname}** koji kosta **w$ ${itemcost}**.`})
     },
 };

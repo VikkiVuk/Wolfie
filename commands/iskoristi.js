@@ -49,7 +49,7 @@ module.exports = {
                         } else {
                             const randomNum = await generateRandom.randomNumber(1500, 6000)
                             await handler.changeMoney(button.user.id, true, randomNum)
-                            await interaction.editReply({ content: `Ljudima se svideo tvoj mim i dobio si **${randomNum}** novca.`, embeds: [], components: []})
+                            await interaction.editReply({ content: `Ljudima se svideo tvoj mim i dobio si **W$ ${randomNum}**.`, embeds: [], components: []})
                         }
                     })
                 } else if (itemname === "Štap za Pecanje") {
@@ -62,7 +62,7 @@ module.exports = {
                         const randomFishes = await generateRandom.randomNumber(1, 5)
                         await handler.changeMoney(selected.user.id, true, randomNum)
                         await handler.addItem(selected.user.id, randomFishes, "Riba")
-                        await interaction.editReply({ content: `Uspesno si se vratio kuci i doneo **${randomFishes} riba** i **${randomNum} novca**.`, embeds: [], components: []})
+                        await interaction.editReply({ content: `Uspesno si se vratio kuci i doneo **${randomFishes} riba** i **W$ ${randomNum}**.`, embeds: [], components: []})
                     }
                 } else if (itemname === "Metla") {
                     await handler.removeItem(selected.user.id, 1, "Metla")
@@ -84,7 +84,7 @@ module.exports = {
                         const randomNum = await generateRandom.randomNumber(20, 120)
                         await handler.changeMoney(selected.user.id, true, randomNum)
                         await interaction.editReply({
-                            content: `Iskopao si **${randomNum} novca**... Pitam se ko je bio toliko ne srecan da im ispadne novac...`,
+                            content: `Iskopao si **W$ ${randomNum}**... Pitam se ko je bio toliko ne srecan da im ispadne novac...`,
                             embeds: [],
                             components: []
                         })

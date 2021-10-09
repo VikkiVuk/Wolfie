@@ -15,10 +15,10 @@ module.exports = {
         const coins = await handler(user.id).then(result => { return result.money })
 
         if (user.id === interaction.user.id) {
-            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Trenutno imas **${coins} novca**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
+            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Trenutno imas **W$ ${coins}**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
             await interaction.reply({embeds: [embed]})
         } else {
-            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Korisnik <@${user.id}> ima **${coins} novca**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
+            const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | Korisnik <@${user.id}> ima **W$ ${coins}**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
             await interaction.reply({embeds: [embed]})
         }
     },
