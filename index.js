@@ -37,9 +37,9 @@ client.once('ready', async () => {
 	selfRole(client)
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
-	/*const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('888113533093564476');
-	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '878606227058335828', type: 'ROLE', permission: true }]
-	await command1.permissions.add({ permissions });*/
+	const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
+	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '878606227058335827', type: 'ROLE', permission: true }]
+	await command1.permissions.add({ permissions });
 })
 
 // Slash commands run

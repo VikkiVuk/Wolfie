@@ -10,7 +10,6 @@ module.exports = {
         .addStringOption(option => option.setName("tekst").setDescription("O cemu zelite da caskate?").setRequired(true)),
 
     async execute(interaction) {
-        reconlx.chatBot()
         await interaction.deferReply()
         const text = interaction.options.getString("tekst")
         const api = 'https://api.monkedev.com/fun/chat?msg='

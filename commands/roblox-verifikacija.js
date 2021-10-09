@@ -11,10 +11,20 @@ module.exports = {
         .setDescription('Ovako mozes da otkljucas vise stvari kao i da otkljucas pristup par specijalnim stvarima.'),
 
     async execute(interaction) {
+        await interaction.deferReply({ ephemeral: true })
         if (interaction.member.roles.cache.has('895753436941942795')) {
-            await interaction.reply({ content: '❌ Vec si se verifikovao! Ukoliko mislis da je ovo greska otvori support ticket u <#878606227414868034>', ephemeral: true })
+            got.post(api + "getuserinfo", {
+                json: {
+                    discorduuid: interaction.member.user.id
+                },
+                responseType: 'json'
+            }).then(async response => {
+                let content = JSON.parse(JSON.stringify(response.body))
+                if (content.userinfo) {
+                    await interaction.editReply({ content: '❌ Vec si se verifikovao! Povezan si sa roblox account: https://www.roblox.com/users/' + content.userinfo.roblox + '/profile. \n \nUkoliko mislis da je ovo greska otvori support ticket u <#878606227414868034>.', ephemeral: true })
+                }
+            })
         } else {
-            await interaction.deferReply({ ephemeral: true })
             got.post(api + "getuserinfo", {
                 json: {
                     discorduuid: interaction.member.user.id
@@ -28,7 +38,7 @@ module.exports = {
                         await interaction.editReply({ content: "Jos uvek se nisi verifikovao! Udji ovde: https://www.roblox.com/games/6052251836/RDV-Verification i ukucaj ovaj kod: " + content.code, ephemeral: true })
                     } else {
                         interaction.member.roles.add("895753436941942795")
-                        await interaction.editReply({ content: "Uspesno si se verifikovao, dobio si svoj verified role!", ephemeral: true })
+                        await interaction.editReply({ content: "Uspesno si se verifikovao i povezao svoj discord account: **" + interaction.member.user.tag + "** sa roblox account: https://www.roblox.com/users/" + content.userinfo.roblox + "/profile", ephemeral: true })
                     }
                 } else {
                     got.post(api + "getcode", {
