@@ -27,8 +27,12 @@ app.post("/send", function(req, res) {
 		} else {
 			res.status(403).send("Invalid Apikey")
 		}
-	} catch {
-		res.status(404).send("Error")
+	} catch(e) {
+		res.status(404).send({
+			"status": 404,
+			"message": "An error has occured",
+			"error": e
+		})
 	}
 })
 
