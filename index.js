@@ -12,7 +12,7 @@ const exp = require('constants');
 const app = express();
 
 app.get("/", function(req, res) {
-	res.send({ "a": "a" });
+	res.send('<p> Hi! </p>');
 })
 
 app.post("/send", function(req, res) {
