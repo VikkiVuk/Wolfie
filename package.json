@@ -30,7 +30,7 @@
     "youtube-notification": "^1.1.0"
   },
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
