@@ -12,7 +12,7 @@ const exp = require('constants');
 const app = express();
 
 app.get("/", function(req, res) {
-	res.send('<p> Hi! </p>');
+	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot.');
 })
 
 app.post("/send", function(req, res) {
@@ -20,15 +20,15 @@ app.post("/send", function(req, res) {
 		const { apikey, fnc, args } = req.body;
 		if (apikey == "vikkivuk-wolfie"){
 			if (fnc == "roblox-verif") {
-				res.statusCode(1)
+				res.status(1).send("Test complete")
 			} else {
-				res.statusCode(404)
+				res.status(404).send("Invalid Function")
 			}
 		} else {
-			res.statusCode(403)
+			res.status(403).send("Invalid Apikey")
 		}
 	} catch {
-		res.statusCode(404)
+		res.status(404).send("Error")
 	}
 })
 
