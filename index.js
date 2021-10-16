@@ -32,7 +32,7 @@ app.post("/send", function(req, res) {
 	}
 })
 
-app.listen(25565);
+app.listen(process.env.PORT);
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
