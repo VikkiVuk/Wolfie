@@ -7,6 +7,32 @@ const tempchnls = new TempChannels(client)
 const mongo = require('./utility/mongo.js')
 const advancedPolls = require('./utility/advanced-polls.js');
 const selfRole = require('./utility/self-role.js')
+const express = require("express");
+const exp = require('constants');
+const app = express();
+
+app.get("/", function(req, res) {
+	res.send("Hi.");
+})
+
+app.post("/send", function(req, res) {
+	try {
+		const { apikey, fnc, args } = req.body;
+		if (apikey == "vikkivuk-wolfie"){
+			if (fnc == "roblox-verif") {
+				res.statusCode(1)
+			} else {
+				res.statusCode(404)
+			}
+		} else {
+			res.statusCode(403)
+		}
+	} catch {
+		res.statusCode(404)
+	}
+})
+
+app.listen(25565);
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));

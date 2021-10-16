@@ -11,7 +11,8 @@ module.exports = (client) => {
         cuteturtle: "[🏅] Gold Role",
         flames: "Youtube Videos Ping",
         imgoingcrazy: "Random Pings",
-        animatedexclamation: "Wolfie Updates Ping"
+        animatedexclamation: "Wolfie Updates Ping",
+        Minecraft: "[🎮] Gejmer"
     }
 
     const reactions = []

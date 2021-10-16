@@ -1,6 +1,5 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const reconlx = require('reconlx')
 const got = require("got");
 
 module.exports = {

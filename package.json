@@ -1,5 +1,5 @@
 {
-  "name": "auto-vikkivuk-2.2",
+  "name": "wolfie",
   "version": "1.0.0",
   "description": "The third version of Auto VikkiVuk",
   "main": "index.js",
@@ -12,8 +12,10 @@
     "discord-api-types": "^0.22.0",
     "discord-temp-channels": "^3.0.1",
     "discord.js": "^13.1.0",
+    "discord.js-captcha": "^2.1.0",
     "discordjs-button-pagination": "^2.0.0",
     "distube": "^3.0.0-beta.37",
+    "express": "^4.17.1",
     "ffmpeg-static": "^4.4.0",
     "got": "^11.8.2",
     "libsodium-wrappers": "^0.7.9",
@@ -21,7 +23,6 @@
     "nodemon": "^2.0.13",
     "pretty-ms": "^7.0.1",
     "qrcode": "^1.4.4",
-    "reconlx": "^2.4.3",
     "speakeasy": "^2.0.0",
     "trello": "^0.10.0",
     "urban-dictionary-client": "^3.1.0",
@@ -33,15 +34,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VikkiVuk/auto-vikkivuk-backup.git"
+    "url": "git+https://github.com/VikkiVuk/wolfie.git"
   },
   "author": "VikkiVuk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VikkiVuk/auto-vikkivuk-backup/issues"
+    "url": "https://github.com/VikkiVuk/wolfie/issues"
   },
-  "homepage": "https://github.com/VikkiVuk/auto-vikkivuk-backup#readme",
+  "homepage": "https://github.com/VikkiVuk/wolfie#readme",
   "engines": {
-    "node": "16.6.1"
+    "node": "16.10.0"
   }
 }

@@ -2,6 +2,7 @@ const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = req
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
 const random = require('../utility/generateRandom')
+const captcha = require('discord.js-captcha');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,14 +36,11 @@ module.exports = {
                         function shuffle(array) {
                             let currentIndex = array.length, randomIndex;
 
-                            // While there remain elements to shuffle...
                             while (currentIndex != 0) {
 
-                                // Pick a remaining element...
                                 randomIndex = Math.floor(Math.random() * currentIndex);
                                 currentIndex--;
 
-                                // And swap it with the current element.
                                 [array[currentIndex], array[randomIndex]] = [
                                     array[randomIndex], array[currentIndex]];
                             }
@@ -60,17 +58,29 @@ module.exports = {
                             components: [secondrow]
                         })
 
-                        reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 5000}).then(async button2 => {
+                        reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 10000}).then(async button2 => {
                             if (button2.customId === "rightver") {
-                                const verifiedRole = interaction.guild.roles.cache.get('878606227045756952');
+                                const captchao = new captcha.Captcha(interaction.client, {
+                                    guildID: interaction.guild.id,
+                                    roleID: "878606227045756952",
+                                    channelID: interaction.channel.id, 
+                                    sendToTextChannel: true,
+                                    attempts: 3,
+                                    timeout: 30000, 
+                                    showAttemptCount: true,
+                                    customPromptEmbed: new MessageEmbed().setTitle("VERIFIKACIJA").setDescription("Molim te ukucaj kod koji vidis dole u chat.").setFooter(config.defaultFooter).setColor("BLURPLE").setTimestamp(), //customise the embed that will be sent to the user when the captcha is requested
+                                    customSuccessEmbed: new MessageEmbed().setTitle('VERIFIKOVAN').setDescription('Zdravo <@' + interaction.member.user.id + '>, ti si sad verifikovan! Sada bi trebao da imas pristup svim kanalima naravno ne onim koji admini mogu da pristupe samo. \n \n Ako vec nisi molim te idi procitaj pravila u <#878606227075108879>').setTimestamp().setFooter(config.defaultFooter).setColor('#0091ff'),
+                                    customFailureEmbed: new MessageEmbed().setTitle("GRESKA").setDescription(`Zdravo, <@${interaction.member.user.id}>, nisi uspeo da se verifikujes molim te pokusaj ponovo.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED"), //customise the embed that will be sent to the user when they fail to solve the captcha
+                                });
 
-                                interaction.member.roles.add(verifiedRole)
+                                captchao.present(interaction.member)
 
-                                const embed = new MessageEmbed().setTitle('VERIFIKOVAN').setDescription('Zdravo <@' + interaction.member.user.id + '>, ti si sad verifikovan! Sada bi trebao da imas pristup svim kanalima naravno ne onim koji admini mogu da pristupe samo. \n \n Ako vec nisi molim te idi procitaj pravila u <#878606227075108879>').setTimestamp().setFooter(config.defaultFooter).setColor('#0091ff')
-
-                                await interaction.editReply({content: null, embeds: [embed], components: []})
+                                await interaction.deleteReply()
                             } else if (button2.customId === "wrongver" || button2.customId === "wrongver2") {
                                 await interaction.editReply({ content: "Netacno, molim te pokusaj opet.", embeds: [], components: [] })
+                                setTimeout(async() => {
+                                    await interaction.deleteReply();
+                                }, 5000);
                             }
                         }).catch(err => interaction.editReply({ content: `Vreme ti je isteklo, molim te pokusaj ponovo.`, components: [] }))
                     }
