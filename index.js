@@ -10,22 +10,26 @@ const selfRole = require('./utility/self-role.js')
 const express = require("express");
 const exp = require('constants');
 const app = express();
-const bodyParser = require('body-parser')
+const bp = require('body-parser')
 
-app.use(bodyParser.json());
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))
+
 app.get("/", function(req, res) {
 	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot.');
 })
 
-app.post("/send", bodyParser.json(), function(req, res) {
+app.post("/send", function(req, res) {
 	try {
+		console.log(req.body)
 		if (req.body.apikey == "vikkivuk-wolfie"){
 			if (req.body.fnc == "roblox-verif") {
 				if (req.body.args) {
 					const {discorduser, robloxuser, status} = req.body.args
 					if (status == "completed") {
 						const user = client.guilds.cache.get("878606227045756948").members.cache.find(m => m.id == discorduser)
-						user.send("Ti si uspesno povezao tvoj discord nalog: **" + user.user.tag + "** sa roblox nalogom: https://www.roblox.com/users/" + robloxuser + "/profile \n \n \n **Molim te pokreni ponovo komandu `/roblox-verifikacija` u <#895745302290636840> da bi dobio svoj roblox verifikovan role!**")
+						user.send("Ti si uspesno povezao tvoj discord nalog: **" + user.user.tag + "** sa roblox nalogom: https://www.roblox.com/users/" + robloxuser + "/profile")
+						user.roles.add(895753436941942795)
 						res.status(200).send("The user has been notified.")
 					}
 				} else {
