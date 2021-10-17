@@ -29,7 +29,7 @@ app.post("/send", function(req, res) {
 					if (status == "completed") {
 						const user = client.guilds.cache.get("878606227045756948").members.cache.find(m => m.id == discorduser)
 						user.send("Ti si uspesno povezao tvoj discord nalog: **" + user.user.tag + "** sa roblox nalogom: https://www.roblox.com/users/" + robloxuser + "/profile")
-						user.roles.add(895753436941942795)
+						user.roles.add('895753436941942795')
 						res.status(200).send("The user has been notified.")
 					}
 				} else {
