@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
 const random = require('../utility/generateRandom')
 const got = require('got')
-const api = "https://rblx-discord-verify.glitch.me/api/"
+const api = "https://roblox-verification-system.herokuapp.com/api/"
 
 module.exports = {
     data: new SlashCommandBuilder()
