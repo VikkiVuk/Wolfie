@@ -35,6 +35,7 @@ app.post("/send", function(req, res) {
 				res.status(400).send("Invalid Function")
 			}
 		} else {
+			console.log("api invalid")
 			res.status(403).send("Invalid Apikey")
 		}
 	} catch(e) {
