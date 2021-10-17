@@ -48,7 +48,7 @@ module.exports = {
                         responseType: 'json'
                     }).then(async response => {
                         let content = JSON.parse(JSON.stringify(response.body));
-                        await interaction.editReply({ content: "Udji u ovu roblox igru: https://www.roblox.com/games/6052251836/RDV-Verification i ukucaj ovaj kod: " + content.code + ". \n \nNakon sto se verifikujes molim te pokreni komandu ponovo da bi dobijo svoj role.", ephemeral: true })
+                        await interaction.editReply({ content: "Udji u ovu roblox igru: https://www.roblox.com/games/6052251836/RDV-Verification i ukucaj ovaj kod: " + content.code + ". \n \nNakon sto se verifikujes dobices automatski poruku od bota, i dobices svoj role.", ephemeral: true })
                     })
                 }
             })
