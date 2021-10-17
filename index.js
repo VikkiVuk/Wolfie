@@ -22,7 +22,6 @@ app.get("/", function(req, res) {
 
 app.post("/send", function(req, res) {
 	try {
-		console.log(req.body)
 		if (req.body.apikey == "vikkivuk-wolfie"){
 			if (req.body.fnc == "roblox-verif") {
 				if (req.body.args) {
