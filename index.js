@@ -10,33 +10,45 @@ const selfRole = require('./utility/self-role.js')
 const express = require("express");
 const exp = require('constants');
 const app = express();
+const bodyParser = require('body-parser')
 
+app.use(bodyParser.json());
 app.get("/", function(req, res) {
 	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot.');
 })
 
 app.post("/send", function(req, res) {
 	try {
-		const { apikey, fnc, args } = req.body;
-		if (apikey == "vikkivuk-wolfie"){
-			if (fnc == "roblox-verif") {
-				res.status(1).send("Test complete")
+		if (req.body.apikey == "vikkivuk-wolfie"){
+			if (req.body.fnc == "roblox-verif") {
+				if (req.body.args) {
+					const {discorduser, robloxuser, status} = req.body.args
+					if (status == "completed") {
+						const user = client.guilds.cache.get("878606227045756948").members.cache.find(m => m.id == discorduser)
+						user.send("Ti si uspesno povezao tvoj discord nalog: **" + user.user.tag + "** sa roblox nalogom: https://www.roblox.com/users/" + robloxuser + "/profile \n \n \n **Molim te pokreni ponovo komandu `/roblox-verifikacija` u <#895745302290636840> da bi dobio svoj roblox verifikovan role!**")
+						res.status(200).send("The user has been notified.")
+					}
+				} else {
+					res.status(400).send("No args")
+				}
 			} else {
-				res.status(404).send("Invalid Function")
+				res.status(400).send("Invalid Function")
 			}
 		} else {
 			res.status(403).send("Invalid Apikey")
 		}
 	} catch(e) {
-		res.status(404).send({
-			"status": 404,
+		console.error(e)
+		res.status(400).send({
 			"message": "An error has occured",
 			"error": e
 		})
 	}
 })
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || 4000, function() {
+	console.log("Api ready.")
+});
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
