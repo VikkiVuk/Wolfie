@@ -17,7 +17,7 @@ app.get("/", function(req, res) {
 	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot.');
 })
 
-app.post("/send", function(req, res) {
+app.post("/send", bodyParser.json(), function(req, res) {
 	try {
 		if (req.body.apikey == "vikkivuk-wolfie"){
 			if (req.body.fnc == "roblox-verif") {
@@ -35,7 +35,6 @@ app.post("/send", function(req, res) {
 				res.status(400).send("Invalid Function")
 			}
 		} else {
-			console.log("api invalid")
 			res.status(403).send("Invalid Apikey")
 		}
 	} catch(e) {
