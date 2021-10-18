@@ -80,7 +80,7 @@ client.once('ready', async () => {
 	await mongo().then(() => console.log(">>> Connected to mongo."))
 
 	advancedPolls(client)
-	selfRole(client)
+	await selfRole(client)
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 	const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
