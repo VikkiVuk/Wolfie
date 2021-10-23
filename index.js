@@ -81,6 +81,7 @@ client.once('ready', async () => {
 
 	advancedPolls(client)
 	await selfRole(client)
+	await require('./utility/support')(client)
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 	const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
