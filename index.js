@@ -8,16 +8,37 @@ const mongo = require('./utility/mongo.js')
 const advancedPolls = require('./utility/advanced-polls.js');
 const selfRole = require('./utility/self-role.js')
 const express = require("express");
-const exp = require('constants');
 const app = express();
 const bp = require('body-parser')
+const Trello = require('trello');
+var trello = new Trello("03a9e1dbf3c557e05b45fecc95f68913", "1e5e621c8093255ae0752a7e67defc8384729a4fbc480fd7b01ec5923372b970");
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 app.use(express.json());
 
 app.get("/", function(req, res) {
-	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot.');
+	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot. Also go to <a href="https://discord-wolfie.herokuapp.com/suggest">/suggest</a> to suggest features.');
+})
+
+app.get("/suggest", function(req, res) {
+	res.sendFile(__dirname + "/.sitefiles/suggest.html")
+})
+
+app.post("/send_suggest", function(req, res) {
+	const { email, discord_tag, suggestion, attachements, tos_agree } = req.body
+	trello.addCard("Preporuka od " + discord_tag + ". Vise informacija u deskripciji", `
+		Email: ${email},
+		Discord Tag: ${discord_tag},
+
+		Preporuka: ${suggestion}
+	`, '6113904f6f163a7d919d2481', function(error, card) {
+		if (error) {
+			res.send("Doslo je do greske i tvoja preporuka nije poslata.")
+		} else {
+			res.send("Uspesno si preporucio nesto za wolfie!")
+		}
+	})
 })
 
 app.post("/send", function(req, res) {
