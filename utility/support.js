@@ -39,7 +39,13 @@ module.exports = async (client) => {
                     await wait(1000)
     
                     await channel.permissionOverwrites.create(guild.id, {VIEW_CHANNEL: false});
-                    await channel.permissionOverwrites.create(user.id, {VIEW_CHANNEL: true});
+                    await channel.permissionOverwrites.create(user.id, {VIEW_CHANNEL: true, SEND_MESSAGES: true});
+
+                    await channel.permissionOverwrites.create("878606227058335827", {VIEW_CHANNEL: true, SEND_MESSAGES: true});
+                    await channel.permissionOverwrites.create("878606227058335828", {VIEW_CHANNEL: true, SEND_MESSAGES: true});
+                    await channel.permissionOverwrites.create("878606227058335831", {VIEW_CHANNEL: true, SEND_MESSAGES: true});
+                    await channel.permissionOverwrites.create("878606227058335826", {VIEW_CHANNEL: true, SEND_MESSAGES: false});
+
 
                     const row2 = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setCustomId('support-close').setStyle("DANGER").setLabel("🗑️ Zatvori ticket"))
 
