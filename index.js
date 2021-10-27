@@ -56,8 +56,8 @@ app.post("/send_adminapply", function(req, res) {
 			let htmltext = ""
 
 			for (const question in answers) {
-				embed.addField(question, answers[question])
-				htmltext += `${question}: ${answers[question]}<br>`
+				embed.addField(question, (answers[question] == "") ? "Nije dodat odgovor" : answers[question])
+				htmltext += `${question}: ${(answers[question] == "") ? "Nije dodat odgovor" : answers[question]}<br>`
 			}
 
 			const appchannel = client.guilds.cache.get('878606227045756948').channels.cache.get('881923593452281896')
