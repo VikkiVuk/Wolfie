@@ -1,79 +1,32 @@
+require("./web/strategies/discord")
+require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const TempChannels = require('discord-temp-channels')
 const fs = require('fs');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "you", type: "LISTENING" }] } })
-const config = require('./config.json')
+const config = require('./bot/config.json')
 const tempchnls = new TempChannels(client)
-const mongo = require('./utility/mongo.js')
-const advancedPolls = require('./utility/advanced-polls.js');
-const selfRole = require('./utility/self-role.js')
 const express = require("express");
 const app = express();
 const bp = require('body-parser')
+const passport = require("passport")
+const session = require("express-session")
+const Store = require('connect-mongo')
 const Trello = require('trello');
 var trello = new Trello("03a9e1dbf3c557e05b45fecc95f68913", "1e5e621c8093255ae0752a7e67defc8384729a4fbc480fd7b01ec5923372b970");
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 app.use(express.json());
+app.use(session({secret: "secret", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 * 60 * 24 }, store: new Store({ mongoUrl: config.mongoPath, mongooseConnection: require('mongoose').connection })}))
 
-app.get("/", function(req, res) {
-	res.send('Hello, please use one of our functions and also please get an api key to actually be able to access our bot. Also go to <a href="https://discord-wolfie.herokuapp.com/suggest">/suggest</a> to suggest features.');
-})
+app.use(passport.initialize())
+app.use(passport.session())
 
-app.get("/suggest", function(req, res) {
-	res.sendFile(__dirname + "/.sitefiles/suggest.html")
-})
+app.use("/main", require("./web/routes/root/main.js"))
+app.use("/api", require("./web/routes/api/main.js"))
 
-app.get("/admin-apply", function(req, res) {
-	res.sendFile(__dirname + "/.sitefiles/admin-apply.html")
-})
-
-app.post("/send_suggest", function(req, res) {
-	const { email, discord_tag, suggestion, attachements, tos_agree } = req.body
-	trello.addCard("Preporuka od " + discord_tag + ". Vise informacija u deskripciji", `
-		Email: ${email},
-		Discord Tag: ${discord_tag},
-
-		Preporuka: ${suggestion}
-	`, '6113904f6f163a7d919d2481', function(error, card) {
-		if (error) {
-			res.send("Doslo je do greske i tvoja preporuka nije poslata.")
-		} else {
-			res.send("Uspesno si preporucio nesto za wolfie!")
-		}
-	})
-})
-
-app.post("/send_adminapply", function(req, res) {
-	const { readrules_agree, answeredhonestly_agree, change_agree, tos_agree, rulebreak_agree } = req.body
-	if (readrules_agree && answeredhonestly_agree && change_agree && tos_agree && rulebreak_agree) {
-		const answers = JSON.parse(JSON.stringify(req.body));
-		const user = client.users.cache.find(u => u.tag === req.body.discord_tag)
-
-		if (user) {
-			const embed = new MessageEmbed().setTitle(`${user.tag} admin apply`).setDescription(`Ovo je poslato s stranice discord bota, korisnik tvrdi da je: <@${user.id}>. Ovde su njegovi odgovori.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED")
-			let htmltext = ""
-
-			for (const question in answers) {
-				embed.addField(question, (answers[question] == "") ? "Nije dodat odgovor" : answers[question])
-				htmltext += `${question}: ${(answers[question] == "") ? "Nije dodat odgovor" : answers[question]}<br>`
-			}
-
-			const appchannel = client.guilds.cache.get('878606227045756948').channels.cache.get('881923593452281896')
-
-			appchannel.send({ embeds: [embed] })
-
-			res.send(`Hvala sto si se prijavio za admina! Neko iz naseg apply tima ce uskoro da ti pregleda prijavu. Dole imas detalje sta je poslato nasem osoblju. <br> <br> ${htmltext}`)
-		} else {
-			res.send("Nisam mogao da te nadjem u discord serveru, da li si uneo svoj tacan discord tag?")
-		}
-	} else {
-		res.send("Molim te prihvati sve ili neces moci da se prijavis.")
-	}
-})
-
-app.post("/send", function(req, res) {
+app.post("/api/extdata", function(req, res) {
 	try {
 		if (req.body.apikey == "vikkivuk-wolfie"){
 			if (req.body.fnc == "roblox-verif") {
@@ -105,20 +58,20 @@ app.post("/send", function(req, res) {
 
 app.listen(process.env.PORT || 4000, function() {
 	console.log("Api ready.")
-});
+})
 
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./bot/commands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) { const command = require(`./commands/${file}`); client.commands.set(command.data.name, command); }
+for (const file of commandFiles) { const command = require(`./bot/commands/${file}`); client.commands.set(command.data.name, command); }
 
 client.ctxmenus = new Collection();
-const ctxFiles = fs.readdirSync('./context-menus').filter(file => file.endsWith('.js'));
+const ctxFiles = fs.readdirSync('./bot/context-menus').filter(file => file.endsWith('.js'));
 
-for (const file of ctxFiles) { const ctxmenu = require(`./context-menus/${file}`); client.ctxmenus.set(ctxmenu.data.name, ctxmenu); }
+for (const file of ctxFiles) { const ctxmenu = require(`./bot/context-menus/${file}`); client.ctxmenus.set(ctxmenu.data.name, ctxmenu); }
 
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-for (const file of eventFiles) { const event = require(`./events/${file}`); if (event.once) { client.once(event.name, (...args) => event.execute(...args, client)); } else { client.on(event.name, (...args) => event.execute(...args, client)) }}
+const eventFiles = fs.readdirSync('./bot/events').filter(file => file.endsWith('.js'));
+for (const file of eventFiles) { const event = require(`./bot/events/${file}`); if (event.once) { client.once(event.name, (...args) => event.execute(...args, client)); } else { client.on(event.name, (...args) => event.execute(...args, client)) }}
 
 tempchnls.registerChannel("888127847414243349", {
 	childCategory: "888127800073142353",
@@ -128,18 +81,18 @@ tempchnls.registerChannel("888127847414243349", {
 });
 
 client.once('ready', async () => {
-    console.log(">>> I'm all good already so moved on im steady- Im just where you left me. Im online. Actually idle but ok.")
+    console.log(">>> Bot is online.")
 
-	await mongo().then(() => console.log(">>> Connected to mongo."))
+	await require("./bot/utility/advanced-polls")(client)
+	await require("./bot/utility/self-role")(client)
+	await require('./bot/utility/support')(client)
 
-	advancedPolls(client)
-	await selfRole(client)
-	await require('./utility/support')(client)
+	console.log(">>> Registered Modules")
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
-	const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
+	/*const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
 	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '895753436941942795', type: 'ROLE', permission: true }]
-	await command1.permissions.add({ permissions });
+	await command1.permissions.add({ permissions });*/
 })
 
 // Slash commands run
