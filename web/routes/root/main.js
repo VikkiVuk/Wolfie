@@ -8,7 +8,7 @@ router.use("/admin-apply", require('./admin-apply'))
 router.use("/", function(req, res) {
     res.send(`
         <head>
-            <title> </title>
+            <title> Dashboard </title>
             <meta content="Wolfie Dashboard" property="og:title" />
             <meta content="Zdravo! Ovde imate sve sta mozete da radite na wolfie sajtu, dokumentaciju isto imate." property="og:description" />
             <meta content="https://discord-wolfie.herokuapp.com/main" property="og:url" />
