@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, MessageEmbed } = require('discord.js');
 const TempChannels = require('discord-temp-channels')
 const fs = require('fs');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "you", type: "LISTENING" }] } })
@@ -25,6 +25,10 @@ app.get("/suggest", function(req, res) {
 	res.sendFile(__dirname + "/.sitefiles/suggest.html")
 })
 
+app.get("/admin-apply", function(req, res) {
+	res.sendFile(__dirname + "/.sitefiles/admin-apply.html")
+})
+
 app.post("/send_suggest", function(req, res) {
 	const { email, discord_tag, suggestion, attachements, tos_agree } = req.body
 	trello.addCard("Preporuka od " + discord_tag + ". Vise informacija u deskripciji", `
@@ -39,6 +43,34 @@ app.post("/send_suggest", function(req, res) {
 			res.send("Uspesno si preporucio nesto za wolfie!")
 		}
 	})
+})
+
+app.post("/send_adminapply", function(req, res) {
+	const { readrules_agree, answeredhonestly_agree, change_agree, tos_agree, rulebreak_agree } = req.body
+	if (readrules_agree && answeredhonestly_agree && change_agree && tos_agree && rulebreak_agree) {
+		const answers = JSON.parse(JSON.stringify(req.body));
+		const user = client.users.cache.find(u => u.tag === req.body.discord_tag)
+
+		if (user) {
+			const embed = new MessageEmbed().setTitle(`${user.tag} admin apply`).setDescription(`Ovo je poslato s stranice discord bota, korisnik tvrdi da je: <@${user.id}>. Ovde su njegovi odgovori.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED")
+			let htmltext = ""
+
+			for (const question in answers) {
+				embed.addField(question, answers[question])
+				htmltext += `${question}: ${answers[question]}<br>`
+			}
+
+			const appchannel = client.guilds.cache.get('878606227045756948').channels.cache.get('881923593452281896')
+
+			appchannel.send({ embeds: [embed] })
+
+			res.send(`Hvala sto si se prijavio za admina! Neko iz naseg apply tima ce uskoro da ti pregleda prijavu. Dole imas detalje sta je poslato nasem osoblju. <br> <br> ${htmltext}`)
+		} else {
+			res.send("Nisam mogao da te nadjem u discord serveru, da li si uneo svoj tacan discord tag?")
+		}
+	} else {
+		res.send("Molim te prihvati sve ili neces moci da se prijavis.")
+	}
 })
 
 app.post("/send", function(req, res) {
