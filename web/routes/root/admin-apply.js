@@ -101,7 +101,7 @@ router.get("/", function(req, res) {
     </html>
         `)
     } else {
-        res.redirect(new URL(`http://${req.hostname}:${(process.env.PORT == undefined) ? 4000 : process.env.PORT}/main/auth/discord`))
+        res.redirect(new URL(`http://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main/auth/discord`))
     }
 })
 
