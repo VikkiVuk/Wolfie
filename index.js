@@ -27,7 +27,7 @@ app.get("/sitemap", (req,res) => {
 })
 
 //require('http').createServer(app).listen(process.env.PORT || 80, "192.168.0.15")
-require('https').createServer({key: fs.readFileSync('./web/ssl/vikkivuk.xyz.key', 'utf8'), cert: fs.readFileSync('./web/ssl/vikkivuk.xyz.cert', 'utf8')}, app).listen(443);
+require('https').createServer({key: fs.readFileSync('./web/ssl/vikkivuk.xyz.key', 'utf8'), cert: fs.readFileSync('./web/ssl/vikkivuk.xyz.cert', 'utf8')}, app).listen(process.env.PORT || 443);
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./bot/commands').filter(file => file.endsWith('.js'));
