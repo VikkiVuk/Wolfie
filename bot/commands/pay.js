@@ -5,20 +5,20 @@ const config = require("../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('plati')
-        .setDescription('Ovo je komanda za testiranje uglavnom.')
-        .addUserOption(option => option.setName("korisnik").setDescription("Kome zelis da das novac?").setRequired(true))
-        .addIntegerOption(option => option.setName("koliko").setDescription("Koliko novca zelis da das?").setRequired(true)),
+        .setName('pay')
+        .setDescription('give someone MONEY MONEY MONEY.')
+        .addUserOption(option => option.setName("user").setDescription("who do you want to give money?").setRequired(true))
+        .addIntegerOption(option => option.setName("amount").setDescription("how much do you want to give them?").setRequired(true)),
 
     async execute(interaction) {
-        const user = interaction.options.getUser("korisnik")
+        const user = interaction.options.getUser("user")
         if (user.id === interaction.user.id) {
-            await interaction.reply({ content: `Ne mozes samom sebi da das novac.` })
+            await interaction.reply({ content: `ugh, we've been over this, YOU CANT GIVE YOURSELF MONEY.` })
             return
         }
 
 
-        const amnt = interaction.options.getInteger("koliko")
+        const amnt = interaction.options.getInteger("amount")
 
         await handler(interaction.user.id).then(async () => {
             await handler.changeMoney(interaction.user.id, false, amnt)
@@ -28,6 +28,6 @@ module.exports = {
             await handler.changeMoney(user.id, true, amnt)
         })
 
-        await interaction.reply(`✅ Uspesno si poslao **W$ ${amnt}** korisniku <@${user.id}>.`);
+        await interaction.reply(`✅ You sent **W$ ${amnt}** to <@${user.id}>.`);
     },
 };

@@ -5,7 +5,7 @@ const got = require('got')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('meme')
-        .setDescription('Dosadno ti je? Ovako mozes da dobijes neki random mim i mozda da se nasmejes.'),
+        .setDescription('bored? get a random meme with this command!'),
 
     async execute(interaction) {
         const embed = new MessageEmbed()

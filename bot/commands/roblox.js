@@ -9,12 +9,12 @@ const usersapi = "https://users.roblox.com/v1/users/"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('roblox')
-        .setDescription('Proveri roblox account nekog verifikovanog preko robloxa.')
-        .addUserOption(option => option.setName("korisnik").setDescription("Koga da proveris?").setRequired(true)),
+        .setDescription('See what account someone has connected to them.')
+        .addUserOption(option => option.setName("user").setDescription("Who do you want to check?").setRequired(true)),
 
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false })
-        const user = interaction.options.getMember("korisnik")
+        const user = interaction.options.getMember("user")
         if (user.roles.cache.has('895753436941942795')) {
             got.post(api + "getuserinfo", {
                 json: {
@@ -26,25 +26,25 @@ module.exports = {
                 if (content.userinfo) {
                     got(usersapi + content.userinfo.roblox).then(async rblxus => {
                         let rblxuser = JSON.parse(rblxus.body)
-                        const embed = new MessageEmbed().setTitle(`@${interaction.member.user.username} (${interaction.member.displayName})`).setDescription("Ovaj korisnik je povezao svoj roblox account sa svojim discord accountom, detalje imate ispod.").setColor('#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0')).setTimestamp().setFooter("Roblox Verifikacija").setURL(`https://www.roblox.com/users/${content.userinfo.roblox}/profile`)
+                        const embed = new MessageEmbed().setTitle(`@${interaction.member.user.username} (${interaction.member.displayName})`).setDescription("This user has a connected account, more details down below.").setColor('#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0')).setTimestamp().setFooter("Roblox Verification").setURL(`https://www.roblox.com/users/${content.userinfo.roblox}/profile`)
                             .addField("Roblox Id", rblxuser.id.toString(), true)
                             .addField("Username", rblxuser.name, true)
                             .addField("Display Name", rblxuser.displayName, true)
-                            .addField("O meni", rblxuser.description)
-                            .addField("Kada se prijavio?", new Date(rblxuser.created).toString(), true)
+                            .addField("About me", rblxuser.description)
+                            .addField("Joined at", new Date(rblxuser.created).toString(), true)
                             if (rblxuser.isBanned == true) {
-                                embed.addField("Banovan?", "Da", true)
+                                embed.addField("Banned", "Yes", true)
                             } else {
-                                embed.addField("Banovan?", "Ne", true)
+                                embed.addField("Banned", "No", true)
                             }
                         await interaction.editReply({ embeds: [embed] })
                     })
                 } else {
-                    await interaction.editReply({ content: `Korisnik <@${user.user.id}> nije jos verifikovan preko robloxa.` })
+                    await interaction.editReply({ content: `User <@${user.user.id}> hasnt connected their roblox account yet.` })
                 }
             })
         } else {
-            await interaction.editReply({ content: `Korisnik <@${user.user.id}> nije jos verifikovan preko robloxa.` })
+            await interaction.editReply({ content: `User <@${user.user.id}> hasnt connected their roblox account yet.` })
         }
     },
 };

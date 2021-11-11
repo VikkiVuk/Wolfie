@@ -1,23 +1,19 @@
 require("./web/strategies/discord")
 require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
-const { Client, Collection, MessageEmbed } = require('discord.js');
+const { Client, Collection } = require('discord.js');
 const TempChannels = require('discord-temp-channels')
 const fs = require('fs');
-const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "you", type: "LISTENING" }] } })
+const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "english", type: "LISTENING" }] } })
 const config = require('./bot/config.json')
 const tempchnls = new TempChannels(client)
 const express = require("express");
 const app = express();
-const bp = require('body-parser')
 const passport = require("passport")
 const session = require("express-session")
 const Store = require('connect-mongo')
-const Trello = require('trello');
-var trello = new Trello("03a9e1dbf3c557e05b45fecc95f68913", "1e5e621c8093255ae0752a7e67defc8384729a4fbc480fd7b01ec5923372b970");
 
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true }))
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 app.use(session({secret: "secret", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 * 60 * 24 }, store: new Store({ mongoUrl: config.mongoPath, mongooseConnection: require('mongoose').connection })}))
 
 app.use(passport.initialize())
@@ -25,40 +21,13 @@ app.use(passport.session())
 
 app.use("/main", require("./web/routes/root/main.js"))
 app.use("/api", require("./web/routes/api/main.js"))
-
-app.post("/api/extdata", function(req, res) {
-	try {
-		if (req.body.apikey == "vikkivuk-wolfie"){
-			if (req.body.fnc == "roblox-verif") {
-				if (req.body.args) {
-					const {discorduser, robloxuser, status} = req.body.args
-					if (status == "completed") {
-						const user = client.guilds.cache.get("878606227045756948").members.cache.find(m => m.id == discorduser)
-						user.send("Ti si uspesno povezao tvoj discord nalog: **" + user.user.tag + "** sa roblox nalogom: https://www.roblox.com/users/" + robloxuser + "/profile")
-						user.roles.add('895753436941942795')
-						res.status(200).send("The user has been notified.")
-					}
-				} else {
-					res.status(400).send("No args")
-				}
-			} else {
-				res.status(400).send("Invalid Function")
-			}
-		} else {
-			res.status(403).send("Invalid Apikey")
-		}
-	} catch(e) {
-		console.error(e)
-		res.status(400).send({
-			"message": "An error has occured",
-			"error": e
-		})
-	}
+app.get("/", (req, res) => res.redirect(new URL(`https://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`)))
+app.get("/sitemap", (req,res) => {
+	res.download(__dirname + "/web/sitemap.txt")
 })
 
-app.listen(process.env.PORT || 4000, function() {
-	console.log("Api ready.")
-})
+//require('http').createServer(app).listen(process.env.PORT || 80, "192.168.0.15")
+require('https').createServer({key: fs.readFileSync('./web/ssl/vikkivuk.xyz.key', 'utf8'), cert: fs.readFileSync('./web/ssl/vikkivuk.xyz.cert', 'utf8')}, app).listen(443);
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./bot/commands').filter(file => file.endsWith('.js'));
@@ -86,13 +55,32 @@ client.once('ready', async () => {
 	await require("./bot/utility/advanced-polls")(client)
 	await require("./bot/utility/self-role")(client)
 	await require('./bot/utility/support')(client)
+	await require('./bot/utility/backend').saveClient(client)
 
 	console.log(">>> Registered Modules")
+	const guilds = await client.guilds.fetch()
+	for (const guild of guilds) {
+		const realguild = client.guilds.cache.get(guild[0])
+		const backend = require("./bot/utility/backend")
+		const exists = await backend.getGuildOptions(realguild.id)
+
+		if (exists == null) {
+			require("./bot/utility/backend").joinedGuild(realguild)
+			realguild.members.cache.get(realguild.ownerId).send({ content: "Your guild is now in our database."})
+			console.log("I have found a new guild!")
+		}
+	}
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
 	/*const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
 	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '895753436941942795', type: 'ROLE', permission: true }]
 	await command1.permissions.add({ permissions });*/
+})
+
+client.on('guildCreate', (guild) => {
+	require("./bot/utility/backend").joinedGuild(guild)
+	guild.members.cache.get(guild.ownerId).send({ content: "Woah! This new place looks awesome! \n \nTo configure me, type `/dashboard`"})
+	console.log("Woah! This new place looks awesome!")
 })
 
 // Slash commands run

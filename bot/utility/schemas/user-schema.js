@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const profileSchema = new mongoose.Schema({
+    guildid: String,
     userid: String,
     uuid: String,
     money: Number,

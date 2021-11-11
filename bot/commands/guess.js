@@ -5,8 +5,8 @@ const handler = require('../utility/user-handler')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('pogodi')
-        .setDescription('Ovako mozes da pogadjas, dobijes novac ako tacno pogodis.'),
+        .setName('guess')
+        .setDescription('guess a number for money!'),
 
     async execute(interaction) {
         let options = []
@@ -28,12 +28,12 @@ module.exports = {
 
                     if (randomNumber == broj) {
                         await handler(interaction.user.id).then(async() => { await handler.changeMoney(interaction.user.id, true, (randomNumber * 10) + 20000) })
-                        await interaction.editReply({ content: `CESTITAM! Pogodio si broj. Dobio si **w$ ${(randomNumber * 10) + 20000}**`, components: [] })
+                        await interaction.editReply({ content: `CONGRATS! You guessed the number i was thinking of. You got **w$ ${(randomNumber * 10) + 20000}**`, components: [] })
                     } else {
-                        await interaction.editReply({ content: `Nisi dobio broj... Broj je bio **${randomNumber}**. Vise srece sledeci put.`, components: [] })
+                        await interaction.editReply({ content: `you didnt guess the number... the number was **${randomNumber}**. better luck next time.`, components: [] })
                     }
                 }
-            }).catch(err => interaction.editReply({ content: `Vreme ti je isteklo, pokusaj ponovo.`, components: [] }))
+            }).catch(err => interaction.editReply({ content: `time ran out.`, components: [] }))
         })
     },
 };

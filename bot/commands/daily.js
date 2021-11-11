@@ -6,7 +6,7 @@ const {randomNumber} = require("../utility/generateRandom");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('daily')
-        .setDescription('Ovako mozete da dobijete vase nagrade za danas.'),
+        .setDescription('Claim your daily reward.'),
 
     async execute(interaction) {
         await handler(interaction.user.id)
@@ -15,7 +15,7 @@ module.exports = {
 
         if (diffdays < 1) {
             // A day hasnt passed yet.
-            await interaction.reply({ content: "Jos uvek nije prosao dan od tvoje zadnje nagrade." })
+            await interaction.reply({ content: "Don't be so greedy, a day still hasn't passed from the last daily reward." })
         } else if (diffdays >= 1) {
             // A day or more has passed.
             await handler.updateDaily(interaction.user.id)
@@ -25,7 +25,7 @@ module.exports = {
             await handler.changeMoney(interaction.user.id, true, randMoney)
             await handler.changeXP(interaction.user.id, true, randXP)
 
-            await interaction.reply({ content: `Uspesno si claimovao svoj daily reward od **W$ ${randMoney}** i **${randXP} xp-a**.` })
+            await interaction.reply({ content: `You have calimed your daily reward of **W$ ${randMoney}** and **${randXP} xp**.` })
         }
     },
 };

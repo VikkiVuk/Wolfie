@@ -5,11 +5,11 @@ const config = require('../config.json')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('tictactoe')
-        .setDescription('Ovako mozes da igras iks oks (x ox/tic tac toe/ttt) sa svojim drugarima.')
-        .addUserOption(option => option.setName("protivnik").setDescription("Protiv koga zelis da igras?").setRequired(true)),
+        .setDescription('Play tic tac toe against someone.')
+        .addUserOption(option => option.setName("opponent").setDescription("who do you want to play against?").setRequired(true)),
 
     async execute(interaction) {
-        let opponent = interaction.options.getUser("protivnik")
+        let opponent = interaction.options.getUser("opponent")
         let fighters = [interaction.user.id, opponent.id].sort(() => (Math.random() > .5) ? 1 : -1)
         let Args = {
             user: 0,

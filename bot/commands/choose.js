@@ -3,14 +3,14 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('izaberi')
-        .setDescription('Nek ja izaberem nesto od 2 opcije.')
-        .addStringOption(option => option.setName("opcija1").setDescription("Opcija 1").setRequired(true))
-        .addStringOption(option => option.setName("opcija2").setDescription("Opcija 2").setRequired(true)),
+        .setName('choose')
+        .setDescription(`Can't decide? Use this command, Wolfie will randomly pick something for you.`)
+        .addStringOption(option => option.setName("option1").setDescription("Option 1").setRequired(true))
+        .addStringOption(option => option.setName("option2").setDescription("Option 2").setRequired(true)),
 
     async execute(interaction) {
-        const option1 = interaction.options.getString("opcija1")
-        const option2 = interaction.options.getString("opcija2")
+        const option1 = interaction.options.getString("option1")
+        const option2 = interaction.options.getString("option2")
 
         let options = []
         options.push(option1)
@@ -18,6 +18,6 @@ module.exports = {
 
         const chosen = options[Math.floor(Math.random() * options.length)]
 
-        await interaction.reply({ content: `Od te dve opcije biram: **${chosen}**`});
+        await interaction.reply({ content: `I choose... **${chosen}**!`});
     },
 };

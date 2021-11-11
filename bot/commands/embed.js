@@ -5,15 +5,15 @@ const config = require("../config.json")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('embed')
-        .setDescription('Ovako mozete da napravite vas sopstveni embed.')
-        .addStringOption(option => option.setName('naslov').setDescription('Koji naslov zelite na vasem embedu').setRequired(true))
-        .addStringOption(option => option.setName('opis').setDescription('Sta ce da vam bude opis?').setRequired(true))
-        .addStringOption(option => option.setName('boja').setDescription('Boja vaseg embeda, ovo bi trebalo da bude u hex boji a ne u obicnoj.').setRequired(false)),
+        .setDescription('Make your custom discord embed!')
+        .addStringOption(option => option.setName('title').setDescription('What title do you want?').setRequired(true))
+        .addStringOption(option => option.setName('description').setDescription('What will be the embed description?').setRequired(true))
+        .addStringOption(option => option.setName('hexcolor').setDescription('The color of your embed, this should be a hex value.').setRequired(false)),
 
     async execute(interaction) {
-        const title = interaction.options.getString('naslov')
-        const description = interaction.options.getString('opis')
-        const color = interaction.options.getString('boja')
+        const title = interaction.options.getString('title')
+        const description = interaction.options.getString('description')
+        const color = interaction.options.getString('hexcolor')
 
         let c
         if (color) {

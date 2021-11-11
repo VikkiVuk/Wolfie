@@ -7,8 +7,8 @@ const api = "https://roblox-verification-system.herokuapp.com/api/"
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('roblox-verifikacija')
-        .setDescription('Ovako mozes da otkljucas vise stvari kao i da otkljucas pristup par specijalnim stvarima.'),
+        .setName('roblox-connect')
+        .setDescription('connect your roblox account with discord, some servers may give a role and some may not.'),
 
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
@@ -21,7 +21,7 @@ module.exports = {
             }).then(async response => {
                 let content = JSON.parse(JSON.stringify(response.body))
                 if (content.userinfo) {
-                    await interaction.editReply({ content: '❌ Vec si se verifikovao! Povezan si sa roblox account: https://www.roblox.com/users/' + content.userinfo.roblox + '/profile. \n \nUkoliko mislis da je ovo greska otvori support ticket u <#878606227414868034>.', ephemeral: true })
+                    await interaction.editReply({ content: '❌ You already have an account connected, your discord account is connected to: https://www.roblox.com/users/' + content.userinfo.roblox + '/profile. \n \nIf you think this is a mistake please contact our support team using `/support`.', ephemeral: true })
                 }
             })
         } else {
@@ -35,10 +35,10 @@ module.exports = {
 
                 if (content.userinfo) {
                     if (content.userinfo.roblox === "AWAITING") {
-                        await interaction.editReply({ content: "Jos uvek se nisi verifikovao! Udji ovde: https://www.roblox.com/games/6052251836/RDV-Verification i ukucaj ovaj kod: " + content.code, ephemeral: true })
+                        await interaction.editReply({ content: "You still havent connected your account! Go here: https://www.roblox.com/games/6052251836/RDV-Verification and type this code: " + content.code, ephemeral: true })
                     } else {
                         interaction.member.roles.add("895753436941942795")
-                        await interaction.editReply({ content: "Uspesno si se verifikovao i povezao svoj discord account: **" + interaction.member.user.tag + "** sa roblox account: https://www.roblox.com/users/" + content.userinfo.roblox + "/profile", ephemeral: true })
+                        await interaction.editReply({ content: "You have successfully connected your discord account: **" + interaction.member.user.tag + "** with your roblox account: https://www.roblox.com/users/" + content.userinfo.roblox + "/profile", ephemeral: true })
                     }
                 } else {
                     got.post(api + "getcode", {
@@ -48,7 +48,7 @@ module.exports = {
                         responseType: 'json'
                     }).then(async response => {
                         let content = JSON.parse(JSON.stringify(response.body));
-                        await interaction.editReply({ content: "Udji u ovu roblox igru: https://www.roblox.com/games/6052251836/RDV-Verification i ukucaj ovaj kod: " + content.code + ". \n \nNakon sto se verifikujes dobices automatski poruku od bota, i dobices svoj role.", ephemeral: true })
+                        await interaction.editReply({ content: "Join this roblox game: https://www.roblox.com/games/6052251836/RDV-Verification and type this code: " + content.code + ". \n \nAfter you verify yourself, you will get a role in all eligible servers, if you join a new eligible server just use this command again.", ephemeral: true })
                     })
                 }
             })

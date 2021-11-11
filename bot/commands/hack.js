@@ -8,20 +8,20 @@ const {randomNumber} = require("../utility/generateRandom");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('hakuj')
-        .setDescription('Hakujte nekog.')
-        .addUserOption(option => option.setName('korisnik').setDescription('Koga zelite da hakujete').setRequired(true)),
+        .setName('hack')
+        .setDescription('Hack someone ig')
+        .addUserOption(option => option.setName('target').setDescription('Who do you want to hack?').setRequired(true)),
     async execute(interaction) {
         if (talkedRecently.includes(interaction.user.id)) {
-            await interaction.reply({ content: `Alou! Chill out buraz, sacekaj malo, ne mozes da hakujes sve od jednom.`})
+            await interaction.reply({ content: `Ayo chill out chilly willy, you have a cooldown.`})
         } else {
-            const user = interaction.options.getUser('korisnik')
+            const user = interaction.options.getUser('target')
 
             if (user.id === interaction.user.id) {
-                await interaction.reply({content: `Ne mozes samog sebe da hakujes.`})
+                await interaction.reply({content: `The heck? You cant hack yourself, you already know your password lol`})
             }
 
-            const waiting = new MessageEmbed().setTitle('HAKOVANJE U TOKU').setDescription('Trenutno pokusavam da hakujem <@' + user.id + '>...').setTimestamp().setFooter('Hackbot 9000').setColor('#804AFF')
+            const waiting = new MessageEmbed().setTitle('Hacking...').setDescription('Im currently trying to hack <@' + user.id + '>... \n \nThis _may_ take up to 2 minutes.').setTimestamp().setFooter('Hackbot 9000').setColor('#804AFF')
             talkedRecently.push(interaction.user.id);
 
             await interaction.reply({embeds: [waiting]});
@@ -29,8 +29,8 @@ module.exports = {
             await wait(Math.floor(Math.random() * (160 - 30) + 60) * 160)
 
             const responses = [
-                new MessageEmbed().setTitle('PRISTUP DOZVOLJEN').setDescription(`Cestitam! Ovo totalno pravo hakovanje <@${user.id}> je uspelo! Dobio si malo novca.`).setTimestamp().setFooter(config.defaultFooter).setColor('#0FFF0F'),
-                new MessageEmbed().setTitle('PRISTUP ODBIJEN').setDescription(`Izvini! Izgleda kao da je <@${user.id}> imao firewall. Vise srece sledeci put.`).setTimestamp().setFooter(config.defaultFooter).setColor('#FF0000')
+                new MessageEmbed().setTitle('ACCESS GRANTED').setDescription(`You have been granted access into <@${user.id}>'s account. (not really lol, you did steal some of his money tho 👀)`).setTimestamp().setFooter(config.defaultFooter).setColor('#0FFF0F'),
+                new MessageEmbed().setTitle('ACCESS DENIED').setDescription(`Looks like <@${user.id}> has a firewall. Better luck next time ig`).setTimestamp().setFooter(config.defaultFooter).setColor('#FF0000')
             ];
 
             const response = responses[Math.floor(Math.random() * responses.length)];

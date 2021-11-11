@@ -4,26 +4,21 @@ const wait = require('util').promisify(setTimeout);
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('jel-stvaran')
-      .setDescription('Hmmmmm.... Jel si ti ili neko stvaran?')
-      .addUserOption(option => option.setName('korisnik').setDescription('Ko?').setRequired(false)),
+      .setName('inspect')
+      .setDescription('this doesnt help you identify aliens btw')
+      .addUserOption(option => option.setName('target').setDescription('who do you want to um... inspect?').setRequired(false)),
 
   async execute(interaction) {
     await interaction.deferReply()
     await wait(4000);
-    const user = interaction.options.getUser('korisnik') || interaction.member.user
+    const user = interaction.options.getUser('target') || interaction.member.user
     const normalResponses = [
-      '**JE STVARAN**',
-      '**NIJE STVARAN**'
-    ];
-
-    const youResponses = [
-      'Ti si **STVARAN**',
-      'Ti **NISI STVARAN**'
+      '**is a normal person**',
+      '**is an impostor**'
     ];
 
     if (user.id === interaction.member.user.id) {
-      const response = youResponses[Math.floor(Math.random() * youResponses.length)];
+      const response = "no."
       await interaction.editReply({content: response})
     } else {
       const response = normalResponses[Math.floor(Math.random() * normalResponses.length)];

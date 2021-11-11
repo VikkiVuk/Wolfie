@@ -3,14 +3,21 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('magicna-lopta')
-        .setDescription('Ova komanda postoji da ti unisti zivot.')
-        .addStringOption(option => option.setName("pitanje").setDescription("Sta zelis da pitas wolfie?").setRequired(true)),
+        .setName('8ball')
+        .setDescription('This command exists to ruin your life.')
+        .addStringOption(option => option.setName("question").setDescription("What do you want to ask Wolfie?").setRequired(true)),
 
     async execute(interaction) {
-        const question = interaction.options.getString("pitanje")
-        let serbianResponses = ["Sigurno je.", "To je definitivno tako.", "Bez sumnje.", "Da - definitivno.", "Možete se osloniti na to.", "Kako ja vidim, da.", "Najverovatnije.", "Outlook dobar.", "Da.", "Znakovi ukazuju na da.", "Odgovori maglovito, pokušajte ponovo.", "Pitajte ponovo kasnije.", "Bolje da vam ne kažem sada.", "Ne mogu sada predvidjati.", "Koncentriraj se i pitaj ponovo.", "Ne računaj na to.", "Moj odgovor je ne.", "Moji izvori kažu ne.", "Izgled nije tako dobar.", "Veoma sumnjivo."]
-        const response = serbianResponses[Math.floor(Math.random() * serbianResponses.length)]
+        const question = interaction.options.getString("question")
+        let answers = [
+            'Maybe.', 'Certainly not.', 'I hope so.', 'Not in your wildest dreams.',
+            'There is a good chance.', 'Quite likely.', 'I think so.', 'I hope not.',
+            'I hope so.', 'Never!', 'Fuhgeddaboudit.', 'Ahaha! Really?!?', 'Pfft.',
+            'Sorry, bucko.', 'Hell, yes.', 'Hell to the no.', 'The future is bleak.',
+            'The future is uncertain.', 'I would rather not say.', 'Who cares?',
+            'Possibly.', 'Never, ever, ever.', 'There is a small chance.', 'Yes!'];     
+               
+        const response = answers[Math.floor(Math.random() * answers.length)]
         const embed = new MessageEmbed().setTitle(question + "?").setDescription("<:reply:884528743673135144> " + response)
 
         await interaction.reply({ embeds: [embed] });

@@ -6,15 +6,15 @@ const captcha = require('discord.js-captcha');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('verifikuj-se')
-        .setDescription('Um, verifikuj se? Sta drugo ti kazem.'),
+        .setName('verify')
+        .setDescription('verify yourself so you can use commands.'),
 
     async execute(interaction) {
-        if (interaction.member.roles.cache.has('878606227045756952')) {
-            await interaction.reply({content: '❌ Vec si verifikovan!', ephemeral: false})
+        if (interaction.member.roles.cache.find(r => r.name == "Verified")) {
+            await interaction.reply({content: '❌ You are already verified!', ephemeral: false})
         } else {
-            const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('verification').setLabel('Ja sam covek').setStyle('PRIMARY'));
-            await interaction.reply({ content: `Hej! Samo klikni dugme dole da bi se verifikovao, da bi smo znali da si covek.`, ephemeral: false, components: [row] })
+            const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('verification').setLabel('I am a human').setStyle('PRIMARY'));
+            await interaction.reply({ content: `Hey! Just click the button below and we will verify you.`, ephemeral: false, components: [row] })
 
             const filter = i => { i.deferUpdate(); return i.user.id === interaction.user.id; };
 
@@ -53,7 +53,7 @@ module.exports = {
                         const secondrow = new MessageActionRow().addComponents(buttons);
 
                         await interaction.editReply({
-                            content: `Nesto mi je ovde sumnjivo... Koliko je ${x} + ${y}?`,
+                            content: `Something is sus... How much is ${x} + ${y}?`,
                             ephemeral: false,
                             components: [secondrow]
                         })
@@ -68,23 +68,23 @@ module.exports = {
                                     attempts: 3,
                                     timeout: 30000, 
                                     showAttemptCount: true,
-                                    customPromptEmbed: new MessageEmbed().setTitle("VERIFIKACIJA").setDescription("Molim te ukucaj kod koji vidis dole u chat.").setFooter(config.defaultFooter).setColor("BLURPLE").setTimestamp(), //customise the embed that will be sent to the user when the captcha is requested
-                                    customSuccessEmbed: new MessageEmbed().setTitle('VERIFIKOVAN').setDescription('Zdravo <@' + interaction.member.user.id + '>, ti si sad verifikovan! Sada bi trebao da imas pristup svim kanalima naravno ne onim koji admini mogu da pristupe samo. \n \n Ako vec nisi molim te idi procitaj pravila u <#878606227075108879>').setTimestamp().setFooter(config.defaultFooter).setColor('#0091ff'),
-                                    customFailureEmbed: new MessageEmbed().setTitle("GRESKA").setDescription(`Zdravo, <@${interaction.member.user.id}>, nisi uspeo da se verifikujes molim te pokusaj ponovo.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED"), //customise the embed that will be sent to the user when they fail to solve the captcha
+                                    customPromptEmbed: new MessageEmbed().setTitle("VERIFICATION").setDescription("Please type what you see in the picture down below.").setFooter(config.defaultFooter).setColor("BLURPLE").setTimestamp(), //customise the embed that will be sent to the user when the captcha is requested
+                                    customSuccessEmbed: new MessageEmbed().setTitle('VERIFIED').setDescription('Hi <@' + interaction.member.user.id + '>, you are now verified! If this server is eligible, you will get a verified role, but anyways you can use the bot now.. \n \nPlease read the rules (discord tos, wolfie tos, server rules) to avoid getting unverified and possibly banned').setTimestamp().setFooter(config.defaultFooter).setColor('#0091ff'),
+                                    customFailureEmbed: new MessageEmbed().setTitle("ERROR").setDescription(`Hello, <@${interaction.member.user.id}>, you havent been verified, please try again.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED"), //customise the embed that will be sent to the user when they fail to solve the captcha
                                 });
 
                                 captchao.present(interaction.member)
 
                                 await interaction.deleteReply()
                             } else if (button2.customId === "wrongver" || button2.customId === "wrongver2") {
-                                await interaction.editReply({ content: "Netacno, molim te pokusaj opet.", embeds: [], components: [] })
+                                await interaction.editReply({ content: "incorrect, try again.", embeds: [], components: [] })
                                 setTimeout(async() => {
                                     await interaction.deleteReply();
                                 }, 5000);
                             }
-                        }).catch(err => interaction.editReply({ content: `Vreme ti je isteklo, molim te pokusaj ponovo.`, components: [] }))
+                        }).catch(err => interaction.editReply({ content: `time ran out.`, components: [] }))
                     }
-                }).catch(err => interaction.editReply({ content: `Vreme ti je isteklo, molim te pokusaj ponovo.`, components: [] }));
+                }).catch(err => interaction.editReply({ content: `time ran out.`, components: [] }));
             })
         }
     },
