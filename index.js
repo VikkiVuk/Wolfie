@@ -21,7 +21,7 @@ app.use(passport.session())
 
 app.use("/main", require("./web/routes/root/main.js"))
 app.use("/api", require("./web/routes/api/main.js"))
-app.get("/", (req, res) => res.redirect(new URL(`https://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`)))
+app.get("/", (req, res) => res.redirect(new URL(`http://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`)))
 app.get("/sitemap", (req,res) => {
 	res.download(__dirname + "/web/sitemap.txt")
 })

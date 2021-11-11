@@ -10,7 +10,7 @@ module.exports = {
         .setDescription('suggest smth for the bot.'),
 
     async execute(interaction) {
-        const row = new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://wolfie.vikkivuk.xyz/main/suggest").setLabel("Suggestion site"))
+        const row = new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("http://wolfie.vikkivuk.xyz/main/suggest").setLabel("Suggestion site"))
         await interaction.reply({ content: "Click on the button below to go to the suggestion website.", components: [row] })
     },
 };
