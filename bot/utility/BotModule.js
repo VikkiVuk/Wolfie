@@ -106,16 +106,21 @@ function UserObject(res, guildId) {
         });
     }); };
     this.getkey = function (key) { return __awaiter(_this, void 0, void 0, function () {
-        var updatedresult, obj, guildobj;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var updatedresult, obj, guildobj, _i, _a, d;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
-                    updatedresult = _a.sent();
+                    updatedresult = _b.sent();
                     obj = JSON.parse(updatedresult.userdata);
                     guildobj = JSON.parse(updatedresult.guilds);
                     if (key == "warns") {
-                        return [2 /*return*/, guildobj[guildId]["warns"]];
+                        for (_i = 0, _a = guildobj[guildId]; _i < _a.length; _i++) {
+                            d = _a[_i];
+                            if (d[0] == "warns") {
+                                return [2 /*return*/, d[1]];
+                            }
+                        }
                     }
                     else {
                         return [2 /*return*/, obj[key]];

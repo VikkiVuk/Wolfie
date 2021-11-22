@@ -100,7 +100,11 @@ function UserObject(res: any, guildId: any) {
         const guildobj = JSON.parse(updatedresult.guilds)
 
         if (key == "warns") {
-            return guildobj[guildId]["warns"]
+            for (const d of guildobj[guildId]) {
+                if (d[0] == "warns") {
+                    return d[1]
+                }
+            }
         } else {
             return obj[key]
         }

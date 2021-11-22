@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/mute.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/mute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/unmute.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/unmute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/upozorenja.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/warnings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/warnings.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/warnings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +76,7 @@
       <workItem from="1637442202077" duration="6313000" />
       <workItem from="1637495352768" duration="23920000" />
       <workItem from="1637581035302" duration="10599000" />
-      <workItem from="1637598931785" duration="5375000" />
+      <workItem from="1637598931785" duration="5868000" />
     </task>
     <servers />
   </component>

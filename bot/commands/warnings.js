@@ -12,6 +12,8 @@ module.exports = {
         .addUserOption(option => option.setName("user").setDescription("Who do you want to see the number of warns?").setRequired(true)),
 
     async execute(interaction) {
+        await interaction.reply({ content: "this is a WIP command." })
+        return;
         if (interaction.inGuild()) {
             const config = configHand.configuration(`${interaction.guild.id}`)
             if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || interaction.member.roles.cache.some(r => config.botmasters.indexOf(r.id) >= 0)) {
