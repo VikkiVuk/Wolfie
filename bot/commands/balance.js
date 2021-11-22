@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 const config = require("../config.json")
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
         const user = interaction.user
 
         const coins = await handler(user.id).then(result => { return result.money })
-        const embed = new MessageEmbed().setTitle(`NOVAC`).setDescription(`:dollar: | you currently have **W$ ${coins}**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
+        const embed = new MessageEmbed().setTitle(`MONEY`).setDescription(`:dollar: | You currently have **W$ ${coins}**!`).setColor('#32a852').setTimestamp().setFooter(config.defaultFooter)
         await interaction.reply({embeds: [embed], ephemeral: true})
     },
 };

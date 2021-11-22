@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Wolfie.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bot/commands/add-item.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bot/utility/BotModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/2fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/2fa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/8ball.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/8ball.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/balance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/ban.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/ban.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/beg.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/beg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/channel.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/channel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/clear.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/clear.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/daily.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/daily.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/embed.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/embed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/guess.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/guess.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/hack.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/hack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/inspect.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/inspect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/kick.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/kick.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/messages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/mute.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/mute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/napravi-item.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/note.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/note.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/pay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/set-note.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/set-note.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/skemuj.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/skemuj.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/upozorenja.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/upozorenja.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/upozori.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/upozori.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/use.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/use.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/zdravo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/bot/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/context-menus/ban.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/context-menus/ban.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/context-menus/kick.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/context-menus/kick.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/context-menus/upozori.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/context-menus/upozori.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/events/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/schemas/bot-schema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/schemas/guild-schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/schemas/guild-schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/schemas/user-schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/schemas/user-schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/user-handler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy-commands.js" beforeDir="false" afterPath="$PROJECT_DIR$/deploy-commands.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/root/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/root/suggest.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/suggest.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="21BxqRNPIDgbEWyHrDhTAgBClbT" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mongo" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/deploy-commands.js" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RunManager" selected="Node.js.index.js">
+    <configuration default="true" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/index.js">
+      <method v="2" />
+    </configuration>
+    <configuration name="deploy commands" type="NodeJSConfigurationType" path-to-js-file="deploy-commands.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.index.js" />
+      <item itemvalue="Node.js.deploy commands" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="" />
+      <created>1637428478018</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1637428478018</updated>
+      <workItem from="1637428480513" duration="7639000" />
+      <workItem from="1637442202077" duration="6313000" />
+      <workItem from="1637495352768" duration="23920000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/bot/utility/BotModule.js" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

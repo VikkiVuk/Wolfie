@@ -1,5 +1,8 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
+const { MessageEmbed,MessageAttachment,Permissions } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const guildSchema = require("../utility/schemas/guild-schema")
+const configHand = undefined
+const wait = require("util").promisify(setTimeout)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,16 +12,23 @@ module.exports = {
         .addSubcommand(sub => sub.setName("unlock").setDescription("Unlocks a channel.")),
 
     async execute(interaction) {
-        if (interaction.member.permissionsIn(interaction.channel).has("MANAGE_CHANNELS")) {
+        if (interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
             const chnl = interaction.channel
             const subcommand = interaction.options.getSubcommand()
 
-            if (subcommand === "lock") {
-                chnl.permissionOverwrites.edit('878606227045756952', { SEND_MESSAGES: false });
-                await interaction.reply({ content: "This channel is now locked, all specified roles in the dashboard now cant talk here."})
+            const config = await configHand.getGuildConfig(interaction.guild.id)
+
+            if (config.lockrole) {
+                if (subcommand === "lock") {
+                    await chnl.permissionOverwrites.edit(config.lockrole, { SEND_MESSAGES: false });
+                    await interaction.reply({ content: `This channel is now locked, <@&${config.lockrole}> now cant talk here.` })
+                } else {
+                    await chnl.permissionOverwrites.edit(config.lockrole, { SEND_MESSAGES: true });
+                    await interaction.reply({ content: `This channel is now unlocked, <@&${config.lockrole}> can now talk here.` })
+                }
             } else {
-                chnl.permissionOverwrites.edit('878606227045756952', { SEND_MESSAGES: true });
-                await interaction.reply({ content: "This channel is now unlocked, all specified roles in the dashboard can now talk again."})
+                await interaction.reply({ content: `You haven't set up a lock role in the dashboard (\`/dashboard\`), so everyone will be used as default. \n \n_Without a lock role set up, there will be a 3 second delay!_` })
+                await wait(3000)
             }
         } else {
             await interaction.reply({ content: "❌ You do not have the sufficient permissions to do this." })

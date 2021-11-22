@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('8ball')
-        .setDescription('This command exists to ruin your life.')
+        .setDescription('Yeah, well Wolfie will predict you future with this command.')
         .addStringOption(option => option.setName("question").setDescription("What do you want to ask Wolfie?").setRequired(true)),
 
     async execute(interaction) {

@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require("../utility/user-handler")
+const handler = require("../utility/BotModule")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("upozori")

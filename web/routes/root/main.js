@@ -15,14 +15,14 @@ router.use("/", function(req, res) {
             <meta content="Wolfie Hub" property="og:title" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="The wolfie main site, the hub for everything Wolfie.." property="og:description" />
-            <meta content="https://wolfie.vikkivuk.xyz/main" property="og:url" />
+            <meta content="http://wolfie.vikkivuk.xyz/main" property="og:url" />
             <meta content="" property="og:image" />
             <meta content="#087CF0" data-react-helmet="true" name="theme-color" />
         </head>
         <body style="background-color:rgba(0, 0, 0, 0.829);">
             ${(req.user == undefined) ? `
                 <center>
-                    <a style="color:white;font-family: Arial, Helvetica, sans-serif;" href="/main/auth/discord">Nisi ulogovan, uloguj se!</a>
+                    <a style="color:white;font-family: Arial, Helvetica, sans-serif;" href="/main/auth/discord">You're not logged in! Click me to log in.</a>
                 </center>
             ` : `
                 <div id="container">

@@ -1,3 +1,4 @@
+const BotModule = require("./bot/utility/BotModule")
 require("./web/strategies/discord")
 require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
 const { Client, Collection } = require('discord.js');
@@ -51,6 +52,11 @@ tempchnls.registerChannel("888127847414243349", {
 
 client.once('ready', async () => {
     console.log(">>> Bot is online.")
+	const handl = new BotModule.Users()
+	const user = await handl.user("750725036096094208")
+	console.log(user)
+	const returned = await user.addItem()
+	console.log(returned)
 
 	await require("./bot/utility/advanced-polls")(client)
 	await require("./bot/utility/self-role")(client)
@@ -65,16 +71,11 @@ client.once('ready', async () => {
 		const exists = await backend.getGuildOptions(realguild.id)
 
 		if (exists == null) {
-			require("./bot/utility/backend").joinedGuild(realguild)
-			realguild.members.cache.get(realguild.ownerId).send({ content: "Your guild is now in our database."})
+			await require("./bot/utility/backend").joinedGuild(realguild)
+			await realguild.members.cache.get(realguild.ownerId).send({content: "Your guild is now in our database."})
 			console.log("I have found a new guild!")
 		}
 	}
-
-	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
-	/*const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
-	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '895753436941942795', type: 'ROLE', permission: true }]
-	await command1.permissions.add({ permissions });*/
 })
 
 client.on('guildCreate', (guild) => {

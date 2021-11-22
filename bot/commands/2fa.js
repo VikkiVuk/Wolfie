@@ -1,26 +1,28 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const BotModule = require('../utility/BotModule')
+const handler = new BotModule.Users()
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('2fa')
-        .setDescription('I dont actually know i was bored and made a google 2fa ij discord lol'),
+        .setDescription('Used to verify user ownership of the account.'),
 
     async execute(interaction) {
         await interaction.deferReply()
-        const result = await handler.register2FA(interaction.user)
+        const botuser = handler.user(interaction.user.id)
+        const result = await handler.setup2fa(interaction.user)
 
         if (result === "ALREADY_REGISTERED") {
             await interaction.user.send({content: "Send a message with your google auth code to verify yourself." }).then(async() => {
                 interaction.user.createDM(true).then(channel => {
                     channel.awaitMessages({max: 1, time: 30000}).then(async messages => {
                         const message = messages.first()
-                        const verified = await handler.verify2FA(interaction.user, message.content)
+                        const verified = await handler.verify2fa(interaction.user, message.content)
                         if (verified) {
                             await interaction.editReply({ content: `You have successfully verified yourself!` })
                         } else {
-                            const validated = await handler.validate2FA(interaction.user, message.content)
+                            const validated = await handler.validate2fa(interaction.user, message.content)
                             if (validated) {
                                 await interaction.user.send({ content: `Your code was correct.` }).catch(e => {return})
                                 await interaction.editReply({ content: `That code was correct!` })
@@ -37,7 +39,7 @@ module.exports = {
             })
         } else {
             const x = await new MessageAttachment(result.qrcode, "QRCode.png")
-            await interaction.user.send({content: "Scan this QRCode in **Google Authenticator** or **Authy**. \n \n**This message will be deleted in 20 seconds for security reasons.**", files: [x], ephemeral: false, fetchReply: true}).then(async() => {
+            await interaction.user.send({content: "Scan this QRCode in **Google Authenticator** or **Authy**. \n \n**This message will be deleted in 20 seconds due to security reasons.**", files: [x], ephemeral: false, fetchReply: true}).then(async() => {
                 await interaction.editReply({ content: `✅ Check your DMs.`})
                 setTimeout(async () => {
                     await interaction.deleteReply()

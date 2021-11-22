@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 const config = require("../config.json")
 const pagination = require('discordjs-button-pagination')
 

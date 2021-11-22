@@ -1,7 +1,7 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const wait = require('util').promisify(setTimeout);
-const handler = require("../utility/user-handler")
+const handler = require("../utility/BotModule")
 const {randomNumber} = require("../utility/generateRandom");
 const recentlyTalked = []
 

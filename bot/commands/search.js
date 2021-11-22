@@ -1,6 +1,6 @@
 const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 const config = require("../config.json")
 const {randomNumber} = require("../utility/generateRandom");
 const talkedRecently = []

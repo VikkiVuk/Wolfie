@@ -1,6 +1,6 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 const config = require("../config.json")
 
 module.exports = {
@@ -21,11 +21,11 @@ module.exports = {
         const amnt = interaction.options.getInteger("amount")
 
         await handler(interaction.user.id).then(async () => {
-            await handler.changeMoney(interaction.user.id, false, amnt)
+            await handler.modify(interaction.user.id, "money", amnt, "remove")
         })
 
         await handler(user.id).then(async() => {
-            await handler.changeMoney(user.id, true, amnt)
+            await handler.modify(user.id, "money", amnt, "add")
         })
 
         await interaction.reply(`✅ You sent **W$ ${amnt}** to <@${user.id}>.`);

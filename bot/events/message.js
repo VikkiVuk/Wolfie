@@ -1,4 +1,4 @@
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 const nofilterrole = "896730099901169665"
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 
         if (message.channel.type !== 'DM') {
             await handler(message.author.id).then(async result => {
-                await handler.changeXP(message.author.id, true, 1)
+                await handler.modifyXP(message.author.id, true, 1)
                 const xp = await handler(message.author.id).then(result => {
                     return result.xp
                 })
