@@ -1,0 +1,6 @@
+{
+  "files": [
+    "./bot/utility/BotModule.ts",
+    "./bot/utility/UtilityModule.ts"
+  ]
+}

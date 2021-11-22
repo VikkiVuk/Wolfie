@@ -8,18 +8,6 @@ const uuid = require('uuid')
 const config = require('../config.json')
 
 interface UserObject {
-    modify: (key: string, value: any, operation?: string) => Promise<void>,
-    get: (key: string) => Promise<void>,
-    has2fa: () => Promise<boolean>,
-    validate2fa: (token: number) => Promise<boolean>,
-    warn: () => Promise<void>,
-    checkDaily: () => Promise<number>,
-    addItem: (itemname: string, amnt: number) => Promise<void>,
-    removeItem: (itemname: string, amnt: number) => Promise<void>,
-    hasItem: (itemname: string) => Promise<void>
-}
-
-function UserObject(res: any, guildId: any): void {
     /**
      * Modify user's data using key and value pairs. Specify what function you want to do: ADD (+), REMOVE (-), SET (=)
      * @param key - What part of the user's data do you want to change?
@@ -27,16 +15,64 @@ function UserObject(res: any, guildId: any): void {
      * @param operation - What do you want to do with the value?
      * @returns nothing
      */
+    modify: (key: string, value: any, operation?: string) => Promise<void>,
+    /**
+     * Get the user's data
+     * @param key - What value do you want to get?
+     * @returns any - Returns the value
+     */
+    getkey: (key: string) => Promise<void>,
+    /**
+     * Check if the user has 2fa enabled.
+     * @returns boolean
+     */
+    has2fa: () => Promise<boolean>,
+    /**
+     * Validate a users authenticity for more secure interactions.
+     * @param token - The code from the authenticator app
+     * @returns boolean
+     */
+    validate2fa: (token: number) => Promise<boolean>,
+    /**
+     * @deprecated Warn someone for misbehaving in a server or something like that. Warns are per-guild, bots cannot be warned. Warns the user in the guild the user object was requested.
+     */
+    warn: () => Promise<void>,
+    /**
+     * Check how many days have passed since the last time the user has claimed the daily reward.
+     * @returns number - How many days have passed since the last daily reward.
+     */
+    checkDaily: () => Promise<number>,
+    /**
+     * Add an item to a users inventory.
+     * @param itemname - The name of the item
+     * @param amnt - How many do you want to give?
+     */
+    addItem: (itemname: string, amnt: number) => Promise<void>,
+    /**
+     * Remove an item from a users inventory.
+     * @param itemname - The name of the item
+     * @param amnt - How many do you want to remove?
+     */
+    removeItem: (itemname: string, amnt: number) => Promise<void>,
+    /**
+     * Check if a user has a specific item in their inventory. Subject to deprecation.
+     * @param itemname - The name of the item you want to check
+     * @returns boolean - If the item is in the inventory.
+     */
+    findItem: (itemname: string) => Promise<void>
+}
+
+function UserObject(res: any, guildId: any) {
     this.modify = async(key: string, value: any, operation?: string) : Promise<void> => {
-        const updatedresult = await userschema.findOne({ userid: res.userid })
+        const updatedresult = await userschema.findOne({ userid: this.res.userid })
         const obj = JSON.parse(updatedresult.userdata)
         const guildobj = JSON.parse(updatedresult.guilds)
 
         if (key == "warns") {
-            if (guildobj[guildId]["warns"]) {
-                guildobj[guildId]["warns"] += 1
+            if (guildobj[this.guildId]["warns"]) {
+                guildobj[this.guildId]["warns"] += 1
             } else {
-                guildobj[guildId]["warns"] = 1
+                guildobj[this.guildId]["warns"] = 1
             }
         } else if(key == "inventory" || key == "messages") {
             throw new Error("The function user.modify does not support modifying the inventory or the messages. Use users.sendMail and user.addItem/removeItem instead.")
@@ -52,46 +88,32 @@ function UserObject(res: any, guildId: any): void {
             obj["note"] = value
         }
 
-        await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })
-        await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
+        await userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(obj) })
+        await userschema.updateOne({ userid: this.res.userid }, { guilds: JSON.stringify(guildobj) })
     }
 
-    /**
-     * Get the user's data
-     * @param key - What value do you want to get?
-     * @returns any - Returns the value
-     */
-    this.get = async(key: string): Promise<any> => {
-        const updatedresult = await userschema.findOne({ userid: res.userid })
+    this.getkey = async(key: string): Promise<any> => {
+        const updatedresult = await userschema.findOne({ userid: this.res.userid })
         const obj = JSON.parse(updatedresult.userdata)
         const guildobj = JSON.parse(updatedresult.guilds)
 
         if (key == "warns") {
-            return guildobj[guildId]["warns"]
+            return guildobj[this.guildId]["warns"]
         } else {
             return obj[key]
         }
     }
 
-    /**
-     * Check if the user has 2fa enabled.
-     * @returns boolean
-     */
     this.has2fa = async(): Promise<boolean> => {
-        const result = await userschema.findOne({ userid: res.userid })
+        const result = await userschema.findOne({ userid: this.res.userid })
         if (result) {
             return !!result.uuid;
         }
     }
 
-    /**
-     * Validate a users authenticity for more secure interactions.
-     * @param token - The code from the authenticator app
-     * @returns boolean
-     */
     this.validate2fa = async(token: number): Promise<boolean> => {
         try {
-            const uuid = await userschema.findOne({ userid: res.userid }).then(result => { return result.uuid })
+            const uuid = await userschema.findOne({ userid: this.res.userid }).then(result => { return result.uuid })
             const acu = await factorschema.findOne({ id: uuid })
 
             const secret = acu.secret;
@@ -107,31 +129,24 @@ function UserObject(res: any, guildId: any): void {
         }
     }
 
-    /**
-     * @deprecated Warn someone for misbehaving in a server or something like that. Warns are per-guild, bots cannot be warned. Warns the user in the guild the user object was requested.
-     */
     this.warn = async(): Promise<void> => {
-        const result = await userschema.findOne({ userid: res.userid })
+        const result = await userschema.findOne({ userid: this.res.userid })
         if (result) {
-            const updatedresult = await userschema.findOne({ userid: res.userid })
+            const updatedresult = await userschema.findOne({ userid: this.res.userid })
             const guildobj = JSON.parse(updatedresult.guilds)
 
-            if (guildobj[guildId]["warns"]) {
-                guildobj[guildId]["warns"] += 1
+            if (guildobj[this.guildId]["warns"]) {
+                guildobj[this.guildId]["warns"] += 1
             } else {
-                guildobj[guildId]["warns"] = 1
+                guildobj[this.guildId]["warns"] = 1
             }
 
-            await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
+            await userschema.updateOne({ userid: this.res.userid }, { guilds: JSON.stringify(guildobj) })
         }
     }
 
-    /**
-     * Check how many days have passed since the last time the user has claimed the daily reward.
-     * @returns number - How many days have passed since the last daily reward.
-     */
     this.checkDaily = async(): Promise<number> => {
-        const updatedresult = await userschema.findOne({ userid: res.userid })
+        const updatedresult = await userschema.findOne({ userid: this.res.userid })
         if (updatedresult) {
             const obj = JSON.parse(updatedresult.userdata)
             const then = new Date(obj.daily).getTime()
@@ -142,13 +157,8 @@ function UserObject(res: any, guildId: any): void {
         }
     }
 
-    /**
-     * Add an item to a users inventory.
-     * @param itemname - The name of the item
-     * @param amnt - How many do you want to give?
-     */
     this.addItem = async(itemname: string, amnt: number) : Promise<void> => {
-        const updatedresult = await userschema.findOne({ userid: res.userid })
+        const updatedresult = await userschema.findOne({ userid: this.res.userid })
         if (updatedresult) {
             const items = JSON.parse(updatedresult.userdata)
             const hasItem = items["inventory"].includes(itemname)
@@ -159,17 +169,12 @@ function UserObject(res: any, guildId: any): void {
                 items["inventory"][itemname] = amnt
             }
 
-            await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })
+            await userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(items) })
         }
     }
 
-    /**
-     * Remove an item from a users inventory.
-     * @param itemname - The name of the item
-     * @param amnt - How many do you want to remove?
-     */
     this.removeItem = async(itemname: string, amnt: number) => {
-        const result = await userschema.findOne({ userid: res.userid })
+        const result = await userschema.findOne({ userid: this.res.userid })
         if (result) {
             const obj = JSON.parse(result.userdata)
             const hasItem = obj["inventory"].includes(itemname)
@@ -181,31 +186,29 @@ function UserObject(res: any, guildId: any): void {
                     obj["inventory"][itemname] -= amnt
                 }
 
-                await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })
+                await userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(obj) })
             }
         }
     }
 
-    /**
-     * Check if a user has a specific item in their inventory. Subject to deprecation.
-     * @param itemname - The name of the item you want to check
-     */
-    this.hasItem = async(itemname: string) => {
-        const result = await userschema.findOne({ userid: res.userid })
+    this.findItem = async(itemname: string) => {
+        const result = await userschema.findOne({ userid: this.res.userid })
         if (result) {
             return JSON.parse(result.userdata)["inventory"].includes(itemname)
         }
     }
 }
 
-function UserModule() {
+export class UserModule {
+    constructor() {
+    }
     /**
      * Get a user that you can do functions on
      * @param userid - The id of the user you want to get
      * @param guildid - The guild id, used for warning and other guild-side stuff.
      * @returns UserObject - A user object that you can do functions on.
      */
-    this.user = async (userid: string, guildid: string): Promise<UserObject> => {
+    public getUser = async (userid: string, guildid?: string): Promise<UserObject> => {
         const result = await userschema.findOne({ userid: userid })
         if (result) {
             return new UserObject(result, guildid)
@@ -217,8 +220,9 @@ function UserModule() {
     /**
      * Get a user 2FA Auth qr code that they need to scan and register them. Use verify2FA to verify the user and complete the 2FA Setup.
      * @param user - A discord user, not an id, a whole user.
+     * @returns any - It can return the user object with the qr code needed to be scanned, or it can return the error.
      */
-    this.setup2fa = async(user: any) => {
+    public setup2fa = async(user: any) => {
         const aa = await userschema.findOne({userid: user.id})
         if (aa.uuid === "" || !aa.uuid) {
             const id = uuid.v4();
@@ -262,8 +266,9 @@ function UserModule() {
      * Complete the 2fa setup with this
      * @param user - A discord user
      * @param token - The code
+     * @returns boolean - Returns if the user is verified now or not
      */
-    this.verify2fa = async(user: any, token: number) => {
+    public verify2fa = async(user: any, token: number) => {
         try {
             const uuid = await userschema.findOne({ userid: user.id }).then(result => { return result.uuid })
             const acu = await factorschema.findOne({ id: uuid })
@@ -291,8 +296,9 @@ function UserModule() {
      * @param receiver - The id of the message receiver
      * @param sender - The id of the message sender
      * @param message - The message content
+     * @returns null
      */
-    this.sendMail = async(receiver: number, sender: number, message: string) => {
+    public sendMail = async(receiver: number, sender: number, message: string) => {
         const result = await userschema.findOne({ userid: receiver })
 
         if (result) {
@@ -305,31 +311,35 @@ function UserModule() {
     }
 }
 
-function GuildConfigurations() {
+export class GuildConfigurations {
     /**
-     * Get the guild configuration
-     * @param guildId - The id of the guild you want the configuration
+     * Get the guild configuration in a javascript array
+     * @param guildId - The id of the guild you want to get the configuration of
+     * @returns configuration - The guild config
      */
-    this.configuration = async(guildId: string) => {
+    public configuration = async(guildId: string) => {
         const result = await guildschema.findOne({ guildId: guildId })
         if (result) { return JSON.parse(result.config) }
     }
 
     /**
-     * @deprecated Currently does nothing.
-     * @param guildId
-     * @param name
-     * @param value
+     * @deprecated Modify the guild data. (currently doesnt work)
+     * @param guildId - The id of the guild you want to modify
+     * @param name - The name of the key you want to modify
+     * @param value - The value you want to set the key
+     * @returns null
      */
-    this.modify = async(guildId: string, name: string, value: any) => {
+    public modify = async(guildId: string, name: string, value: any) => {
         // for now this is nothing.
     }
 
     /**
-     * Get all the guild items from the specified guild, sends the default items too
+     * Get the items from a guild, this will return all custom items added to the guild along with the default ones.
      * @param guildId - The id of the guild you want to get the items from
+     * @constructor
+     * @returns object - The guild items in a javascript object.
      */
-    this.GetGuildItems = async(guildId: string) => {
+    public GetGuildItems = async(guildId: string) => {
         const result = await guildschema.findOne({ guildId: guildId })
         if (result) {
             return {
@@ -342,13 +352,14 @@ function GuildConfigurations() {
     }
 
     /**
-     * Create a custom guild item in a specified guild.
-     * @param guildId
-     * @param itemname
-     * @param itemcost
+     * Create a custom guild item.
+     * @param guildId - The id of the guild you want to create the item in
+     * @param itemname - Item name
+     * @param itemcost - Item price
      * @constructor
+     * @returns array - Either returns an array or an object, if success: Object, if error: []
      */
-    this.CreateGuildItem = async(guildId: string, itemname: string, itemcost: number) => {
+    public CreateGuildItem = async(guildId: string, itemname: string, itemcost: number) => {
         const result = await guildschema.findOne()
         if (result.customitems) {
             const jsonobj = JSON.parse(result.customitems)
@@ -361,6 +372,3 @@ function GuildConfigurations() {
         }
     }
 }
-
-module.exports.Users = UserModule;
-module.exports.GuildConfig = GuildConfigurations;
