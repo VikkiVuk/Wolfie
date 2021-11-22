@@ -163,12 +163,25 @@ function UserObject(res: any, guildId: any) {
         const updatedresult = await userschema.findOne({ userid: res.userid })
         if (updatedresult) {
             const items = JSON.parse(updatedresult.userdata)
-            const hasItem = items["inventory"].includes(itemname)
+
+            let hasItem = false
+            for (const item of items.inventory) {
+                if (item["name"] == itemname) {
+                    hasItem = true
+                }
+            }
 
             if (hasItem) {
-                items["inventory"][itemname] += amnt
+                for (const item of items.inventory) {
+                    if (item["name"] == itemname) {
+                        item["amount"] += 1
+                    }
+                }
             } else {
-                items["inventory"][itemname] = amnt
+                items.inventory.push({
+                    name: itemname,
+                    amount: amnt
+                })
             }
 
             await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })
@@ -196,7 +209,16 @@ function UserObject(res: any, guildId: any) {
     this.findItem = async(itemname: string) => {
         const result = await userschema.findOne({ userid: res.userid })
         if (result) {
-            return JSON.parse(result.userdata)["inventory"].includes(itemname)
+            const items = JSON.parse(result.userdata)
+
+            let hasItem = false
+            for (const item of items.inventory) {
+                if (item["name"] == itemname) {
+                    hasItem = true
+                }
+            }
+
+            return hasItem
         }
     }
 }

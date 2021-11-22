@@ -210,25 +210,39 @@ function UserObject(res, guildId) {
         });
     }); };
     this.addItem = function (itemname, amnt) { return __awaiter(_this, void 0, void 0, function () {
-        var updatedresult, items, hasItem;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var updatedresult, items, hasItem, _i, _a, item, _b, _c, item;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
-                    updatedresult = _a.sent();
+                    updatedresult = _d.sent();
                     if (!updatedresult) return [3 /*break*/, 3];
                     items = JSON.parse(updatedresult.userdata);
-                    hasItem = items["inventory"].includes(itemname);
+                    hasItem = false;
+                    for (_i = 0, _a = items.inventory; _i < _a.length; _i++) {
+                        item = _a[_i];
+                        if (item["name"] == itemname) {
+                            hasItem = true;
+                        }
+                    }
                     if (hasItem) {
-                        items["inventory"][itemname] += amnt;
+                        for (_b = 0, _c = items.inventory; _b < _c.length; _b++) {
+                            item = _c[_b];
+                            if (item["name"] == itemname) {
+                                item["amount"] += 1;
+                            }
+                        }
                     }
                     else {
-                        items["inventory"][itemname] = amnt;
+                        items.inventory.push({
+                            name: itemname,
+                            amount: amnt
+                        });
                     }
                     return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })];
                 case 2:
-                    _a.sent();
-                    _a.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3: return [2 /*return*/];
             }
         });
@@ -259,14 +273,22 @@ function UserObject(res, guildId) {
         });
     }); };
     this.findItem = function (itemname) { return __awaiter(_this, void 0, void 0, function () {
-        var result;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var result, items, hasItem, _i, _a, item;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
-                    result = _a.sent();
+                    result = _b.sent();
                     if (result) {
-                        return [2 /*return*/, JSON.parse(result.userdata)["inventory"].includes(itemname)];
+                        items = JSON.parse(result.userdata);
+                        hasItem = false;
+                        for (_i = 0, _a = items.inventory; _i < _a.length; _i++) {
+                            item = _a[_i];
+                            if (item["name"] == itemname) {
+                                hasItem = true;
+                            }
+                        }
+                        return [2 /*return*/, hasItem];
                     }
                     return [2 /*return*/];
             }

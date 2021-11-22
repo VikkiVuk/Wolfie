@@ -86,14 +86,14 @@ client.on('interactionCreate', async (interaction) => {
 		if (!command) return;
 		try { await command.execute(interaction, client); } catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
+			await interaction.reply({ content: 'An error has occured, the developer of the bot has been sent more info.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
 		}
 	} else if (interaction.isContextMenu()) {
 		const ctxmenu = client.ctxmenus.get(interaction.commandName);
 		if (!ctxmenu) return;
 		try { await ctxmenu.execute(interaction, client); } catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
+			await interaction.reply({ content: 'An error has occured, the developer of the bot has been sent more info.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
 		}
 	}
 });

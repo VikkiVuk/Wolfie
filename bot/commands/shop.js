@@ -2,6 +2,7 @@ const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu, Mes
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const BotModule = require("../utility/BotModule")
 const handler = new BotModule.UserModule()
+const confighand = new BotModule.GuildConfigurations()
 const config = require("../config.json")
 const pagination = require('discordjs-button-pagination')
 
@@ -11,7 +12,7 @@ module.exports = {
         .setDescription('wolfie walmart.'),
 
     async execute(interaction) {
-        const jsonitems = await handler.getShopItems(interaction.guild.id)
+        const jsonitems = await confighand.GetGuildItems(`${interaction.guild.id}`)
         const items = Object.entries(jsonitems)
         let options = []
         let embedsArray = []
@@ -60,11 +61,12 @@ module.exports = {
                     const cost = item[1]
 
                     if (name === selected.values[0]) {
-                        const usercoins = await handler.user(interaction.user.id).then(result => { return result.money })
+                        const intuser = await handler.getUser(`${interaction.user.id}`)
+                        const usercoins = await intuser.getkey("money")
 
                         if (usercoins >= cost) {
-                            await handler.modify(interaction.user.id, false, cost)
-                            await handler.addItem(interaction.user.id, 1, selected.values[0])
+                            await intuser.modify("money", cost, "REMOVE")
+                            await intuser.addItem(selected.values[0], 1)
 
                             await selected.update({content: `<@${interaction.user.id}> you bought the item **${selected.values[0]}** for **W$ ${cost}**.`, components: []})
                         } else {

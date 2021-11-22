@@ -20,9 +20,8 @@ module.exports = {
             temporary = items.slice(i, i + chunk);
             const newEmbed = new MessageEmbed().setTitle("Your Inventory").setDescription("Down below are the items you have, to use them type `/use` and to buy more items type `/shop`.").setColor("DARK_GREEN").setTimestamp().setFooter(config.defaultFooter)
             for (const item of temporary) {
-                const itemparts = item.split(":")
-                const itemname = itemparts[0]
-                const itemamnt = itemparts[1]
+                const itemname = item["name"]
+                const itemamnt = item["amount"]
 
                 newEmbed.addField(itemname, `<:reply:884528743673135144> You have **${itemamnt}** of this item.`)
             }

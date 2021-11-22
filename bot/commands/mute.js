@@ -23,9 +23,8 @@ module.exports = {
                            await interaction.reply({ content: `The user <@${member.user.id}> is already muted.` })
                        } else {
                            await member.roles.add(member.guild.roles.cache.get(config.mutedrole))
-                           await member.roles.remove(member.guild.roles.cache.get(config.mutedrole))
 
-                           await interaction.reply({ content: `The user <@${member.user.id}> is no longer muted.` })
+                           await interaction.reply({ content: `The user <@${member.user.id}> is now muted.` })
                        }
                     } else {
                        await interaction.reply({ content: `You haven't set up the muted role yet. Please go to the dashboard to do so.` })
