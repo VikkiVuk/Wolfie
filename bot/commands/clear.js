@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const configHand = undefined
+const botmodule = require("../utility/BotModule")
+const configHand = new botmodule.GuildConfigurations()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +11,7 @@ module.exports = {
 
     async execute(interaction) {
         if (interaction.inGuild()) {
-            const config = await configHand.getGuildConfig(interaction.guild.id)
+            const config = await configHand.configuration(`${interaction.guild.id}`)
 
             const numberof = interaction.options.getInteger("amount")
             let n

@@ -1,6 +1,7 @@
 const { MessageEmbed,MessageAttachment, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/BotModule')
+const botmodule = require('../utility/BotModule')
+const handler = new botmodule.UserModule()
 const config = require("../config.json")
 const pagination = require('discordjs-button-pagination')
 
@@ -10,9 +11,8 @@ module.exports = {
         .setDescription('See what have you earned on this bot.'),
 
     async execute(interaction) {
-        await handler(interaction.user.id)
-
-        const items = await handler.checkItems(interaction.user.id)
+        const intuser = await handler.getUser(`${interaction.user.id}`)
+        const items = await intuser.getkey("inventory")
         const embedsArray = []
 
         var i,j, temporary, chunk = 4;

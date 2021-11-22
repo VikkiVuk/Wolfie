@@ -1,7 +1,8 @@
 const { MessageEmbed,MessageAttachment,Permissions } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const guildSchema = require("../utility/schemas/guild-schema")
-const configHand = undefined
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
 const wait = require("util").promisify(setTimeout)
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
             const chnl = interaction.channel
             const subcommand = interaction.options.getSubcommand()
 
-            const config = await configHand.getGuildConfig(interaction.guild.id)
+            const config = await configHand.configuration(`${interaction.guild.id}`)
 
             if (config.lockrole) {
                 if (subcommand === "lock") {

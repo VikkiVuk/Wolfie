@@ -3,8 +3,9 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
 const talkedRecently = []
 const wait = require('util').promisify(setTimeout);
-const handler = require("../utility/BotModule")
+const botmodule = require("../utility/BotModule")
 const {randomNumber} = require("../utility/generateRandom");
+const handler = new botmodule.UserModule()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,6 +17,7 @@ module.exports = {
             await interaction.reply({ content: `Ayo chill out chilly willy, you have a cooldown.`})
         } else {
             const user = interaction.options.getUser('target')
+            const intuser = await handler.getUser(`${interaction.user.id}`)
 
             if (user.id === interaction.user.id) {
                 await interaction.reply({content: `The heck? You cant hack yourself, you already know your password lol`})
@@ -36,7 +38,7 @@ module.exports = {
 
             const response = responses[Math.floor(Math.random() * responses.length)];
             await interaction.editReply({embeds: [response]})
-            if (response === responses[0]) { await handler().then(async() => { await handler.changeMoney(interaction.user.id, true, await randomNumber(100, 1000)) }) }
+            if (response === responses[0]) { await intuser.modify("money", await randomNumber(100, 1000), "ADD") }
 
             await wait(20000)
             const index = talkedRecently.indexOf(interaction.user.id)

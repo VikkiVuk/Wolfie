@@ -1,7 +1,8 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
-const handler = require('../utility/BotModule')
+const BotModule = require('../utility/BotModule')
+const handler = new BotModule.UserModule()
 const talkedRecently = []
 
 module.exports = {
@@ -14,8 +15,9 @@ module.exports = {
       interaction.reply({ content: `chill out there bruh, wait for the cooldown to end.`})
     } else {
       const randomNum = Math.floor(Math.random() * 250)
+      const intuser = await handler.getUser(interaction.user.id)
+      await intuser.modify("money", randomNum, "ADD")
 
-      await handler(interaction.user.id).then(async () => { await handler.changeMoney(interaction.user.id, true, randomNum) })
 
       const embed = new MessageEmbed()
           .setTitle('BEGGING')

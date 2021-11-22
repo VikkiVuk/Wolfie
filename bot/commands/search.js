@@ -43,6 +43,7 @@ module.exports = {
                         talkedRecently.splice(index)
                     }, 20000);
                 }).catch(async (err) => {
+                    console.log(err)
                     await interaction.editReply({ content: `time ran out.`, components: [] })
                 })
             })

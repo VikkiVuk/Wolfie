@@ -1,7 +1,9 @@
 const { MessageEmbed,MessageAttachment, Permissions} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
-const configHand = undefined
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +13,7 @@ module.exports = {
 
     async execute(interaction) {
         if (interaction.inGuild()) {
-            const config = await configHand.getGuildConfig(interaction.guild.id)
+            const config = await configHand.configuration(`${interaction.guild.id}`)
             const member = interaction.options.getMember('user')
 
             if (config.botmasters) {

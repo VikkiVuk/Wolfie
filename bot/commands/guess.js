@@ -1,7 +1,8 @@
 const { MessageEmbed, MessageAttachment, MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const random = require("../utility/generateRandom")
-const handler = require('../utility/BotModule')
+const botmodule = require('../utility/BotModule')
+const handler = new botmodule.UserModule()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,6 +11,7 @@ module.exports = {
 
     async execute(interaction) {
         let options = []
+        const intuser = await handler.getUser(`${interaction.user.id}`)
 
         for (i=1; i<=10; i++) {
             options.push({label: `${i}`, description: null, value: `${i}`})
@@ -26,8 +28,8 @@ module.exports = {
                     const broj = selected.values[0]
                     const randomNumber = await random.randomNumber(1, 10)
 
-                    if (randomNumber == broj) {
-                        await handler(interaction.user.id).then(async() => { await handler.changeMoney(interaction.user.id, true, (randomNumber * 10) + 20000) })
+                    if (+randomNumber === +broj) {
+                        await intuser.modify("money", (randomNumber * 10) + 20000, "ADD")
                         await interaction.editReply({ content: `CONGRATS! You guessed the number i was thinking of. You got **W$ ${(randomNumber * 10) + 20000}**`, components: [] })
                     } else {
                         await interaction.editReply({ content: `You didnt guess the number... the number was **${randomNumber}**. better luck next time.`, components: [] })

@@ -64,7 +64,7 @@ interface UserObject {
 
 function UserObject(res: any, guildId: any) {
     this.modify = async(key: string, value: any, operation?: string) : Promise<void> => {
-        const updatedresult = await userschema.findOne({ userid: this.res.userid })
+        const updatedresult = await userschema.findOne({ userid: res.userid })
         const obj = JSON.parse(updatedresult.userdata)
         const guildobj = JSON.parse(updatedresult.guilds)
 
@@ -86,26 +86,28 @@ function UserObject(res: any, guildId: any) {
             }
         } else if (key == "note") {
             obj["note"] = value
+        } else if (key == "daily") {
+            obj["daily"] = value
         }
 
-        await userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(obj) })
-        await userschema.updateOne({ userid: this.res.userid }, { guilds: JSON.stringify(guildobj) })
+        await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })
+        await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
     }
 
     this.getkey = async(key: string): Promise<any> => {
-        const updatedresult = await userschema.findOne({ userid: this.res.userid })
+        const updatedresult = await userschema.findOne({ userid: res.userid })
         const obj = JSON.parse(updatedresult.userdata)
         const guildobj = JSON.parse(updatedresult.guilds)
 
         if (key == "warns") {
-            return guildobj[this.guildId]["warns"]
+            return guildobj[guildId]["warns"]
         } else {
             return obj[key]
         }
     }
 
     this.has2fa = async(): Promise<boolean> => {
-        const result = await userschema.findOne({ userid: this.res.userid })
+        const result = await userschema.findOne({ userid: res.userid })
         if (result) {
             return !!result.uuid;
         }
@@ -113,7 +115,7 @@ function UserObject(res: any, guildId: any) {
 
     this.validate2fa = async(token: number): Promise<boolean> => {
         try {
-            const uuid = await userschema.findOne({ userid: this.res.userid }).then(result => { return result.uuid })
+            const uuid = await userschema.findOne({ userid: res.userid }).then(result => { return result.uuid })
             const acu = await factorschema.findOne({ id: uuid })
 
             const secret = acu.secret;
@@ -130,9 +132,9 @@ function UserObject(res: any, guildId: any) {
     }
 
     this.warn = async(): Promise<void> => {
-        const result = await userschema.findOne({ userid: this.res.userid })
+        const result = await userschema.findOne({ userid: res.userid })
         if (result) {
-            const updatedresult = await userschema.findOne({ userid: this.res.userid })
+            const updatedresult = await userschema.findOne({ userid: res.userid })
             const guildobj = JSON.parse(updatedresult.guilds)
 
             if (guildobj[this.guildId]["warns"]) {
@@ -141,12 +143,12 @@ function UserObject(res: any, guildId: any) {
                 guildobj[this.guildId]["warns"] = 1
             }
 
-            await userschema.updateOne({ userid: this.res.userid }, { guilds: JSON.stringify(guildobj) })
+            await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
         }
     }
 
     this.checkDaily = async(): Promise<number> => {
-        const updatedresult = await userschema.findOne({ userid: this.res.userid })
+        const updatedresult = await userschema.findOne({ userid: res.userid })
         if (updatedresult) {
             const obj = JSON.parse(updatedresult.userdata)
             const then = new Date(obj.daily).getTime()
@@ -158,7 +160,7 @@ function UserObject(res: any, guildId: any) {
     }
 
     this.addItem = async(itemname: string, amnt: number) : Promise<void> => {
-        const updatedresult = await userschema.findOne({ userid: this.res.userid })
+        const updatedresult = await userschema.findOne({ userid: res.userid })
         if (updatedresult) {
             const items = JSON.parse(updatedresult.userdata)
             const hasItem = items["inventory"].includes(itemname)
@@ -169,12 +171,12 @@ function UserObject(res: any, guildId: any) {
                 items["inventory"][itemname] = amnt
             }
 
-            await userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(items) })
+            await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })
         }
     }
 
     this.removeItem = async(itemname: string, amnt: number) => {
-        const result = await userschema.findOne({ userid: this.res.userid })
+        const result = await userschema.findOne({ userid: res.userid })
         if (result) {
             const obj = JSON.parse(result.userdata)
             const hasItem = obj["inventory"].includes(itemname)
@@ -186,13 +188,13 @@ function UserObject(res: any, guildId: any) {
                     obj["inventory"][itemname] -= amnt
                 }
 
-                await userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(obj) })
+                await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })
             }
         }
     }
 
     this.findItem = async(itemname: string) => {
-        const result = await userschema.findOne({ userid: this.res.userid })
+        const result = await userschema.findOne({ userid: res.userid })
         if (result) {
             return JSON.parse(result.userdata)["inventory"].includes(itemname)
         }

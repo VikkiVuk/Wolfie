@@ -1,8 +1,8 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const BotModule = require("../utility/BotModule")
-const guildconfig = new BotModule.GuildConfig()
-const handler = new BotModule.Users()
+const guildconfig = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,14 +13,14 @@ module.exports = {
 
     async execute(interaction) {
         if (interaction.inGuild()) {
-            const config = await guildconfig.config(interaction.guild.id)
+            const config = await guildconfig.configuration(`${interaction.guild.id}`)
 
             if (config.botmasters) {
                 if (interaction.member.roles.cache.some(r => config.botmasters.indexOf(r.id) >= 0) || interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
                     const itemname = interaction.options.getString("item-name")
                     const itemcost = interaction.options.getInteger("price")
 
-                    await handler.CreateGuildItem(interaction.guild.id, itemname, itemcost)
+                    await guildconfig.CreateGuildItem(interaction.guild.id, itemname, itemcost)
                     await interaction.reply({content: `You have successfully added the item **${itemname}** which is worth **W$ ${itemcost}**.`})
                 } else {
                     await interaction.reply({ content: "Sorry you do not have the sufficient permissions to do this." })
@@ -30,7 +30,7 @@ module.exports = {
                     const itemname = interaction.options.getString("item-name")
                     const itemcost = interaction.options.getInteger("price")
 
-                    await handler.CreateGuildItem(interaction.guild.id, itemname, itemcost)
+                    await guildconfig.CreateGuildItem(interaction.guild.id, itemname, itemcost)
                     await interaction.reply({content: `You have successfully added the item **${itemname}** which is worth **W$ ${itemcost}**.`})
                 } else {
                     await interaction.reply({ content: "Sorry you do not have the sufficient permissions to do this." })

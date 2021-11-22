@@ -1,8 +1,8 @@
 const { MessageEmbed, MessageAttachment, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const BotModule = require("../utility/BotModule")
-const configHand = new BotModule.GuildConfig()
-const handler = new BotModule.Users()
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,18 +12,19 @@ module.exports = {
 
     async execute(interaction) {
         if (interaction.inGuild()) {
-            const config = await configHand.getGuildConfig(interaction.guild.id)
+            const config = await configHand.configuration(interaction.guild.id)
+            const intuser = await handler.getUser(`${interaction.user.id}`)
 
             if (config.botmasters) {
                 if (interaction.member.roles.cache.some(r => config.botmasters.indexOf(r.id) >= 0) || interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
                     await interaction.deferReply()
-                    const auth = await handler.has2FA(interaction.user)
+                    const auth = (await intuser).has2fa()
                     if (auth) {
                         await interaction.user.send({content: "Send a message with your code from google auth to ban this person." }).then(async() => {
                             interaction.user.createDM(true).then(channel => {
                                 channel.awaitMessages({max: 1, time: 30000}).then(async messages => {
                                     const message = messages.first()
-                                    const validated = await handler.validate2FA(interaction.user, message.content)
+                                    const validated = await intuser.validate2fa(message.content)
                                     if (validated) {
                                         await interaction.user.send({ content: `You have successfully verified yourself, please return to the server to continue.` }).catch(e => {return})
                                         const user = interaction.options.getMember('user')
@@ -72,13 +73,13 @@ module.exports = {
             } else {
                 if (interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
                     await interaction.deferReply()
-                    const auth = await handler.has2FA(interaction.user)
+                    const auth = (await intuser).has2fa()
                     if (auth) {
                         await interaction.user.send({content: "Send a message with your code from google auth to ban this person." }).then(async() => {
                             interaction.user.createDM(true).then(channel => {
                                 channel.awaitMessages({max: 1, time: 30000}).then(async messages => {
                                     const message = messages.first()
-                                    const validated = await handler.validate2FA(interaction.user, message.content)
+                                    const validated = await intuser.validate2fa(interaction.user, message.content)
                                     if (validated) {
                                         await interaction.user.send({ content: `You have successfully verified yourself, please return to the server to continue.` }).catch(e => {return})
                                         const user = interaction.options.getMember('user')

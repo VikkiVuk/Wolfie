@@ -1,6 +1,8 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/BotModule')
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 const config = require("../config.json")
 
 module.exports = {

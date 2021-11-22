@@ -52,12 +52,6 @@ tempchnls.registerChannel("888127847414243349", {
 
 client.once('ready', async () => {
     console.log(">>> Bot is online.")
-	const a = new BotModule.GuildConfigurations()
-	const handl = new BotModule.UserModule()
-	const user = await handl.getUser("750725036096094208")
-	console.log(user)
-	const returned = await user.checkDaily()
-	console.log(returned)
 
 	await require("./bot/utility/advanced-polls")(client)
 	await require("./bot/utility/self-role")(client)

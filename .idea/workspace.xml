@@ -5,12 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bot/utility/Plugins.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bot/utility/UtilityModule.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bot/commands/scam.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/commands/2fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/2fa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/add-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/add-item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/balance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/ban.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/ban.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/beg.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/beg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/channel.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/channel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/clear.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/clear.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/daily.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/daily.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/guess.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/guess.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/hack.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/hack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/kick.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/kick.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/messages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/mute.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/mute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/note.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/note.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/pay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/set-note.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/set-note.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/skemuj.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
@@ -51,7 +67,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="discord-application" />
     <property name="ts.external.directory.path" value="C:\Users\VikkiVuk\AppData\Roaming\npm\node_modules\typescript\lib" />
   </component>
   <component name="RunManager" selected="Node.js.index.js">
@@ -80,7 +96,8 @@
       <workItem from="1637428480513" duration="7639000" />
       <workItem from="1637442202077" duration="6313000" />
       <workItem from="1637495352768" duration="23920000" />
-      <workItem from="1637581035302" duration="5718000" />
+      <workItem from="1637581035302" duration="10599000" />
+      <workItem from="1637598931785" duration="2331000" />
     </task>
     <servers />
   </component>

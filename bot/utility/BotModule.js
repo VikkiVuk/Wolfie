@@ -62,7 +62,7 @@ function UserObject(res, guildId) {
         var updatedresult, obj, guildobj;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     updatedresult = _a.sent();
                     obj = JSON.parse(updatedresult.userdata);
@@ -92,10 +92,13 @@ function UserObject(res, guildId) {
                     else if (key == "note") {
                         obj["note"] = value;
                     }
-                    return [4 /*yield*/, userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(obj) })];
+                    else if (key == "daily") {
+                        obj["daily"] = value;
+                    }
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, userschema.updateOne({ userid: this.res.userid }, { guilds: JSON.stringify(guildobj) })];
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })];
                 case 3:
                     _a.sent();
                     return [2 /*return*/];
@@ -106,13 +109,13 @@ function UserObject(res, guildId) {
         var updatedresult, obj, guildobj;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     updatedresult = _a.sent();
                     obj = JSON.parse(updatedresult.userdata);
                     guildobj = JSON.parse(updatedresult.guilds);
                     if (key == "warns") {
-                        return [2 /*return*/, guildobj[this.guildId]["warns"]];
+                        return [2 /*return*/, guildobj[guildId]["warns"]];
                     }
                     else {
                         return [2 /*return*/, obj[key]];
@@ -125,7 +128,7 @@ function UserObject(res, guildId) {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     result = _a.sent();
                     if (result) {
@@ -141,7 +144,7 @@ function UserObject(res, guildId) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, userschema.findOne({ userid: this.res.userid }).then(function (result) { return result.uuid; })];
+                    return [4 /*yield*/, userschema.findOne({ userid: res.userid }).then(function (result) { return result.uuid; })];
                 case 1:
                     uuid_1 = _a.sent();
                     return [4 /*yield*/, factorschema.findOne({ id: uuid_1 })];
@@ -166,11 +169,11 @@ function UserObject(res, guildId) {
         var result, updatedresult, guildobj;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     result = _a.sent();
                     if (!result) return [3 /*break*/, 4];
-                    return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                    return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 2:
                     updatedresult = _a.sent();
                     guildobj = JSON.parse(updatedresult.guilds);
@@ -180,7 +183,7 @@ function UserObject(res, guildId) {
                     else {
                         guildobj[this.guildId]["warns"] = 1;
                     }
-                    return [4 /*yield*/, userschema.updateOne({ userid: this.res.userid }, { guilds: JSON.stringify(guildobj) })];
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })];
                 case 3:
                     _a.sent();
                     _a.label = 4;
@@ -192,7 +195,7 @@ function UserObject(res, guildId) {
         var updatedresult, obj, then, now, diffTime;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     updatedresult = _a.sent();
                     if (updatedresult) {
@@ -210,7 +213,7 @@ function UserObject(res, guildId) {
         var updatedresult, items, hasItem;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     updatedresult = _a.sent();
                     if (!updatedresult) return [3 /*break*/, 3];
@@ -222,7 +225,7 @@ function UserObject(res, guildId) {
                     else {
                         items["inventory"][itemname] = amnt;
                     }
-                    return [4 /*yield*/, userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(items) })];
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })];
                 case 2:
                     _a.sent();
                     _a.label = 3;
@@ -234,7 +237,7 @@ function UserObject(res, guildId) {
         var result, obj, hasItem;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     result = _a.sent();
                     if (!result) return [3 /*break*/, 3];
@@ -247,7 +250,7 @@ function UserObject(res, guildId) {
                     else {
                         obj["inventory"][itemname] -= amnt;
                     }
-                    return [4 /*yield*/, userschema.updateOne({ userid: this.res.userid }, { userdata: JSON.stringify(obj) })];
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })];
                 case 2:
                     _a.sent();
                     _a.label = 3;
@@ -259,7 +262,7 @@ function UserObject(res, guildId) {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: this.res.userid })];
+                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
                     result = _a.sent();
                     if (result) {
