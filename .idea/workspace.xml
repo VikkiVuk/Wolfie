@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/use.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/use.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/events/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/events/goodbye.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/goodbye.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/events/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/welcome.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +77,7 @@
       <workItem from="1637495352768" duration="23920000" />
       <workItem from="1637581035302" duration="10599000" />
       <workItem from="1637598931785" duration="6694000" />
-      <workItem from="1637672262168" duration="3005000" />
+      <workItem from="1637672262168" duration="4129000" />
     </task>
     <servers />
   </component>
