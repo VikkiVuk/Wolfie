@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/events/goodbye.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/goodbye.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/events/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/backend.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +45,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="discord-application" />
-    <property name="ts.external.directory.path" value="C:\Users\VikkiVuk\AppData\Roaming\npm\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RunManager" selected="Node.js.index.js">
     <configuration default="true" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/index.js">
@@ -77,19 +75,12 @@
       <workItem from="1637495352768" duration="23920000" />
       <workItem from="1637581035302" duration="10599000" />
       <workItem from="1637598931785" duration="6694000" />
-      <workItem from="1637672262168" duration="4129000" />
+      <workItem from="1637672262168" duration="4701000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/bot/utility/BotModule.js" />
-        <option value="$PROJECT_DIR$/bot/utility/UtilityModule.js" />
-        <option value="$PROJECT_DIR$/bot/utility/Plugins.js" />
-      </list>
-    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

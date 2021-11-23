@@ -1,6 +1,8 @@
 const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/BotModule')
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 const config = require("../config.json")
 const {randomNumber} = require("../utility/generateRandom");
 const talkedRecently = []
@@ -30,9 +32,8 @@ module.exports = {
             interaction.fetchReply().then(reply => {
                 reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 20000 }).then(async button => {
                     const received = await randomNumber(100, 3000)
-                    await handler(interaction.user.id).then(async () => {
-                        await handler.changeMoney(interaction.user.id, true, received)
-                    })
+                    const intuser = await handler.getUser(`${interaction.user.id}`)
+                    await intuser.modify("money", received, "ADD")
 
                     const embed = new MessageEmbed().setTitle(`${interaction.user.username} searched ${button.customId}`).setDescription(`You searched ${button.customId}. You found **W$ ${received}**`).setTimestamp().setFooter(config.defaultFooter).setColor("GREEN")
                     await interaction.editReply({ content: null, embeds: [embed], components: [] })
