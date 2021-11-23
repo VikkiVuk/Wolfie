@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const profileSchema = new mongoose.Schema({
     guildId: String,
-    config: Array,
+    config: String,
+    customitems: String,
     commandsOn: Array,
     commandOptions: Array
 })

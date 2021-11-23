@@ -1,14 +1,19 @@
 const { MessageEmbed,MessageAttachment, MessageActionRow, MessageButton } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dashboard')
-        .setDescription('A ✨ Dashboard ✨, where you can configure me.'),
+        .setDescription('A ✨ Dashboard ✨, where you can configure me, you can also use /setup'),
 
     async execute(interaction) {
-        const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("http://wolfie.vikkivuk.xyz/main/dashboard?guildId=" + interaction.guild.id))
-        await interaction.reply({ content: "Here's the dashboard!", components: [row] })
+        if (interaction.inGuild()) {
+            const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("http://wolfie.vikkivuk.xyz/main/dashboard?guildId=" + interaction.guild.id + "&source=guild"))
+            await interaction.reply({ content: "Here's the dashboard!", components: [row] })
+        } else {
+            const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("http://wolfie.vikkivuk.xyz/main/dashboard?source=dms"))
+            await interaction.reply({ content: "Here's the dashboard!", components: [row] })
+        }
     }
 }

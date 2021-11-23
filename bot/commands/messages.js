@@ -1,6 +1,8 @@
 const { MessageEmbed,MessageAttachment, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 const config = require("../config.json")
 const pagination = require('discordjs-button-pagination')
 
@@ -10,9 +12,9 @@ module.exports = {
         .setDescription('check your message inbox.'),
 
     async execute(interaction) {
-        await handler(interaction.user.id)
+        const intuser = await handler.getUser(`${interaction.user.id}`)
 
-        const items = await handler.checkMessages(interaction.user.id)
+        const items = await intuser.getkey("messages")
         const embedsArray = []
 
         var i,j, temporary, chunk = 5;

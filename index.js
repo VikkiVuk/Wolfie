@@ -1,3 +1,4 @@
+const BotModule = require("./bot/utility/BotModule")
 require("./web/strategies/discord")
 require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
 const { Client, Collection } = require('discord.js');
@@ -65,16 +66,11 @@ client.once('ready', async () => {
 		const exists = await backend.getGuildOptions(realguild.id)
 
 		if (exists == null) {
-			require("./bot/utility/backend").joinedGuild(realguild)
-			realguild.members.cache.get(realguild.ownerId).send({ content: "Your guild is now in our database."})
+			await require("./bot/utility/backend").joinedGuild(realguild)
+			await realguild.members.cache.get(realguild.ownerId).send({content: "Your guild is now in our database."})
 			console.log("I have found a new guild!")
 		}
 	}
-
-	//------------------------------------------------------------------------------------------------------------------------------------------------------------------\\
-	/*const command1 = await client.guilds.cache.get('878606227045756948').commands.fetch('896024079499427890');
-	const permissions = [{ id: '878606227045756948', type: 'ROLE', permission: false }, { id: '895753436941942795', type: 'ROLE', permission: true }]
-	await command1.permissions.add({ permissions });*/
 })
 
 client.on('guildCreate', (guild) => {
@@ -90,14 +86,14 @@ client.on('interactionCreate', async (interaction) => {
 		if (!command) return;
 		try { await command.execute(interaction, client); } catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
+			await interaction.reply({ content: 'An error has occured, the developer of the bot has been sent more info.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
 		}
 	} else if (interaction.isContextMenu()) {
 		const ctxmenu = client.ctxmenus.get(interaction.commandName);
 		if (!ctxmenu) return;
 		try { await ctxmenu.execute(interaction, client); } catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
+			await interaction.reply({ content: 'An error has occured, the developer of the bot has been sent more info.', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
 		}
 	}
 });

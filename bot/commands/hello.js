@@ -3,10 +3,10 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('zdravo')
-        .setDescription('Ovo je komanda za testiranje uglavnom.'),
+        .setName('hello')
+        .setDescription('Hello world!'),
 
     async execute(interaction) {
-        await interaction.reply('Zdravo!');
+        await interaction.reply('Hello!');
     },
 };

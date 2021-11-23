@@ -1,20 +1,21 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
 const config = require("../config.json")
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('mnote')
+      .setName('note')
       .setDescription('Your own and personal note that no one except you can read.'),
 
   async execute(interaction) {
-    await handler(interaction.user.id)
-
-    const note = await handler(interaction.user.id).then(result => { return result.note })
+    const user = await handler.getUser(`${interaction.user.id}`)
+    const note = await user.getkey("note")
 
     if(!note) {
-      await interaction.reply({ content: 'You havent sent your note. \n \nPlease use `/set-note` to set a note..', ephemeral: true })
+      await interaction.reply({ content: 'You havent set your note. \n \nPlease use `/set-note` to set a note..', ephemeral: true })
       return
     }
 

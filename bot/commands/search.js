@@ -1,6 +1,6 @@
 const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const handler = require('../utility/BotModule')
 const config = require("../config.json")
 const {randomNumber} = require("../utility/generateRandom");
 const talkedRecently = []
@@ -43,6 +43,7 @@ module.exports = {
                         talkedRecently.splice(index)
                     }, 20000);
                 }).catch(async (err) => {
+                    console.log(err)
                     await interaction.editReply({ content: `time ran out.`, components: [] })
                 })
             })

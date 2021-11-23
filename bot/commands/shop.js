@@ -1,27 +1,29 @@
 const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
+const BotModule = require("../utility/BotModule")
+const handler = new BotModule.UserModule()
+const confighand = new BotModule.GuildConfigurations()
 const config = require("../config.json")
 const pagination = require('discordjs-button-pagination')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('shop')
-        .setDescription('discord walmart.'),
+        .setName('wolfmart')
+        .setDescription('wolfie walmart.'),
 
     async execute(interaction) {
-        const items = await handler.getShopItems()
+        const jsonitems = await confighand.GetGuildItems(`${interaction.guild.id}`)
+        const items = Object.entries(jsonitems)
         let options = []
         let embedsArray = []
 
         var i,j, temporary, chunk = 4;
         for (i = 0,j = items.length; i < j; i += chunk) {
             temporary = items.slice(i, i + chunk);
-            const newEmbed = new MessageEmbed().setTitle("Shop").setDescription("see all of the items in the shop.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
+            const newEmbed = new MessageEmbed().setTitle("Wolfmart").setDescription("See all of the items in the shop. There will be different items for each guild due to the ability to add custom items.").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
             for (const item of temporary) {
-                const itemparts = item.split(":")
-                const itemname = itemparts[0]
-                const itemcost = itemparts[1]
+                const itemname = item[0]
+                const itemcost = item[1]
 
                 newEmbed.addField(`**${itemname}**`, `<:reply:884528743673135144> This item costs **W$ ${itemcost}**.`)
                 const option = {label: itemname, description: null, value: itemname}
@@ -55,18 +57,18 @@ module.exports = {
         collector.on('collect', async(selected) => {
             if (selected.user.id === interaction.user.id) {
                 for (const item of items) {
-                    const itemparts = item.split(':')
-                    const name = itemparts[0]
-                    const cost = itemparts[1]
+                    const name = item[0]
+                    const cost = item[1]
 
                     if (name === selected.values[0]) {
-                        const usercoins = handler(interaction.user.id).then(result => { return result.money })
+                        const intuser = await handler.getUser(`${interaction.user.id}`)
+                        const usercoins = await intuser.getkey("money")
 
                         if (usercoins >= cost) {
-                            await handler.changeMoney(interaction.user.id, false, cost)
-                            await handler.addItem(interaction.user.id, 1, selected.values[0])
+                            await intuser.modify("money", cost, "REMOVE")
+                            await intuser.addItem(selected.values[0], 1)
 
-                            await selected.update({content: `<@${interaction.user.id}> you bought: **${selected.values[0]}** for **W$ ${cost}**.`, components: []})
+                            await selected.update({content: `<@${interaction.user.id}> you bought the item **${selected.values[0]}** for **W$ ${cost}**.`, components: []})
                         } else {
                             await selected.update({content: `<@${interaction.user.id}> you dont have enough money for: **${selected.values[0]}**.`})
                         }

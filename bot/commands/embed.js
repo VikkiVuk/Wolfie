@@ -8,7 +8,7 @@ module.exports = {
         .setDescription('Make your custom discord embed!')
         .addStringOption(option => option.setName('title').setDescription('What title do you want?').setRequired(true))
         .addStringOption(option => option.setName('description').setDescription('What will be the embed description?').setRequired(true))
-        .addStringOption(option => option.setName('hexcolor').setDescription('The color of your embed, this should be a hex value.').setRequired(false)),
+        .addStringOption(option => option.setName('hexcolor').setDescription('The color of your embed, this should be a hex color.').setRequired(false)),
 
     async execute(interaction) {
         const title = interaction.options.getString('title')

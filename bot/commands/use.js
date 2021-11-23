@@ -1,31 +1,32 @@
 const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require('../utility/user-handler')
-const generateRandom = require("../utility/generateRandom");
 const config = require("../config.json")
+const BotModule = require("../utility/BotModule")
+const configHand = new BotModule.GuildConfigurations()
+const handler = new BotModule.UserModule()
+const generateRandom = require("../utility/generateRandom");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('use')
-        .setDescription('Use the items you have earned.'),
+        .setDescription('Use the items you have in your inventory.'),
 
     async execute(interaction) {
-        await handler(interaction.user.id)
+        const intuser = await handler.getUser(`${interaction.user.id}`)
+        const currentItems = await intuser.getkey("inventory")
 
-        const currentItems = await handler.checkItems(interaction.user.id)
         let options = []
 
         const embed = new MessageEmbed().setTitle("Interact").setDescription("Down below you have a select menu where you can select the item you want to use, to see how much of that item you have please use `/inventory`").setColor("BLURPLE").setTimestamp().setFooter(config.defaultFooter)
 
-        currentItems.forEach(function (item, index) {
-            const itemparts = item.split(":")
-            const itemname = itemparts[0]
+        for (const item of currentItems) {
+            const itemname = item["name"]
 
             const option = {label: itemname, description: null, value: itemname}
             options.push(option)
-        })
+        }
 
-        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select').setPlaceholder('Izaberi nesto.').addOptions(options));
+        const row = new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId('select').setPlaceholder('Use an item.').addOptions(options));
 
         await interaction.reply({ embeds: [embed], components: [row] });
 
@@ -43,29 +44,29 @@ module.exports = {
                     reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 60000}).then(async(button) => {
                         const willBreak = Math.random() < 0.28
                         if (willBreak) {
-                            await handler.removeItem(button.user.id, 1, "Laptop")
-                            await handler.addItem(button.user.id, 1, "Cricket")
-                            await interaction.editReply({content: `Oh noes! People didnt like your trash meme and broke your laptop, but hey! you got **1 Cricket**`, embeds: [], components: []})
+                            await intuser.removeItem("Laptop", 1)
+                            await intuser.addItem("Cricket", 1)
+                            await interaction.editReply({content: `People didnt like your trash meme and **broke your laptop**, but hey! you got **1 Cricket**`, embeds: [], components: []})
                         } else {
                             const randomNum = await generateRandom.randomNumber(1500, 6000)
-                            await handler.changeMoney(button.user.id, true, randomNum)
-                            await interaction.editReply({ content: `People loved your meme and donated you **W$ ${randomNum}**.`, embeds: [], components: []})
+                            await intuser.modify("money", randomNum, "ADD")
+                            await interaction.editReply({ content: `People loved your fantastic meme and your fans gave you **W$ ${randomNum}**.`, embeds: [], components: []})
                         }
                     })
                 } else if (itemname === "Fishing Rod") {
                     const willBreak = Math.random() < 0.25
                     if (willBreak) {
-                        await handler.removeItem(selected.user.id, 1, "Fishing Rod")
+                        await intuser.removeItem("Fishing Rod", 1)
                         await interaction.editReply({content: `oh god a shark almost ate you, but you defended yourself with your fishing rod, so now its broken.`, embeds: [], components: []})
                     } else {
                         const randomNum = await generateRandom.randomNumber(1500, 3000)
                         const randomFishes = await generateRandom.randomNumber(1, 5)
-                        await handler.changeMoney(selected.user.id, true, randomNum)
-                        await handler.addItem(selected.user.id, randomFishes, "Fish")
-                        await interaction.editReply({ content: `You brought **${randomFishes} fish** and **W$ ${randomNum}** home.`, embeds: [], components: []})
+                        await intuser.modify("money", randomNum, "ADD")
+                        await intuser.addItem("Fish", randomFishes)
+                        await interaction.editReply({ content: `You brought **${randomFishes} fish(es)** and **W$ ${randomNum}** home.`, embeds: [], components: []})
                     }
                 } else if (itemname === "Broom") {
-                    await handler.removeItem(selected.user.id, 1, "Broom")
+                    await intuser.removeItem("Broom", 1)
                     await interaction.editReply({
                         content: `You cleaned your room for the first time in ages, now you dont have to worry about something coming to eat you while you sleep....`,
                         embeds: [],
@@ -74,7 +75,7 @@ module.exports = {
                 } else if (itemname === "Shovel") {
                     const willBreak = Math.random() < 0.05
                     if (willBreak) {
-                        await handler.removeItem(selected.user.id, 1, "Shovel")
+                        await intuser.removeItem("Shovel" ,1)
                         await interaction.editReply({
                             content: `you are really unlucky, you had 0.05% chance to lose your shovel and you lost it. ugh.`,
                             embeds: [],
@@ -82,7 +83,7 @@ module.exports = {
                         })
                     } else {
                         const randomNum = await generateRandom.randomNumber(20, 120)
-                        await handler.changeMoney(selected.user.id, true, randomNum)
+                        await intuser.modify("money", randomNum, "ADD")
                         await interaction.editReply({
                             content: `You dug out **W$ ${randomNum}**... I need to know, who lost this money?`,
                             embeds: [],
@@ -104,7 +105,7 @@ module.exports = {
 
                             interaction.channel.awaitMessages({ messagefilter, max: 1, time: 20000, errors: ['time'] }).then(async message => {
                                 await handler(mentioned.id).then(async result => {
-                                    await handler.sendMessage(mentioned.id, interaction.user.username, message.first().content)
+                                    await handler.sendMail(mentioned.id, interaction.user.username, message.first().content)
                                 })
 
                                 await interaction.followUp({ content: `You sent the message: \`\`\`${message.first().content}\`\`\` to ${mentioned}.`, embeds: [], components: [] })

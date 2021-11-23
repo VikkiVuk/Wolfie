@@ -1,13 +1,16 @@
 const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const handler = require("../utility/user-handler")
+const handler = require("../utility/BotModule")
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("upozori")
-        .setDescription("Ovako moderatori mogu da upozoravaju ljude.")
-        .addUserOption(option => option.setName("korisnik").setDescription("Koga?").setRequired(true)),
+        .setName("warn")
+        .setDescription("This is how people with sufficient permissions warn people..")
+        .addUserOption(option => option.setName("user").setDescription("Who do you want to warn?").setRequired(true)),
 
     async execute(interaction) {
+        await interaction.reply({ content: "this is a WIP command." })
+        return;
+
         const user = interaction.options.getUser("korisnik")
         await handler(user.id).then(async reply => {
             await handler.warnUser(user).then(async returned => {
