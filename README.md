@@ -4,7 +4,7 @@
 This bot is made by VikkiVuk.
 
 # Documentation
-You can see the documentation on this link: https://dpcs.wolfie.vikkivuk.xyz
+You can see the documentation on this link: https://docs.wolfie.vikkivuk.xyz
 
 # Configuration
 To configure the bot please go to either the dashboard (http://wolfie.vikkivuk.xyz) or use the in-discord command `/setup`.
