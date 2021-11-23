@@ -26,7 +26,7 @@ module.exports.joinedGuild = async(guild) => {
     if (await Guilds.findOne({ guildId: guild.id })) {
         return
     } else {
-        const newGuild = await new Guilds({ guildId: guild.id, guild: guild, config: [], commandsOn: [], commandOptions: []}).save()
+        const newGuild = await new Guilds({ guildId: guild.id, guild: guild, config: "", commandsOn: [], commandOptions: []}).save()
         return newGuild
     }
 }
