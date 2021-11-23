@@ -66,14 +66,15 @@ function UserObject(res: any, guildId: any) {
     this.modify = async(key: string, value: any, operation?: string) : Promise<void> => {
         const updatedresult = await userschema.findOne({ userid: res.userid })
         const obj = JSON.parse(updatedresult.userdata)
-        const guildobj = JSON.parse(updatedresult.guilds)
 
         if (key == "warns") {
+            const guildobj = JSON.parse(updatedresult.guilds)
             if (guildobj[this.guildId]["warns"]) {
                 guildobj[this.guildId]["warns"] += 1
             } else {
                 guildobj[this.guildId]["warns"] = 1
             }
+            await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
         } else if(key == "inventory" || key == "messages") {
             throw new Error("The function user.modify does not support modifying the inventory or the messages. Use users.sendMail and user.addItem/removeItem instead.")
         } else if (key == "xp" || key == "money" || key == "level"){
@@ -91,15 +92,15 @@ function UserObject(res: any, guildId: any) {
         }
 
         await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })
-        await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
     }
 
     this.getkey = async(key: string): Promise<any> => {
         const updatedresult = await userschema.findOne({ userid: res.userid })
         const obj = JSON.parse(updatedresult.userdata)
-        const guildobj = JSON.parse(updatedresult.guilds)
 
         if (key == "warns") {
+            const guildobj = JSON.parse(updatedresult.guilds)
+
             for (const d of guildobj[guildId]) {
                 if (d[0] == "warns") {
                     return d[1]
@@ -193,20 +194,33 @@ function UserObject(res: any, guildId: any) {
     }
 
     this.removeItem = async(itemname: string, amnt: number) => {
-        const result = await userschema.findOne({ userid: res.userid })
-        if (result) {
-            const obj = JSON.parse(result.userdata)
-            const hasItem = obj["inventory"].includes(itemname)
+        const updatedresult = await userschema.findOne({ userid: res.userid })
+        if (updatedresult) {
+            const items = JSON.parse(updatedresult.userdata)
+
+            let hasItem = false
+            for (const item of items.inventory) {
+                if (item["name"] == itemname) {
+                    hasItem = true
+                }
+            }
 
             if (hasItem) {
-                if (obj["inventory"][itemname] <= amnt) {
-                    delete obj["inventory"][itemname]
-                } else {
-                    obj["inventory"][itemname] -= amnt
+                for (const item of items.inventory) {
+                    if (item["name"] == itemname) {
+                        if (item["amount"] <= 1) {
+                            const index = items.inventory.indexOf(item)
+                            items.inventory.splice(index, index)
+                        } else {
+                            item["amount"] -= 1
+                        }
+                    }
                 }
-
-                await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })
+            } else {
+                return 4
             }
+
+            await userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })
         }
     }
 

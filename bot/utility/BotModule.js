@@ -66,16 +66,20 @@ function UserObject(res, guildId) {
                 case 1:
                     updatedresult = _a.sent();
                     obj = JSON.parse(updatedresult.userdata);
+                    if (!(key == "warns")) return [3 /*break*/, 3];
                     guildobj = JSON.parse(updatedresult.guilds);
-                    if (key == "warns") {
-                        if (guildobj[this.guildId]["warns"]) {
-                            guildobj[this.guildId]["warns"] += 1;
-                        }
-                        else {
-                            guildobj[this.guildId]["warns"] = 1;
-                        }
+                    if (guildobj[this.guildId]["warns"]) {
+                        guildobj[this.guildId]["warns"] += 1;
                     }
-                    else if (key == "inventory" || key == "messages") {
+                    else {
+                        guildobj[this.guildId]["warns"] = 1;
+                    }
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    if (key == "inventory" || key == "messages") {
                         throw new Error("The function user.modify does not support modifying the inventory or the messages. Use users.sendMail and user.addItem/removeItem instead.");
                     }
                     else if (key == "xp" || key == "money" || key == "level") {
@@ -95,11 +99,9 @@ function UserObject(res, guildId) {
                     else if (key == "daily") {
                         obj["daily"] = value;
                     }
-                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })];
-                case 3:
+                    _a.label = 4;
+                case 4: return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })];
+                case 5:
                     _a.sent();
                     return [2 /*return*/];
             }
@@ -113,8 +115,8 @@ function UserObject(res, guildId) {
                 case 1:
                     updatedresult = _b.sent();
                     obj = JSON.parse(updatedresult.userdata);
-                    guildobj = JSON.parse(updatedresult.guilds);
                     if (key == "warns") {
+                        guildobj = JSON.parse(updatedresult.guilds);
                         for (_i = 0, _a = guildobj[guildId]; _i < _a.length; _i++) {
                             d = _a[_i];
                             if (d[0] == "warns") {
@@ -253,26 +255,42 @@ function UserObject(res, guildId) {
         });
     }); };
     this.removeItem = function (itemname, amnt) { return __awaiter(_this, void 0, void 0, function () {
-        var result, obj, hasItem;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var updatedresult, items, hasItem, _i, _a, item, _b, _c, item, index;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
                 case 1:
-                    result = _a.sent();
-                    if (!result) return [3 /*break*/, 3];
-                    obj = JSON.parse(result.userdata);
-                    hasItem = obj["inventory"].includes(itemname);
-                    if (!hasItem) return [3 /*break*/, 3];
-                    if (obj["inventory"][itemname] <= amnt) {
-                        delete obj["inventory"][itemname];
+                    updatedresult = _d.sent();
+                    if (!updatedresult) return [3 /*break*/, 3];
+                    items = JSON.parse(updatedresult.userdata);
+                    hasItem = false;
+                    for (_i = 0, _a = items.inventory; _i < _a.length; _i++) {
+                        item = _a[_i];
+                        if (item["name"] == itemname) {
+                            hasItem = true;
+                        }
+                    }
+                    if (hasItem) {
+                        for (_b = 0, _c = items.inventory; _b < _c.length; _b++) {
+                            item = _c[_b];
+                            if (item["name"] == itemname) {
+                                if (item["amount"] <= 1) {
+                                    index = items.inventory.indexOf(item);
+                                    items.inventory.splice(index, index);
+                                }
+                                else {
+                                    item["amount"] -= 1;
+                                }
+                            }
+                        }
                     }
                     else {
-                        obj["inventory"][itemname] -= amnt;
+                        return [2 /*return*/, 4];
                     }
-                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(obj) })];
+                    return [4 /*yield*/, userschema.updateOne({ userid: res.userid }, { userdata: JSON.stringify(items) })];
                 case 2:
-                    _a.sent();
-                    _a.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3: return [2 /*return*/];
             }
         });
