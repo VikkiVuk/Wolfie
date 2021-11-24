@@ -5,9 +5,6 @@
 <a href="https://discord.gg/JwnUeRKe8r"><img alt="Discord" src="https://shields.io/discord/878606227045756948?style=for-the-badge&logo=discord&label=discord" height=30></a>
 </p>
 
-
-This bot is made by VikkiVuk.
-
 # Documentation
 You can see the documentation on this link: https://docs.wolfie.vikkivuk.xyz
 
