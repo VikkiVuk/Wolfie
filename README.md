@@ -1,5 +1,6 @@
 # Wolfie 
-[![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/9ign.svg)](https://betteruptime.com/?utm_source=status_badge)
+[![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/9ign.svg)](https://betteruptime.com/?utm_source=status_badge) [![Heroku](https://heroku-badge.herokuapp.com/?app=discord-wolfie)]
+
 
 This bot is made by VikkiVuk.
 
