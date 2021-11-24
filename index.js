@@ -27,7 +27,7 @@ app.get("/sitemap", (req,res) => {
 	res.download(__dirname + "/web/sitemap.txt")
 })
 
-require('http').createServer(app).listen(process.env.PORT || 80)
+require('http').createServer(app).listen(process.env.PORT || 4000)
 //require('https').createServer({key: fs.readFileSync('./web/ssl/vikkivuk.xyz.key', 'utf8'), cert: fs.readFileSync('./web/ssl/vikkivuk.xyz.cert', 'utf8')}, app).listen(process.env.PORT || 443);
 
 client.commands = new Collection();

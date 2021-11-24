@@ -3,7 +3,7 @@ const passport = require('passport')
 
 router.get("/discord", passport.authenticate('discord'))
 router.get("/discord/redirect", passport.authenticate('discord'), (req, res) => {
-    res.redirect(new URL(`https://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`))
+    res.redirect(new URL(`http://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`))
 })
 
 router.get("/", (req, res) => {
