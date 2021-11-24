@@ -1,4 +1,4 @@
-<center> # Wolfie </center>
+<h1 aligh="center"> Wolfie </h1>
 <p align="center">
 <a href="https://www.heroku.com"><img alt="Heroku" src="https://img.shields.io/static/v1?label=Hosted with&message=Heroku&color=7056bf&style=for-the-badge&logo=heroku" height=30></a>
 <a href="https://github.com/MeridianGH/suitbot/blob/main/LICENSE.md"><img alt="License" src="https://img.shields.io/github/license/MeridianGH/suitbot?logo=apache&style=for-the-badge" height=30></a>
