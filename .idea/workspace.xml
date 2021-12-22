@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bot/commands/setup.js" afterDir="false" />
+    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/498fe2eb-d02b-4c92-bfd1-3ccb3b8e64e0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/498fe2eb-d02b-4c92-bfd1-3ccb3b8e64e0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/verify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/verify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/add-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/add-item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/setup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/events/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/events/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/api/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/root/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/routes/root/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/root/suggest.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/suggest.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +40,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="21BxqRNPIDgbEWyHrDhTAgBClbT" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -40,11 +66,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/deploy-commands.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="discord-application" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -80,6 +107,18 @@
       <workItem from="1637672262168" duration="4701000" />
       <workItem from="1637706393252" duration="404000" />
       <workItem from="1637774068334" duration="1676000" />
+      <workItem from="1637871238350" duration="752000" />
+      <workItem from="1638102886199" duration="963000" />
+      <workItem from="1638133823293" duration="1252000" />
+      <workItem from="1638453655396" duration="254000" />
+      <workItem from="1638454343251" duration="253000" />
+      <workItem from="1638651927944" duration="565000" />
+      <workItem from="1639056526599" duration="598000" />
+      <workItem from="1639154648144" duration="596000" />
+      <workItem from="1639681597969" duration="576000" />
+      <workItem from="1640185238944" duration="57000" />
+      <workItem from="1640186961700" duration="918000" />
+      <workItem from="1640207863561" duration="1445000" />
     </task>
     <servers />
   </component>
@@ -96,10 +135,11 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

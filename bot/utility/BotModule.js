@@ -553,7 +553,7 @@ var GuildConfigurations = /** @class */ (function () {
                         if (!result.customitems) return [3 /*break*/, 3];
                         jsonobj = JSON.parse(result.customitems);
                         jsonobj[itemname] = itemcost;
-                        return [4 /*yield*/, guildschema.updateOne({ guildId: guildId }, { customitems: jsonobj })];
+                        return [4 /*yield*/, guildschema.updateOne({ guildId: guildId }, { customitems: JSON.stringify(jsonobj) })];
                     case 2:
                         _a.sent();
                         return [2 /*return*/, jsonobj];

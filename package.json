@@ -10,7 +10,6 @@
     "axios": "^0.24.0",
     "body-parser": "^1.19.0",
     "canvas": "^2.8.0",
-    "chartjs-node-canvas": "^3.2.0",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.5",
     "discord-api-types": "^0.22.0",
@@ -52,6 +51,6 @@
   },
   "homepage": "https://github.com/VikkiVuk/wolfie#readme",
   "engines": {
-    "node": "16.10.0"
+    "node": "17.2.0"
   }
 }

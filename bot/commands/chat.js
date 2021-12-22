@@ -14,7 +14,7 @@ module.exports = {
         const api = 'https://api.monkedev.com/fun/chat?msg='
         got(api + text + "&uuid=" + interaction.user.id).then(async response => {
             let content = JSON.parse(response.body)
-            await interaction.editReply({ content: content.response })
+            await interaction.editReply({ content: (content) ? content.response : "..." })
         })
     },
 };

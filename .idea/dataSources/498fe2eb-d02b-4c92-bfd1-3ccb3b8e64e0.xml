@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="wolfie">
-  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.23">
-    <root id="1">
-      <ServerVersion>4.4.10</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.31">
+    <root id="1"/>
     <schema id="2" parent="1" name="bot">
       <Current>1</Current>
     </schema>
@@ -16,160 +14,160 @@
     <table id="9" parent="2" name="users"/>
     <table id="10" parent="2" name="web-users"/>
     <column id="11" parent="5" name="_id">
-      <Position>1</Position>
       <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="12" parent="5" name="id">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="13" parent="5" name="secret">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="14" parent="5" name="__v">
-      <Position>2</Position>
       <DataType>Int32|4s</DataType>
+      <Position>2</Position>
     </column>
     <column id="15" parent="5" name="temp_secret">
-      <Position>2</Position>
       <DataType>String|12s</DataType>
+      <Position>2</Position>
     </column>
     <column id="16" parent="6" name="_id">
-      <Position>1</Position>
       <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="17" parent="6" name="__v">
-      <Position>1</Position>
       <DataType>Int32|4s</DataType>
+      <Position>1</Position>
     </column>
     <column id="18" parent="6" name="customShopItems">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="19" parent="7" name="_id">
-      <Position>1</Position>
       <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="20" parent="7" name="__v">
-      <Position>1</Position>
       <DataType>Int32|4s</DataType>
+      <Position>1</Position>
     </column>
     <column id="21" parent="7" name="commandOptions">
-      <Position>1</Position>
       <DataType>list|4999545s</DataType>
+      <Position>1</Position>
     </column>
     <column id="22" parent="7" name="guildId">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="23" parent="7" name="commandsOn">
-      <Position>2</Position>
       <DataType>list|4999545s</DataType>
+      <Position>2</Position>
     </column>
     <column id="24" parent="7" name="config">
-      <Position>3</Position>
       <DataType>Array|2003s</DataType>
+      <Position>3</Position>
     </column>
     <column id="25" parent="9" name="_id">
-      <Position>1</Position>
       <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="26" parent="9" name="__v">
-      <Position>1</Position>
       <DataType>Int32|4s</DataType>
+      <Position>1</Position>
     </column>
     <column id="27" parent="9" name="daily">
-      <Position>1</Position>
       <DataType>ISODate|91s</DataType>
+      <Position>1</Position>
     </column>
     <column id="28" parent="9" name="inventory">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="29" parent="9" name="userid">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="30" parent="9" name="level">
-      <Position>2</Position>
       <DataType>Int32|4s</DataType>
+      <Position>2</Position>
     </column>
     <column id="31" parent="9" name="uuid">
-      <Position>2</Position>
       <DataType>String|12s</DataType>
+      <Position>2</Position>
     </column>
     <column id="32" parent="9" name="messages">
-      <Position>3</Position>
       <DataType>String|12s</DataType>
+      <Position>3</Position>
     </column>
     <column id="33" parent="9" name="warns">
-      <Position>3</Position>
       <DataType>Int64|12s</DataType>
+      <Position>3</Position>
     </column>
     <column id="34" parent="9" name="money">
-      <Position>4</Position>
       <DataType>Int64|12s</DataType>
+      <Position>4</Position>
     </column>
     <column id="35" parent="9" name="xp">
-      <Position>4</Position>
       <DataType>Int32|4s</DataType>
+      <Position>4</Position>
     </column>
     <column id="36" parent="9" name="note">
-      <Position>5</Position>
       <DataType>String|12s</DataType>
+      <Position>5</Position>
     </column>
     <column id="37" parent="10" name="_id">
-      <Position>1</Position>
       <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="38" parent="10" name="__v">
-      <Position>1</Position>
       <DataType>Int32|4s</DataType>
+      <Position>1</Position>
     </column>
     <column id="39" parent="10" name="avatar">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="40" parent="10" name="discordId">
-      <Position>1</Position>
       <DataType>String|12s</DataType>
+      <Position>1</Position>
     </column>
     <column id="41" parent="10" name="guilds">
-      <Position>1</Position>
       <DataType>list|4999545s</DataType>
+      <Position>1</Position>
     </column>
     <column id="42" parent="10" name="discordTag">
-      <Position>2</Position>
       <DataType>String|12s</DataType>
+      <Position>2</Position>
     </column>
     <column id="43" parent="10" name="guilds.features">
-      <Position>3</Position>
       <DataType>list|4999545s</DataType>
+      <Position>3</Position>
     </column>
     <column id="44" parent="10" name="guilds.icon">
-      <Position>4</Position>
       <DataType>String|12s</DataType>
+      <Position>4</Position>
     </column>
     <column id="45" parent="10" name="guilds.id">
-      <Position>5</Position>
       <DataType>String|12s</DataType>
+      <Position>5</Position>
     </column>
     <column id="46" parent="10" name="guilds.name">
-      <Position>6</Position>
       <DataType>String|12s</DataType>
+      <Position>6</Position>
     </column>
     <column id="47" parent="10" name="guilds.owner">
-      <Position>7</Position>
       <DataType>Boolean|12s</DataType>
+      <Position>7</Position>
     </column>
     <column id="48" parent="10" name="guilds.permissions">
-      <Position>8</Position>
       <DataType>Int32|4s</DataType>
+      <Position>8</Position>
     </column>
     <column id="49" parent="10" name="guilds.permissions_new">
-      <Position>9</Position>
       <DataType>String|12s</DataType>
+      <Position>9</Position>
     </column>
   </database-model>
 </dataSource>

@@ -22,13 +22,13 @@ app.use(passport.session())
 
 app.use("/main", require("./web/routes/root/main.js"))
 app.use("/api", require("./web/routes/api/main.js"))
-app.get("/", (req, res) => res.redirect(new URL(`http://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`)))
+app.get("/", (req, res) => res.redirect(new URL(`https://${req.hostname}${(req.hostname == "localhost") ? ":4000" : ""}/main`)))
 app.get("/sitemap", (req,res) => {
 	res.download(__dirname + "/web/sitemap.txt")
 })
 
 require('http').createServer(app).listen(process.env.PORT || 4000)
-//require('https').createServer({key: fs.readFileSync('./web/ssl/vikkivuk.xyz.key', 'utf8'), cert: fs.readFileSync('./web/ssl/vikkivuk.xyz.cert', 'utf8')}, app).listen(process.env.PORT || 443);
+require('https').createServer({key: fs.readFileSync('./web/ssl/vikkivuk.xyz.key', 'utf8'), cert: fs.readFileSync('./web/ssl/vikkivuk.xyz.cert', 'utf8')}, app).listen(process.env.PORT || 443);
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./bot/commands').filter(file => file.endsWith('.js'));

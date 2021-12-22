@@ -23,9 +23,12 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true })
         if (interaction.member.user.id === interaction.guild.ownerId) {
             await wait(2000)
-            await configHand.modify(`${interaction.guild.id}`, "mutedrole", interaction.getRole("muted-role"))
-            await configHand.modify(`${interaction.guild.id}`, "memberrole", interaction.getRole("member-role"))
-            await interaction.editReply({ content: "Your guild config has been set!", ephemeral: true })
+            await configHand.modify(`${interaction.guild.id}`, "mutedrole", interaction.options.getRole("muted-role"))
+            await configHand.modify(`${interaction.guild.id}`, "memberrole", interaction.options.getRole("member-role"))
+            const updatedconfig = configHand.configuration(`${interaction.guild.id}`)
+            const embed = new MessageEmbed().setTitle("Current Guild Configuration").setDescription("You have successfully updated your guild configuration. Your new configuration is down below.")
+                .addField("Muted Role", "<@" + updatedconfig.mutedrole + ">")
+            await interaction.editReply({ content: "Your guild config has been set!", ephemeral: true, embeds: [embed] })
         } else {
             await interaction.editReply({ content: "Sorry, only the owner of the server can do this!", ephemeral: true })
         }

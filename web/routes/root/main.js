@@ -15,7 +15,7 @@ router.use("/", function(req, res) {
             <meta content="Wolfie Hub" property="og:title" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="The wolfie main site, the hub for everything Wolfie.." property="og:description" />
-            <meta content="http://wolfie.vikkivuk.xyz/main" property="og:url" />
+            <meta content="https://wolfie.vikkivuk.xyz/main" property="og:url" />
             <meta content="" property="og:image" />
             <meta content="#087CF0" data-react-helmet="true" name="theme-color" />
         </head>
