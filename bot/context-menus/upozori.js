@@ -8,7 +8,10 @@ module.exports = {
     },
 
     async execute(interaction) {
-        const user = interaction.options.getUser("user")
+        await interaction.reply({ content: "this is a WIP command." })
+        return;
+
+        const user = interaction.options.getUser("korisnik")
         await handler(user.id).then(async reply => {
             await handler.warnUser(user).then(async returned => {
                 if (returned === "SUCCESS") {

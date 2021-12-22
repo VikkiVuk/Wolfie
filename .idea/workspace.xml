@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/498fe2eb-d02b-4c92-bfd1-3ccb3b8e64e0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/498fe2eb-d02b-4c92-bfd1-3ccb3b8e64e0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/add-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/add-item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/setup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/events/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/events/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/welcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/utility/BotModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/BotModule.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/api/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/suggest.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/suggest.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +29,14 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="0d35fe0d-015c-4cef-a654-8cb706d37876" />
+        <option name="url" value="https://github.com/VikkiVuk/Wolfie.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -118,7 +108,7 @@
       <workItem from="1639681597969" duration="576000" />
       <workItem from="1640185238944" duration="57000" />
       <workItem from="1640186961700" duration="918000" />
-      <workItem from="1640207863561" duration="1445000" />
+      <workItem from="1640207863561" duration="2126000" />
     </task>
     <servers />
   </component>
