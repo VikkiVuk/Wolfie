@@ -14,7 +14,7 @@ module.exports = {
     async execute(interaction) {
         if (interaction.inGuild()) {
             const config = await guildconfig.configuration(`${interaction.guild.id}`)
-            if (interaction.options.getInteger("price") <= 0) interaction.reply({ content: "The price needs to be higher than 1 or more."})
+            if (interaction.options.getInteger("price") <= 0) interaction.reply({ content: "The price needs to be higher than 1 or more."}); return;
 
             if (config.botmasters) {
                 if (interaction.member.roles.cache.some(r => config.botmasters.indexOf(r.id) >= 0) || interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
