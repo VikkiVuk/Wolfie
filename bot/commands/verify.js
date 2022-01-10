@@ -73,7 +73,7 @@ module.exports = {
                                     customFailureEmbed: new MessageEmbed().setTitle("ERROR").setDescription(`Hello, <@${interaction.member.user.id}>, you havent been verified, please try again.`).setFooter(config.defaultFooter).setTimestamp().setColor("RED"), //customise the embed that will be sent to the user when they fail to solve the captcha
                                 });
 
-                                captchao.present(interaction.member)
+                                await captchao.present(interaction.member)
 
                                 await interaction.deleteReply()
                             } else if (button2.customId === "wrongver" || button2.customId === "wrongver2") {

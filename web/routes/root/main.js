@@ -15,7 +15,7 @@ router.use("/", function(req, res) {
             <meta content="Wolfie Hub" property="og:title" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="The wolfie main site, the hub for everything Wolfie.." property="og:description" />
-            <meta content="http://wolfie.vikkivuk.xyz/main" property="og:url" />
+            <meta content="https://wolfie.vikkivuk.xyz/main" property="og:url" />
             <meta content="" property="og:image" />
             <meta content="#087CF0" data-react-helmet="true" name="theme-color" />
         </head>
@@ -62,7 +62,7 @@ router.use("/", function(req, res) {
                         <image src="${req.user.avatar}" style="position: absolute;background-color: black;border-radius: 100px;height: 160px;width: 150px;margin-top: 22px;margin-left: 10px;"></image>
                         <label style="position: absolute; margin-left: 170px;margin-top:85px;font-family: Arial, Helvetica, sans-serif;font-size: xx-large;color: black;">${req.user.discordTag}</label>
                         <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-                        <br> <br> <center> <iframe src="https://discord.com/widget?id=878606227045756948&theme=dark" width="350" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>        </center>    
+                        <br> <br> <center> <iframe src="https://discord.com/widget?id=889538858843271218&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>        </center>    
                     </div>
                 </div>
             `}

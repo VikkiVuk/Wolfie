@@ -406,7 +406,7 @@ export class GuildConfigurations {
         if (result.customitems) {
             const jsonobj = JSON.parse(result.customitems)
             jsonobj[itemname] = itemcost
-            await guildschema.updateOne({ guildId: guildId }, { customitems: jsonobj })
+            await guildschema.updateOne({ guildId: guildId }, { customitems: JSON.stringify(jsonobj) })
 
             return jsonobj
         } else {

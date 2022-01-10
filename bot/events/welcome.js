@@ -1,5 +1,4 @@
 const { MessageEmbed, MessageAttachment, MessageButton } = require('discord.js');
-const Canvas = require('canvas');
 const config = require("../config.json")
 const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
@@ -11,7 +10,7 @@ module.exports = {
 	async execute(member, client) {
 		const configuration = configHand.configuration(member.guild.id)
 		if (configuration["greetingchannel"]) {
-			const applyText = (canvas, text) => {
+			/*const applyText = (canvas, text) => {
 				const context = canvas.getContext('2d');
 				let fontSize = 70;
 
@@ -55,7 +54,7 @@ module.exports = {
 				.setFooter(config.defaultFooter)
 				.setColor('#3483eb')
 
-			member.guild.channels.cache.get(configuration["greetingchannel"]).send({ files: [attachment], embeds: [embed] })
+			member.guild.channels.cache.get(configuration["greetingchannel"]).send({ files: [attachment], embeds: [embed] })*/
 		}
     }
 }

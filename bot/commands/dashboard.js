@@ -9,10 +9,10 @@ module.exports = {
 
     async execute(interaction) {
         if (interaction.inGuild()) {
-            const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("http://wolfie.vikkivuk.xyz/main/dashboard?guildId=" + interaction.guild.id + "&source=guild"))
+            const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("https://wolfie.vikkivuk.xyz/main/dashboard?guildId=" + interaction.guild.id + "&source=guild"))
             await interaction.reply({ content: "Here's the dashboard!", components: [row] })
         } else {
-            const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("http://wolfie.vikkivuk.xyz/main/dashboard?source=dms"))
+            const row = new MessageActionRow().addComponents(new MessageButton().setLabel("Go to the dashboard").setStyle("LINK").setURL("https://wolfie.vikkivuk.xyz/main/dashboard?source=dms"))
             await interaction.reply({ content: "Here's the dashboard!", components: [row] })
         }
     }

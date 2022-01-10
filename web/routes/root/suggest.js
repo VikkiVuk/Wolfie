@@ -13,7 +13,7 @@ router.get("/", function(req, res) {
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4231389926874940" crossorigin="anonymous"></script>
                     <meta content="Suggest - Wolfie" property="og:title" />
                     <meta content="Want something on the bot? Then go here! I will accept any suggestion as long as its PG, and not something ultimatively weird." property="og:description" />
-                    <meta content="http://wolfie.vikkivuk.xyz/main/suggest" property="og:url" />
+                    <meta content="https://wolfie.vikkivuk.xyz/main/suggest" property="og:url" />
                     <meta content="" property="og:image" />
                     <meta content="#26EDC2" data-react-helmet="true" name="theme-color" />
                     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

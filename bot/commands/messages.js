@@ -38,7 +38,11 @@ module.exports = {
         ]
 
         if (embedsArray.length < 2) {
-            await interaction.reply({ embeds: embedsArray })
+            if (embedsArray.length == 0) {
+                await interaction.reply({ content: `You dont have any messages!`})
+            } else {
+                await interaction.reply({ embeds: embedsArray })
+            }
         } else {
             await pagination(interaction, embedsArray, buttonList, 60000);
         }
