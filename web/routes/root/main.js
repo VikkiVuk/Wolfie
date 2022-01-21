@@ -5,6 +5,7 @@ router.use("/discord", require('./discord') )
 router.use("/suggest", require('./suggest'))
 router.use("/admin-apply", require('./admin-apply'))
 router.use("/dashboard", require('./dashboard'))
+router.use("/privacy-policy", require("./privacypolicy"))
 
 router.use("/", function(req, res) {
     res.send(`

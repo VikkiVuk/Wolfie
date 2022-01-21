@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
+      <change afterPath="$PROJECT_DIR$/web/routes/root/privacypolicy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/messages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/root/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +114,15 @@
       <workItem from="1640274227865" duration="5568000" />
       <workItem from="1640299800797" duration="591000" />
       <workItem from="1640902576572" duration="597000" />
-      <workItem from="1641047815798" duration="710000" />
+      <workItem from="1641047815798" duration="1292000" />
+      <workItem from="1641221548345" duration="11000" />
+      <workItem from="1641318242796" duration="76000" />
+      <workItem from="1641408161628" duration="596000" />
+      <workItem from="1641740766646" duration="129000" />
+      <workItem from="1641917669537" duration="594000" />
+      <workItem from="1641943384915" duration="638000" />
+      <workItem from="1642198123481" duration="600000" />
+      <workItem from="1642710008748" duration="1354000" />
     </task>
     <servers />
   </component>
