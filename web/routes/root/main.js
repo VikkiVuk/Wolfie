@@ -70,4 +70,5 @@ router.use("/", function(req, res) {
          <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
         <br> <br> <center> <iframe src="https://discord.com/widget?id=889538858843271218&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
    </div>
+   */
 module.exports = router
