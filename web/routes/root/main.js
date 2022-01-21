@@ -21,11 +21,6 @@ router.use("/", function(req, res) {
             <meta content="#087CF0" data-react-helmet="true" name="theme-color" />
         </head>
         <body style="background-color:rgba(0, 0, 0, 0.829);">
-            ${(req.user == undefined) ? `
-                <center>
-                    <a style="color:white;font-family: Arial, Helvetica, sans-serif;" href="/main/auth/discord">You're not logged in! Click me to log in.</a>
-                </center>
-            ` : `
                 <div id="container">
                     <div style="position: absolute;background-color: white; margin-top: 30px;margin-right: 600px;margin-left: 500px;border-radius: 25px;width: 1000px;">
                         <center>
@@ -59,14 +54,10 @@ router.use("/", function(req, res) {
                         <br> <br>
                         <button id="btn3_left" onclick='buttonClickPopup("suggest")' style="cursor:pointer;background-color: rgba(0, 0, 0, 0.829);height: 200px;width: 200px;border-radius: 50px;margin-top: 10px;margin-left: 11px;margin-right: 5px;font-family: Arial, Helvetica, sans-serif;color:white;font-size: xx-large;">Suggest</button>
                     </div>
+                    
                     <div id="right_siderbar" style="position: absolute;margin-top: 200px;background-color: white;margin-left: 1500px;margin-bottom: 200px;height: 200px;width: 410px;border-radius: 15px;font-family: Arial, Helvetica, sans-serif;color:white;">
-                        <image src="${req.user.avatar}" style="position: absolute;background-color: black;border-radius: 100px;height: 160px;width: 150px;margin-top: 22px;margin-left: 10px;"></image>
-                        <label style="position: absolute; margin-left: 170px;margin-top:85px;font-family: Arial, Helvetica, sans-serif;font-size: xx-large;color: black;">${req.user.discordTag}</label>
-                        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-                        <br> <br> <center> <iframe src="https://discord.com/widget?id=889538858843271218&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>        </center>    
+                      <center>We are working on this part</center>
                     </div>
-                </div>
-            `}
         </body>
 
         <script>
