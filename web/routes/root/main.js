@@ -54,6 +54,18 @@ router.use("/", function(req, res) {
                         <br> <br>
                         <button id="btn3_left" onclick='buttonClickPopup("suggest")' style="cursor:pointer;background-color: rgba(0, 0, 0, 0.829);height: 200px;width: 200px;border-radius: 50px;margin-top: 10px;margin-left: 11px;margin-right: 5px;font-family: Arial, Helvetica, sans-serif;color:white;font-size: xx-large;">Suggest</button>
                     </div>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4231389926874940"
+     crossorigin="anonymous"></script>
+<!-- display ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4231389926874940"
+     data-ad-slot="4239985574"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
         </body>
 
         <script>
