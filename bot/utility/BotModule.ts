@@ -345,10 +345,10 @@ export class UserModule {
 
         if (result) {
             const obj = JSON.parse(result.userdata)
-            obj["messages"].push(sender, message)
-            const stringified = JSON.stringify(obj)
+            obj["messages"].push({sender:sender, content:message})
+            console.log(JSON.stringify(obj))
 
-            await userschema.updateOne({ userid: receiver }, { userdata: stringified })
+            await userschema.updateOne({ userid: receiver }, { userdata: JSON.stringify(obj) })
         }
     }
 }

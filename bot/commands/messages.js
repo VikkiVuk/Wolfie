@@ -15,6 +15,7 @@ module.exports = {
         const intuser = await handler.getUser(`${interaction.user.id}`)
 
         const items = await intuser.getkey("messages")
+        console.log(items)
         const embedsArray = []
 
         var i,j, temporary, chunk = 5;

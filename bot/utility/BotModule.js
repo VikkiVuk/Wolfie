@@ -456,7 +456,7 @@ var UserModule = /** @class */ (function () {
          * @returns null
          */
         this.sendMail = function (receiver, sender, message) { return __awaiter(_this, void 0, void 0, function () {
-            var result, obj, stringified;
+            var result, obj;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, userschema.findOne({ userid: receiver })];
@@ -464,9 +464,9 @@ var UserModule = /** @class */ (function () {
                         result = _a.sent();
                         if (!result) return [3 /*break*/, 3];
                         obj = JSON.parse(result.userdata);
-                        obj["messages"].push(sender, message);
-                        stringified = JSON.stringify(obj);
-                        return [4 /*yield*/, userschema.updateOne({ userid: receiver }, { userdata: stringified })];
+                        obj["messages"].push({ sender: sender, content: message });
+                        console.log(JSON.stringify(obj));
+                        return [4 /*yield*/, userschema.updateOne({ userid: receiver }, { userdata: JSON.stringify(obj) })];
                     case 2:
                         _a.sent();
                         _a.label = 3;

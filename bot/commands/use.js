@@ -104,9 +104,8 @@ module.exports = {
                             await interaction.followUp({ content: null, embeds: [messageembedd], components: [] })
 
                             interaction.channel.awaitMessages({ messagefilter, max: 1, time: 20000, errors: ['time'] }).then(async message => {
-                                await handler(mentioned.id).then(async result => {
-                                    await handler.sendMail(mentioned.id, interaction.user.username, message.first().content)
-                                })
+                                console.log(mentioned.id, interaction.user.id, message.first().content)
+                                await handler.sendMail(mentioned.id, interaction.user.id, message.first().content)
 
                                 await interaction.followUp({ content: `You sent the message: \`\`\`${message.first().content}\`\`\` to ${mentioned}.`, embeds: [], components: [] })
                             }).catch(async(err) => {

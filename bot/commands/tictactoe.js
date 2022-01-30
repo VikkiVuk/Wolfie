@@ -14,53 +14,52 @@ module.exports = {
         let Args = {
             user: 0,
             a1: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             a2: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             a3: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             b1: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             b2: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             b3: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             c1: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             c2: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             },
             c3: {
-                style: "gray",
+                style: "SECONDARY",
                 label: "➖",
                 disabled: false
             }
         }
-        let msg = await message.channel.send(`**TicTacToe** | <@!${Args.userid}>'s turn (⭕)`)
-        tictactoe(msg)
+        let msg = await interaction.channel.send(`**TicTacToe** | <@!${Args.userid}>'s turn (⭕)`)
         async function tictactoe(m) {
             Args.userid=fighters[Args.user]
             let won = {
@@ -88,47 +87,47 @@ module.exports = {
             let a1 = new MessageButton()
                 .setStyle(Args.a1.style)
                 .setLabel(Args.a1.label)
-                .setID('a1')
+                .setCustomId('a1')
                 .setDisabled(Args.a1.disabled);
             let a2 = new MessageButton()
                 .setStyle(Args.a2.style)
                 .setLabel(Args.a2.label)
-                .setID('a2')
+                .setCustomId('a2')
                 .setDisabled(Args.a2.disabled);
             let a3 = new MessageButton()
                 .setStyle(Args.a3.style)
                 .setLabel(Args.a3.label)
-                .setID('a3')
+                .setCustomId('a3')
                 .setDisabled(Args.a3.disabled);
             let b1 = new MessageButton()
                 .setStyle(Args.b1.style)
                 .setLabel(Args.b1.label)
-                .setID('b1')
+                .setCustomId('b1')
                 .setDisabled(Args.b1.disabled);
             let b2 = new MessageButton()
                 .setStyle(Args.b2.style)
                 .setLabel(Args.b2.label)
-                .setID('b2')
+                .setCustomId('b2')
                 .setDisabled(Args.b2.disabled);
             let b3 = new MessageButton()
                 .setStyle(Args.b3.style)
                 .setLabel(Args.b3.label)
-                .setID('b3')
+                .setCustomId('b3')
                 .setDisabled(Args.b3.disabled);
             let c1 = new MessageButton()
                 .setStyle(Args.c1.style)
                 .setLabel(Args.c1.label)
-                .setID('c1')
+                .setCustomId('c1')
                 .setDisabled(Args.c1.disabled);
             let c2 = new MessageButton()
                 .setStyle(Args.c2.style)
                 .setLabel(Args.c2.label)
-                .setID('c2')
+                .setCustomId('c2')
                 .setDisabled(Args.c2.disabled);
             let c3 = new MessageButton()
                 .setStyle(Args.c3.style)
                 .setLabel(Args.c3.label)
-                .setID('c3')
+                .setCustomId('c3')
                 .setDisabled(Args.c3.disabled);
             let a = new MessageActionRow()
                 .addComponents([a1, a2, a3])
@@ -137,9 +136,9 @@ module.exports = {
             let c = new MessageActionRow()
                 .addComponents([c1, c2, c3])
             let buttons = { components: [a, b, c] }
-            m.edit(`**TicTacToe** | <@!${Args.userid}>'s turn (${Args.user == 0 ? "⭕" : "❌"})`, buttons)
-            const filter = (button) => button.clicker.user.id === Args.userid;
-            const collector = m.createButtonCollector(filter, { max: 1, time: 30000 });
+            m.edit({content: `**TicTacToe** | <@!${Args.userid}>'s turn (${Args.user == 0 ? "⭕" : "❌"})`, components: [a,b,c]})
+            const filter1 = (button) => button.clicker.user.id === Args.userid;
+            const collector = m.createMessageComponentCollector({ filter1, componentType: 'BUTTON', time: 30000 });
 
             collector.on('collect', b => {
                 if (Args.user == 0) {
@@ -157,7 +156,7 @@ module.exports = {
                         disabled: true
                     }
                 }
-                b.defer()
+                b.deferUpdate()
                 const map = (obj, fun) =>
                     Object.entries(obj).reduce(
                         (prev, [key, value]) => ({
@@ -177,6 +176,7 @@ module.exports = {
             collector.on('end', collected => {
                 if (collected.size == 0) m.edit(`<@!${Args.userid}> didn\'t react in time! (30s)`)
             });
+        }
+        await tictactoe(msg)
     }
-}
 }
