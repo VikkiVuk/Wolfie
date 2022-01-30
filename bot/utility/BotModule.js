@@ -328,7 +328,7 @@ var UserModule = /** @class */ (function () {
          * @returns UserObject - A user object that you can do functions on.
          */
         this.getUser = function (userid, guildid) { return __awaiter(_this, void 0, void 0, function () {
-            var result;
+            var result, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, userschema.findOne({ userid: userid })];
@@ -338,9 +338,8 @@ var UserModule = /** @class */ (function () {
                         return [2 /*return*/, new UserObject(result, guildid)];
                     case 2: return [4 /*yield*/, new userschema({ userid: userid, uuid: "", userdata: JSON.stringify({ money: 100, xp: 0, level: 1, inventory: [], note: "", messages: [], daily: 0 }), guilds: "{}" }).save()];
                     case 3:
-                        _a.sent();
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
+                        user = _a.sent();
+                        return [2 /*return*/, new UserObject(user, guildid)];
                 }
             });
         }); };

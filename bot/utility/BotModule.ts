@@ -255,7 +255,8 @@ export class UserModule {
         if (result) {
             return new UserObject(result, guildid)
         } else {
-            await new userschema({ userid: userid, uuid: "", userdata: JSON.stringify({ money: 100, xp: 0, level: 1, inventory: [], note: "", messages: [], daily: 0 }), guilds: "{}" }).save()
+            let user = await new userschema({ userid: userid, uuid: "", userdata: JSON.stringify({ money: 100, xp: 0, level: 1, inventory: [], note: "", messages: [], daily: 0 }), guilds: "{}" }).save()
+            return new UserObject(user, guildid)
         }
     }
 

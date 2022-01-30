@@ -20,7 +20,7 @@ module.exports = {
 
             if (xp > level * 40 + 15) {
                 await intuser.modify("level", 1, "ADD")
-                message.channel.send(`Hello ${message.author}, you just JUMPED to the next level! You are now **level ${level +1}**` )
+                //message.channel.send(`Hello ${message.author}, you just JUMPED to the next level! You are now **level ${level +1}**` )
             }
 
             const levelroles = message.guild.roles.cache.filter(r => r.name.includes("Level:"))

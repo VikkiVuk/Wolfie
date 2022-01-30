@@ -20,7 +20,8 @@ module.exports = {
         .addRoleOption(opt => opt.setName("botmaster4").setDescription("A bot master, the role that will be given access to any command.").setRequired(false)),
 
     async execute(interaction) {
-        await interaction.deferReply({ ephemeral: true })
+        await interaction.reply({content:"This command is currently under construction due to unexpected crashing!"})
+        /*await interaction.deferReply({ ephemeral: true })
         if (interaction.member.user.id === interaction.guild.ownerId) {
             await wait(2000)
             await configHand.modify(`${interaction.guild.id}`, "mutedrole", interaction.options.getRole("muted-role"))
@@ -31,6 +32,6 @@ module.exports = {
             await interaction.editReply({ content: "Your guild config has been set!", ephemeral: true, embeds: [embed] })
         } else {
             await interaction.editReply({ content: "Sorry, only the owner of the server can do this!", ephemeral: true })
-        }
+        }*/
     },
 };
