@@ -486,16 +486,18 @@ var GuildConfigurations = /** @class */ (function () {
          * @returns configuration - The guild config
          */
         this.configuration = function (guildId) { return __awaiter(_this, void 0, void 0, function () {
-            var result;
+            var result, ec;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, guildschema.findOne({ guildId: guildId })];
                     case 1:
                         result = _a.sent();
-                        if (result) {
-                            return [2 /*return*/, JSON.parse(result.config)];
-                        }
-                        return [2 /*return*/];
+                        if (!result) return [3 /*break*/, 2];
+                        return [2 /*return*/, JSON.parse(result.config)];
+                    case 2: return [4 /*yield*/, new guildschema({ guildId: guildId, config: "{}", customitems: "{}", commandsOn: [], commandOptions: [] })];
+                    case 3:
+                        ec = _a.sent();
+                        return [2 /*return*/, JSON.parse("{}")];
                 }
             });
         }); };

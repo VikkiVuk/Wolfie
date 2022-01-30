@@ -362,7 +362,10 @@ export class GuildConfigurations {
      */
     public configuration = async(guildId: string) => {
         const result = await guildschema.findOne({ guildId: guildId })
-        if (result) { return JSON.parse(result.config) }
+        if (result) { return JSON.parse(result.config) } else {
+            let ec = await new guildschema({ guildId: guildId, config: "{}", customitems: "{}", commandsOn: [], commandOptions: [] })
+            return JSON.parse("{}")
+        }
     }
 
     /**
