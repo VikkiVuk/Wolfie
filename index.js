@@ -92,6 +92,6 @@ client.on('interactionCreate', async (interaction) => {
 	}
 });
 
-client.login(config.testingtoken).then(r => {
+client.login(config.token).then(r => {
 	console.log(">>> Bot Logged In.")
 })
