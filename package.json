@@ -34,7 +34,8 @@
     "youtube-notification": "^1.1.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "commands": "node deploy-commands.js"
   },
   "repository": {
     "type": "git",
