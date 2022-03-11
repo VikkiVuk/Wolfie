@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
-      <change afterPath="$PROJECT_DIR$/deploy-commands-testing.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/routes/api/accounts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/routes/root/construction/page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/routes/root/construction/under-construction.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/links.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/links.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/bot/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/commands/roblox-verify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/roblox-verify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/events/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/events/message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/ssl/vikkivuk.xyz.cert" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/ssl/vikkivuk.xyz.key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/routes/api/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -59,6 +61,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mongo" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -145,6 +148,14 @@
       <workItem from="1643611023123" duration="3001000" />
       <workItem from="1644074475271" duration="9000" />
       <workItem from="1644323917289" duration="592000" />
+      <workItem from="1644696118765" duration="155000" />
+      <workItem from="1644912923627" duration="25000" />
+      <workItem from="1645007078239" duration="598000" />
+      <workItem from="1645037128666" duration="379000" />
+      <workItem from="1645554855541" duration="1317000" />
+      <workItem from="1646683763854" duration="75000" />
+      <workItem from="1646940566901" duration="5000" />
+      <workItem from="1647014379335" duration="1821000" />
     </task>
     <servers />
   </component>

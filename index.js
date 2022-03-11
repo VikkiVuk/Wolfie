@@ -21,7 +21,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use("/api", require("./web/routes/api/main.js"))
-app.use("/", require("./web/routes/root/main.js"))
+app.use("/", (req, res) => {
+	res.sendFile(__dirname + "/web/routes/root/construction/page.html")
+})
 
 require('http').createServer(app).listen(process.env.PORT || 4000)
 client.commands = new Collection();

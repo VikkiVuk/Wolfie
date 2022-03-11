@@ -11,6 +11,7 @@ module.exports = {
         .setDescription('connect your roblox account with discord, some servers may give a role and some may not.'),
 
     async execute(interaction) {
+        await interaction.message.reply({content:"Hello, we are soon going to be moving this to our vikkivuk account system, which you can link to your discord account on the site!"})
         await interaction.deferReply({ ephemeral: true })
         if (interaction.member.roles.cache.has('895753436941942795')) {
             got.post(api + "getuserinfo", {
