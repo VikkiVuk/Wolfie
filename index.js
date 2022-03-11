@@ -20,6 +20,7 @@ app.use(session({secret: "secret", resave: false, saveUninitialized: false, cook
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use("/sitemap", (req, res) => {req.download(require("./web/sitemap.txt"))})
 app.use("/api", require("./web/routes/api/main.js"))
 app.use("/", (req, res) => {
 	res.sendFile(__dirname + "/web/routes/root/construction/page.html")
