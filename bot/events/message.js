@@ -45,10 +45,10 @@ module.exports = {
                 if (englishInsults.some(s => loweredMsg.includes(s)) || englishNsfwStuff.some(s => loweredMsg.includes(s)) || serbianInsults.some(s => loweredMsg.includes(s)) || serbianNsfwStuff.some(s => loweredMsg.includes(s))) {
                     if (message.author.id === client.user.id || message.member.roles.cache.has('873680682096947210')) return;
                     try {
-                        message.delete()
+                        /*message.delete()
                         message.author.send("Hey, please keep it pg!").catch(() => {
                             message.channel.send(`${message.author} hey we keep it pg here.`)
-                        })
+                        })*/
                     } catch {
                         // no permissions.
                     }
