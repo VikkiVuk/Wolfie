@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/roblox-verify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/roblox-verify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/routes/api/accounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/accounts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/construction/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/construction/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/strategies/discord.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/strategies/discord.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +150,7 @@
       <workItem from="1646940566901" duration="5000" />
       <workItem from="1647014379335" duration="4556000" />
       <workItem from="1647024562637" duration="3008000" />
-      <workItem from="1647087706482" duration="6423000" />
+      <workItem from="1647087706482" duration="6750000" />
     </task>
     <servers />
   </component>
