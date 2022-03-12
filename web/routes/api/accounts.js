@@ -4,7 +4,7 @@ const passport = require("passport")
 router.get("/link/redirect", passport.authenticate('discord'), (req, res) => {
     res.redirect("https://accounts.vikkivuk.xyz/authorize?callback=https://wolfie.pro/api/accounts/link")
 })
-router.get("/link", async(req,res) => {
+router.get("/link", passport.authenticate('discord'), async(req,res) => {
     let user = await req.user
     if (user) {
         res.send("wait")
