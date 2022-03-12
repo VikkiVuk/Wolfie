@@ -6,6 +6,7 @@ router.get("/link/redirect", passport.authenticate('discord'), (req, res) => {
 })
 router.get("/link", passport.authenticate('discord'), async(req,res) => {
     let user = await req.user
+    console.log(user)
     if (user) {
         res.send("wait")
     } else {
