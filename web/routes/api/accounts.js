@@ -9,7 +9,7 @@ router.get("/link", async(req,res) => {
     if (user) {
         res.send("wait")
     } else {
-        let url = (req.hostname == "localhost") ? "https://discord.com/oauth2/authorize?response_type=code&redirect_uri=http://localhost:4000/api/accounts/link/redirect&scope=identify%20guilds&client_id=880049472246284328" : "https://discord.com/oauth2/authorize?response_type=code&redirect_uri=https://wolfie.pro/api/accounts/link/redirect&scope=identify%20guilds&client_id=880049472246284328"
+        let url = "https://discord.com/oauth2/authorize?response_type=code&redirect_uri=https://wolfie.pro/api/accounts/link/redirect&scope=identify%20guilds&client_id=880049472246284328"
         res.redirect(url)
     }
 })
