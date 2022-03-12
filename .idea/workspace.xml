@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/api/accounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/accounts.js" afterDir="false" />
-    </list>
+    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,7 +148,7 @@
       <workItem from="1646940566901" duration="5000" />
       <workItem from="1647014379335" duration="4556000" />
       <workItem from="1647024562637" duration="3008000" />
-      <workItem from="1647087706482" duration="9005000" />
+      <workItem from="1647087706482" duration="9307000" />
     </task>
     <servers />
   </component>

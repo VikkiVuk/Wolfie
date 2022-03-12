@@ -11,8 +11,9 @@ router.get("/link", async(req,res, next) => {
     let user = await req.user
     if (user) {
         let params = await req.query
+        console.log(params.uuid)
         if (params.uuid) {
-            got.post(api + "get/" + params.uuid).then(async (response) => {
+            got.post("https://accounts.vikkivuk.xyz/user/get/" + params.uuid).then(async (response) => {
                 if (response.body) {
                     console.log(response.body)
                 }
