@@ -1,6 +1,5 @@
 const router = require('express').Router()
 
-router.use("/auth", require('./auth') )
 router.use("/discord", require('./discord') )
 router.use("/suggest", require('./suggest'))
 router.use("/admin-apply", require('./admin-apply'))

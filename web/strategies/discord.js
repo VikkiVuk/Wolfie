@@ -19,7 +19,7 @@ passport.deserializeUser((_id, done) => {
 passport.use(new DiscordStrategy({
     clientID: "880049472246284328",
     clientSecret: "Of64_H76boz7Q5M2fGjoFBt0YQ-XgKj0",
-    callbackURL: "/main/auth/discord/redirect",
+    callbackURL: "/auth/discord/redirect",
     scope: ["identify", "guilds"]
 }, async(accessToken, refreshToken, profile, done) => {
     try {
