@@ -9,4 +9,4 @@
 You can see the documentation on this link: https://docs.wolfie.pro
 
 # Configuration
-To configure the bot please go to either the dashboard (http://wolfie.pro) or use the in-discord command `/setup`.
+To configure the bot please go to either the dashboard (https://wolfie.pro) or use the in-discord command `/setup`.
