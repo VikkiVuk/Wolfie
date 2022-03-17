@@ -2,7 +2,7 @@ const router = require('express').Router()
 const backend = require('../../../bot/utility/backend')
 const passport = require("passport")
 const got = require('got')
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require('node-fetch');
 let api = "https://accounts.vikkivuk.xyz/user/"
 
 router.get("/link/redirect", passport.authenticate('discord'), (req, res, next) => {
