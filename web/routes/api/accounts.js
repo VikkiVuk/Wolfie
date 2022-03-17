@@ -13,7 +13,7 @@ router.get("/link", async(req,res, next) => {
         let params = await req.query
         console.log(params.uuid)
         if (params.uuid) {
-            got.post("https://accounts.vikkivuk.xyz/user/get/" + params.uuid).then(async (response) => {
+            fetch("https://accounts.vikkivuk.xyz/user/get/" + params.uuid).then(async (response) => {
                 if (response.body) {
                     console.log(response.body)
                 }

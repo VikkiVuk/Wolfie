@@ -1,3 +1,4 @@
+const Headers = require('node-fetch').Headers
 const config = require("../config.json")
 const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
@@ -42,17 +43,34 @@ module.exports = {
 
         if (message.member) {
             if (!message.member.roles.cache.has(nofilterrole)) {
-                if (englishInsults.some(s => loweredMsg.includes(s)) || englishNsfwStuff.some(s => loweredMsg.includes(s)) || serbianInsults.some(s => loweredMsg.includes(s)) || serbianNsfwStuff.some(s => loweredMsg.includes(s))) {
+
+                //if (englishInsults.some(s => loweredMsg.includes(s)) || englishNsfwStuff.some(s => loweredMsg.includes(s)) || serbianInsults.some(s => loweredMsg.includes(s)) || serbianNsfwStuff.some(s => loweredMsg.includes(s))) {
                     if (message.author.id === client.user.id || message.member.roles.cache.has('873680682096947210')) return;
                     try {
-                        /*message.delete()
-                        message.author.send("Hey, please keep it pg!").catch(() => {
-                            message.channel.send(`${message.author} hey we keep it pg here.`)
-                        })*/
+                        const config = await configHand.configuration(`${message.guild.id}`)
+                        if (config.filterEnabled === "true") {
+                            var requestOptions = {
+                                method: 'POST',
+                                redirect: 'follow',
+                                headers: new Headers({"apikey": "Y75B5ak6sda24a5qBK07PBpwdCNyZq9m"}),
+                                body: message.content
+                            };
+
+                            /*fetch("https://api.apilayer.com/bad_words?censor_character=#", requestOptions).then(result => {
+                                console.log("s")
+                                if (result.bad_words_total === 0) {
+                                    //Message not censored.
+                                } else {
+                                    message.delete().then(() => {
+                                        message.channel.send(`${message.author} hey we keep it pg here.`)
+                                    })
+                                }
+                            }).catch(error => console.log(error));*/
+                        }
                     } catch {
                         // no permissions.
                     }
-                }
+               // }
             }
         } else {
             //message.channel.send(`I couldn't check ${message.author}'s message due to an error, my apologies for any inconvenience caused.`)
