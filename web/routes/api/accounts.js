@@ -10,7 +10,7 @@ router.get("/link/redirect", passport.authenticate('discord'), (req, res, next) 
 })
 router.get("/link", async(req,res, next) => {
     let user = await req.user
-    //if (user) {
+    if (user) {
         let params = await req.query
         if (params.uuid) {
            try {
@@ -24,11 +24,11 @@ router.get("/link", async(req,res, next) => {
                res.send("An error has occured")
            }
         } else {
-            //res.redirect("https://accounts.vikkivuk.xyz/authorize?callback=https://wolfie.pro/api/accounts/link")
+            res.redirect("https://accounts.vikkivuk.xyz/authorize?callback=https://wolfie.pro/api/accounts/link")
         }
-    //} else {
-        //passport.authenticate('discord')(req, res, next)
-    //}
+    } else {
+        passport.authenticate('discord')(req, res, next)
+    }
 })
 
 module.exports = router
