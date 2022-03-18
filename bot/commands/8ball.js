@@ -13,8 +13,9 @@ module.exports = {
         await interaction.deferReply()
         const question = interaction.options.getString("question")
 
-        const response = await fetch(`https://api.monkedev.com/fun/8ball?key=uXlaMpi3zUgonsZVgncHLIW47`, {method:"GET",redirect:"follow"})
-        let content = await response.json()
+        const response = await fetch(`https://8ball.delegator.com/magic/JSON/`+question, {method:"GET",redirect:"follow"})
+        let a = await response.json()
+        let content = a.magic
         const embed = new MessageEmbed().setTitle(question + "?").setDescription("<:reply:884528743673135144> " + (content) ? content["answer"] : "I dont know...")
         await wait(3000)
         await interaction.editReply({ embeds: [embed] })
