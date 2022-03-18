@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
-      <change beforePath="$PROJECT_DIR$/web/routes/api/accounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/accounts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bot/commands/link-account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +154,7 @@
       <workItem from="1647087706482" duration="10151000" />
       <workItem from="1647454824645" duration="22000" />
       <workItem from="1647548249967" duration="3913000" />
+      <workItem from="1647603038925" duration="1695000" />
     </task>
     <servers />
   </component>
