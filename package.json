@@ -1,36 +1,25 @@
 {
   "name": "wolfie",
-  "version": "1.0.0",
-  "description": "The third version of Auto VikkiVuk",
+  "version": "2.5.1",
+  "description": "A discord bot made by VikkiVuk",
   "main": "index.js",
   "dependencies": {
     "@discordjs/rest": "^0.1.0-canary.0",
-    "aws-sdk": "^2.1048.0",
-    "axios": "^0.24.0",
-    "body-parser": "^1.19.0",
     "canvas": "^2.8.0",
     "connect-mongo": "^4.6.0",
-    "cookie-parser": "^1.4.5",
     "discord-api-types": "^0.22.0",
-    "discord-temp-channels": "^3.0.1",
     "discord.js": "^13.1.0",
     "discord.js-captcha": "^2.1.0",
     "discordjs-button-pagination": "^2.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "ffmpeg-static": "^4.4.0",
-    "form-data": "^4.0.0",
-    "got": "^11.8.2",
     "mongoose": "^5.13.5",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.2.3",
     "nodemon": "^2.0.13",
     "passport": "^0.5.0",
     "passport-discord": "^0.1.4",
-    "pretty-ms": "^7.0.1",
     "qrcode": "^1.4.4",
     "speakeasy": "^2.0.0",
-    "trello": "^0.10.0",
-    "urban-dictionary-client": "^3.1.0",
     "uuid": "^8.3.2",
     "youtube-notification": "^1.1.0"
   },
@@ -44,11 +33,8 @@
   },
   "author": "VikkiVuk",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/VikkiVuk/wolfie/issues"
-  },
-  "homepage": "https://github.com/VikkiVuk/wolfie#readme",
+  "homepage": "https://github.com/VikkiVuk/Wolfie",
   "engines": {
-    "node": "17.2.0"
+    "node": "17.7.2"
   }
 }

@@ -1,6 +1,5 @@
-const { MessageEmbed, MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const got = require("got");
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,10 +7,9 @@ module.exports = {
         .setDescription('Get a random cat fact with this command!'),
 
     async execute(interaction) {
-        got(`https://api.monkedev.com/facts/cat&key=uXlaMpi3zUgonsZVgncHLIW47`).then(async response => {
-            let content = JSON.parse(response.body)
+        let response = await fetch(`https://api.monkedev.com/facts/cat&key=uXlaMpi3zUgonsZVgncHLIW47`, {method: 'GET', redirect: 'follow'})
+        let content = await response.json()
 
-            await interaction.editReply({ content: (content) ? content.response : "I dont have one." })
-        })
+        await interaction.editReply({ content: (content) ? content.response : "I dont know." })
     },
 };

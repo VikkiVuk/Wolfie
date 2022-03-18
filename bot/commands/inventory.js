@@ -1,4 +1,4 @@
-const { MessageEmbed,MessageAttachment, MessageButton} = require('discord.js');
+const { MessageEmbed, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const botmodule = require('../utility/BotModule')
 const handler = new botmodule.UserModule()

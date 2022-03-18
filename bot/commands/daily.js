@@ -1,4 +1,3 @@
-const { MessageEmbed, MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const botmodule = require('../utility/BotModule')
 const {randomNumber} = require("../utility/generateRandom");

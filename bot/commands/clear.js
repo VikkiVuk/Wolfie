@@ -1,4 +1,4 @@
-const { MessageEmbed,MessageAttachment, MessageActionRow, MessageButton, Permissions } = require('discord.js');
+const { MessageActionRow, MessageButton, Permissions } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const botmodule = require("../utility/BotModule")
 const configHand = new botmodule.GuildConfigurations()

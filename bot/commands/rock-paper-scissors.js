@@ -1,6 +1,5 @@
-const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require('discord.js');
+const { MessageButton, MessageActionRow } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const config = require('../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()

@@ -1,11 +1,10 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('kill')
-        .setDescription('bro you are a psychopath... and i like it.')
-        .addUserOption(option => option.setName("target").setDescription("who do you want to kill?").setRequired(true)),
+        .setName('unalive')
+        .setDescription('you are a psychopath... and i like it.')
+        .addUserOption(option => option.setName("target").setDescription("who do you want to unalive?").setRequired(true)),
 
     async execute(interaction) {
         const user = interaction.options.getUser("target")
@@ -28,7 +27,13 @@ module.exports = {
             "didnt eat properly",
             "was dehydrated",
             "tried to play in the streets",
-            "fat shamed a kid, and then something shocking happened"
+            "fat shamed a kid, and then something shocking happened",
+            "did ||the sussy|| too hard",
+            "got scalped",
+            "didn't say the safe word",
+            "laughed too much",
+            "smiled too much",
+            "used up all of his breaths"
         ]
 
         const response = poruke[Math.floor(Math.random() * poruke.length)]

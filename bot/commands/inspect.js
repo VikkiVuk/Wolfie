@@ -1,4 +1,3 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const wait = require('util').promisify(setTimeout);
 
@@ -13,12 +12,12 @@ module.exports = {
     await wait(4000);
     const user = interaction.options.getUser('target') || interaction.member.user
     const normalResponses = [
-      '**is a crewmate**',
-      '**is an impostor**'
+      '**is NOT SUS**',
+      '**is SUS**'
     ];
 
     if (user.id === interaction.member.user.id) {
-      const response = "you already know your role like the heck?"
+      const response = "you already know if you're sus, like wtf"
       await interaction.editReply({content: response})
     } else {
       const response = normalResponses[Math.floor(Math.random() * normalResponses.length)];

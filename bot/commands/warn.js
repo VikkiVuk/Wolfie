@@ -8,10 +8,8 @@ module.exports = {
         .addUserOption(option => option.setName("user").setDescription("Who do you want to warn?").setRequired(true)),
 
     async execute(interaction) {
-        await interaction.reply({ content: "this is a WIP command." })
-        return;
-
-        const user = interaction.options.getUser("korisnik")
+        await interaction.reply({content:"This command is currently under construction due to unexpected crashing!"})
+        /*const user = interaction.options.getUser("korisnik")
         await handler(user.id).then(async reply => {
             await handler.warnUser(user).then(async returned => {
                 if (returned === "SUCCESS") {
@@ -22,6 +20,6 @@ module.exports = {
                     await interaction.reply({ content: `Uspesno si upozorio <@${user.id}>. Ali nisam mogao da mu posaljem DM. Da vidis koliko upozorenja ima ukucaj \`/upozorenja <@${user.id}>\``});
                 }
             })
-        })
+        })*/
     },
 };

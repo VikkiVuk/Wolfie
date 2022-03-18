@@ -1,6 +1,6 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { search } = require('urban-dictionary-client')
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,8 +10,9 @@ module.exports = {
 
     async execute(interaction) {
         const what = interaction.options.getString("term")
-        const jaeResults = await search(what);
-        const randomResult = jaeResults.list[Math.floor(Math.random() * jaeResults.list.length)]
+        const response = await fetch("https://api.urbandictionary.com/v0/define?term=" + what, {method:"GET",redirect:"follow"})
+        const results = await response.json()
+        const randomResult = results.list[Math.floor(Math.random() * results.list.length)]
 
         if (randomResult) {
             const embed = new MessageEmbed()

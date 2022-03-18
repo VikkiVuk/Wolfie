@@ -1,8 +1,7 @@
-const { MessageEmbed,MessageAttachment, MessageActionRow, MessageSelectMenu, MessageButton} = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageButton} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
 const BotModule = require("../utility/BotModule")
-const configHand = new BotModule.GuildConfigurations()
 const handler = new BotModule.UserModule()
 const generateRandom = require("../utility/generateRandom");
 

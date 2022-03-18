@@ -1,6 +1,5 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const got = require("got");
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,9 +11,8 @@ module.exports = {
         await interaction.deferReply()
         const text = interaction.options.getString("chat")
 
-        got(`https://api.monkedev.com/fun/chat?msg=${text}&uid=${interaction.user.id}&key=uXlaMpi3zUgonsZVgncHLIW47`).then(async response => {
-            let content = JSON.parse(response.body)
-            await interaction.editReply({ content: (content) ? content.response : "..." })
-        })
+        let response = await fetch(`https://api.monkedev.com/fun/chat?msg=${text}&uid=${interaction.user.id}&key=uXlaMpi3zUgonsZVgncHLIW47`, {method: 'GET', redirect: 'follow'})
+        let content = await response.json()
+        await interaction.editReply({ content: (content) ? content.response : "..." })
     },
 };

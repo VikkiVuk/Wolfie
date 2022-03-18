@@ -1,7 +1,5 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const random = require("../utility/generateRandom")
-const fetch = require("node-fetch");
 
 module.exports = {
     data: new SlashCommandBuilder()

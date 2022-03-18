@@ -1,14 +1,13 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const BotModule = require("../utility/BotModule")
-const configHand = new BotModule.GuildConfigurations()
 const handler = new BotModule.UserModule()
 const config = require("../config.json")
 
 module.exports = {
   data: new SlashCommandBuilder()
       .setName('note')
-      .setDescription('Your own and personal note that no one except you can read.'),
+      .setDescription('share your deepest and darkest secrets in here'),
 
   async execute(interaction) {
     const user = await handler.getUser(`${interaction.user.id}`)

@@ -1,4 +1,4 @@
-const { MessageEmbed,MessageAttachment,MessageActionRow,MessageButton } = require('discord.js');
+const { MessageEmbed,MessageActionRow,MessageButton } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -15,6 +15,8 @@ module.exports = {
             .addField("Do I have to link my account?", "**You don't have to link your account straightaway**, but it's highly recommended as Wolfie will soon **STOP** supporting the old account system, and Wolfie will annoy you whenever you use a command to link and migrate your account.")
             .addField("WHat happens after I link my account?", "**You will be prompted to migrate your account**, which you will have to, since as specified above, Wolfie **WILL STOP** supporting the old accounts system.")
             .addField("How do I migrate my account?", "After you link your account, you can either go to the vikkivuk accounts dashboard and migrate there, or you can type the command `/migrate`")
+            .setColor("#fff200")
+            .setFooter({text:"VikkiVuk LLC"})
         await interaction.reply({embeds:[embed], components: [row]});
     },
 };

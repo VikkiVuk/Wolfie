@@ -1,4 +1,4 @@
-const { MessageEmbed,MessageAttachment } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../config.json")
 const talkedRecently = []
@@ -32,8 +32,8 @@ module.exports = {
             await wait(Math.floor(Math.random() * (160 - 30) + 60) * 160)
 
             const responses = [
-                new MessageEmbed().setTitle('ACCESS GRANTED').setDescription(`You have been granted access into <@${user.id}>'s account. (not really lol, you did steal some of his money tho 👀)`).setTimestamp().setFooter(config.defaultFooter).setColor('#0FFF0F'),
-                new MessageEmbed().setTitle('ACCESS DENIED').setDescription(`Looks like <@${user.id}> has a firewall. Better luck next time ig`).setTimestamp().setFooter(config.defaultFooter).setColor('#FF0000')
+                new MessageEmbed().setTitle('ACCESS GRANTED').setDescription(`You have been granted access into <@${user.id}>'s account. (not really lol, you did steal some of his money tho 👀)`).setTimestamp().setFooter({text: config.defaultFooter}).setColor('#0FFF0F'),
+                new MessageEmbed().setTitle('ACCESS DENIED').setDescription(`Looks like <@${user.id}> has a firewall. Better luck next time ig`).setTimestamp().setFooter({text: config.defaultFooter}).setColor('#FF0000')
             ];
 
             const response = responses[Math.floor(Math.random() * responses.length)];
