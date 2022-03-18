@@ -36,5 +36,10 @@
   "homepage": "https://github.com/VikkiVuk/Wolfie",
   "engines": {
     "node": "17.7.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/VikkiVuk/wolfie/issues"
+  },
+  "devDependencies": {},
+  "keywords": []
 }
