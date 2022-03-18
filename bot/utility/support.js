@@ -6,7 +6,7 @@ module.exports = async (client) => {
     const channelId = "878606227414868034"
 
     const channel = await client.channels.fetch(channelId)
-    const embed = new Discord.MessageEmbed().setTitle("Dobij pomoc").setDescription("Koristite dugme ispod ove poruke da otvorite tiket sa nekim iz naseg staff tima.").addField("Trebate kontaktirati moderatora?", "Otvori tiket ovde! Kliknite na dugme ispod ove poruke da biste otvorili tiket za podršku sa timom osoblja iz ovog servera. Koristite ovo samo ako trebate da kontaktirate staff tim u vezi nečega na serveru. Izveštaji o prevarama o događajima u igri će odmah biti odbačeni, a ponovljeni prestupnici će biti stavljeni na crnu listu za korišćenje sistema tiketa. Ako treba da dodate dodatne informacije nakon što ste poslali svoju prvu poruku, pošaljite poruku u tiket channel.").setFooter(config.defaultFooter).setColor("GREEN").setTimestamp()
+    const embed = new Discord.MessageEmbed().setTitle("Dobij pomoc").setDescription("Koristite dugme ispod ove poruke da otvorite tiket sa nekim iz naseg staff tima.").addField("Kada da otvoris ticket?", "Ticket otvaraj samo kada uocis da neko krsi neko pravilo (ovo moze da bude i admin abuse), ili bilo sta vezano za server. Da predlozite nesto za Wolfie imate suggestion form.").setFooter({text:config.defaultFooter}).setColor("GREEN").setTimestamp()
     const row = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setCustomId('support-open').setStyle("PRIMARY").setLabel("🎫 Otvori ticket"))
 
     channel.messages.fetch().then((messages) => {
