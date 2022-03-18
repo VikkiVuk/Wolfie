@@ -1,5 +1,4 @@
-const Headers = require('node-fetch').Headers
-const config = require("../config.json")
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
 const handler = new BotModule.UserModule()

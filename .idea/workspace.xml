@@ -4,78 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/2fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/2fa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/8ball.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/8ball.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/add-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/add-item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/balance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/ban.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/ban.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/beg.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/beg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/catfact.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/catfact.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/channel.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/channel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/choose.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/choose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/clear.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/clear.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/daily.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/daily.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/embed.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/embed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/emojify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/emojify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/fight.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/fight.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/guess.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/guess.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/hack.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/hack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/hello.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/inspect.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/inspect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/kick.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/kick.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/kill.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/kill.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/link-account.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/link-account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/links.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/links.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/meme.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/meme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/messages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/mock.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/mock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/mute.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/mute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/note.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/note.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/pay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/rate-machine.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/rate-machine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/roblox-verify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/roblox-verify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/roblox.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/roblox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/rock-paper-scissors.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/rock-paper-scissors.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/scam.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/scam.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/set-note.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/set-note.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/setup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/suggest.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/tictactoe.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/tictactoe.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/unmute.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/unmute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/urban.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/urban.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/use.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/use.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/verify.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/verify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/warn.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/warn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/commands/warnings.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/commands/warnings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/ban.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/ismevaj.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/kick.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/mute.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/prijavi-poruku.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/unmute.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/context-menus/upozori.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/utility/backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/bot/utility/backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy-commands-testing.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy-commands.js" beforeDir="false" afterPath="$PROJECT_DIR$/deploy-commands.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/api/accounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/accounts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/api/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/api/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/admin-apply.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/dashboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/discord.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/privacypolicy.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/root/privacypolicy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/root/suggest.js" beforeDir="false" />
-    </list>
+    <list default="true" id="3d7e9b98-610f-490e-b0bd-3c578b37a840" name="Changes" comment="Fixed bot crashing randomly, updated the filter, and fixed the add item command. Setup command still not finished." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -222,7 +151,7 @@
       <workItem from="1647087706482" duration="10151000" />
       <workItem from="1647454824645" duration="22000" />
       <workItem from="1647548249967" duration="3913000" />
-      <workItem from="1647603038925" duration="7667000" />
+      <workItem from="1647603038925" duration="8016000" />
     </task>
     <servers />
   </component>
