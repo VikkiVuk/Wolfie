@@ -11,7 +11,7 @@ module.exports = {
         await interaction.deferReply()
         const text = interaction.options.getString("chat")
 
-        let response = await fetch(`https://api.monkedev.com/fun/chat?msg=${text}&uid=${interaction.user.id}&key=uXlaMpi3zUgonsZVgncHLIW47`, {method: 'GET', redirect: 'follow'})
+        let response = await fetch(`https://api-monkedev.herokuapp.com/fun/chat?msg=${text}&uid=${interaction.user.id}&key=uXlaMpi3zUgonsZVgncHLIW47`, {method: 'GET', redirect: 'follow'})
         let content = await response.json()
         await interaction.editReply({ content: (content) ? content.response : "..." })
     },
