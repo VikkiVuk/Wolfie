@@ -4,10 +4,8 @@ const { Client, Collection } = require('discord.js');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "english", type: "LISTENING" }] } })
 const fs = require('fs');const config = require('./bot/config.json');const express = require("express");const app = express();const passport = require("passport");const session = require("express-session");const Store = require('connect-mongo');
 
-app.use(express.json());app.use(express.urlencoded({ extended: false }))
-app.use(session({secret: "secret", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 * 60 * 24 }, store: new Store({ mongoUrl: config.mongoPath, mongooseConnection: require('mongoose').connection })}))
-
-app.use(passport.initialize());app.use(passport.session());app.use(express.static(__dirname + "/web/routes/root/construction"));
+app.use(express.json());app.use(express.urlencoded({ extended: false }));app.use(session({secret: "our_little_secret~.122hhzhC898978dDNmmMU89", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 * 60 * 24 }, store: new Store({ mongoUrl: config.mongoPath })}))
+app.use(passport.initialize({}));app.use(passport.session({}));app.use(express.static(__dirname + "/web/routes/root/construction"));
 
 app.use("/auth", require("./web/routes/root/auth.js"));app.use("/api", require("./web/routes/api/main.js"))
 app.use("/", (req, res) => {
