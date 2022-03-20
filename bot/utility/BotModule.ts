@@ -1,4 +1,5 @@
-import fetch from 'node-fetch'
+// @ts-ignore
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const userschema = require('./schemas/user-schema')
 const guildschema = require('./schemas/guild-schema')
 const Stream = require('stream')

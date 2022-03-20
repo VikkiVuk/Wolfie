@@ -48,7 +48,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.GuildConfigurations = exports.UserModule = void 0;
-var node_fetch_1 = require("node-fetch");
+// @ts-ignore
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 var userschema = require('./schemas/user-schema');
 var guildschema = require('./schemas/guild-schema');
 var Stream = require('stream');
@@ -135,7 +136,7 @@ function UserObject(res, guildId, discorduser) {
             switch (_a.label) {
                 case 0:
                     api = "https://2fa.vikkivuk.xyz/has2FA?uuid=" + res.authid;
-                    return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'GET', redirect: 'follow' })];
+                    return [4 /*yield*/, fetch(api, { method: 'GET', redirect: 'follow' })];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -152,7 +153,7 @@ function UserObject(res, guildId, discorduser) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
                     api = "https://2fa.vikkivuk.xyz/check";
-                    return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: "POST", redirect: 'follow', body: '{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}' })];
+                    return [4 /*yield*/, fetch(api, { method: "POST", redirect: 'follow', body: '{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}' })];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -376,7 +377,7 @@ var UserModule = /** @class */ (function () {
                     case 2:
                         _a.trys.push([2, 7, , 8]);
                         api = "https://2fa.vikkivuk.xyz/create";
-                        return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })];
+                        return [4 /*yield*/, fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })];
                     case 3:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()
@@ -459,7 +460,7 @@ var UserModule = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         api = "https://2fa.vikkivuk.xyz/confirm";
-                        return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}' })];
+                        return [4 /*yield*/, fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}' })];
                     case 1:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()];
