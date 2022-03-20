@@ -45,6 +45,7 @@ module.exports = {
                     await interaction.deleteReply()
                 }, 20000)
             }).catch(async err => {
+                console.log(err)
                 await interaction.editReply({content: `❌ I can't send you a DM, did you block me?`})
             })
         }
