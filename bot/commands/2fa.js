@@ -10,7 +10,7 @@ module.exports = {
 
     async execute(interaction) {
         await interaction.deferReply()
-        const botuser = await handler.getUser(`${interaction.user.id}`)
+        const botuser = await handler.getUser(`${interaction.user.id}`, null, interaction.user)
         const result = await handler.setup2fa(interaction.user)
 
         if (result === "ALREADY_REGISTERED") {
@@ -22,7 +22,7 @@ module.exports = {
                         if (verified) {
                             await interaction.editReply({ content: `You have successfully verified yourself!` })
                         } else {
-                            const validated = await botuser.validate2fa(interaction.user, message.content)
+                            const validated = await botuser.validate2fa(message.content)
                             if (validated) {
                                 await interaction.user.send({ content: `Your code was correct.` }).catch(e => {return})
                                 await interaction.editReply({ content: `That code was correct!` })

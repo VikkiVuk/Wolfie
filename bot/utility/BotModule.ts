@@ -1,10 +1,8 @@
+import fetch from 'node-fetch'
 const userschema = require('./schemas/user-schema')
-const factorschema = require('./schemas/2fa-schema')
 const guildschema = require('./schemas/guild-schema')
 const Stream = require('stream')
-const speakeasy = require('speakeasy')
 const qrcode = require('qrcode')
-const uuid = require('uuid')
 const config = require('../config.json')
 
 interface UserObject {
@@ -62,7 +60,7 @@ interface UserObject {
     findItem: (itemname: string) => Promise<void>
 }
 
-function UserObject(res: any, guildId: any) {
+function UserObject(res: any, guildId?: any, discorduser?: any) {
     this.modify = async(key: string, value: any, operation?: string) : Promise<void> => {
         const updatedresult = await userschema.findOne({ userid: res.userid })
         const obj = JSON.parse(updatedresult.userdata)
@@ -112,24 +110,18 @@ function UserObject(res: any, guildId: any) {
     }
 
     this.has2fa = async(): Promise<boolean> => {
-        const result = await userschema.findOne({ userid: res.userid })
-        if (result) {
-            return !!result.uuid;
-        }
+        let api = "https://2fa.vikkivuk.xyz/has2FA?uuid=" + res.authid
+        let response = await fetch(api, {method:'GET',redirect:'follow'})
+        let content = await response.json()
+        return content["has2FA"]
     }
 
-    this.validate2fa = async(token: number): Promise<boolean> => {
+    this.validate2fa = async(token: string): Promise<boolean> => {
         try {
-            const uuid = await userschema.findOne({ userid: res.userid }).then(result => { return result.uuid })
-            const acu = await factorschema.findOne({ id: uuid })
-
-            const secret = acu.secret;
-            return speakeasy.totp.verify({
-                secret,
-                encoding: "base32",
-                token,
-                window: 1
-            })
+            let api = "https://2fa.vikkivuk.xyz/check"
+            let response = await fetch(api, {method:"POST", redirect:'follow',body:'{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}'})
+            let content = await response.json()
+            return content["validated"]
         } catch (err) {
             console.error(err)
             return false
@@ -250,13 +242,13 @@ export class UserModule {
      * @param guildid - The guild id, used for warning and other guild-side stuff.
      * @returns UserObject - A user object that you can do functions on.
      */
-    public getUser = async (userid: string, guildid?: string): Promise<UserObject> => {
+    public getUser = async (userid: string, guildid?: string, discorduser?: any): Promise<UserObject> => {
         const result = await userschema.findOne({ userid: userid })
         if (result) {
-            return new UserObject(result, guildid)
+            return new UserObject(result, guildid, discorduser)
         } else {
             let user = await new userschema({ userid: userid, uuid: "", userdata: JSON.stringify({ money: 100, xp: 0, level: 1, inventory: [], note: "", messages: [], daily: 0 }), guilds: "{}" }).save()
-            return new UserObject(user, guildid)
+            return new UserObject(user, guildid, discorduser)
         }
     }
 
@@ -267,21 +259,28 @@ export class UserModule {
      */
     public setup2fa = async(user: any) => {
         const aa = await userschema.findOne({userid: user.id})
-        if (aa.uuid === "" || !aa.uuid) {
-            const id = uuid.v4();
-
+        if (aa.authid === "" || !aa.authid) {
             try {
-                const temp_secret = speakeasy.generateSecret({
-                    name: "Wolfie: " + user.username
-                });
+                let api = "https://2fa.vikkivuk.xyz/create"
+                let response = await fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })
+                let content = await response.json()
+                /*
+                    body example:
+                    {
+                      "customid": "user-1233c533/VikkiVuk",
+                      "id": "0a1806d6-2824-4a92-86b9-5907a5cffa16",
+                      "secret": {
+                        "ascii": "7$CSE5;4.#n^tTPAlw<:rO%J0Hn]Ka0F",
+                        "hex": "3724435345353b342e236e5e745450416c773c3a724f254a30486e5d4b613046",
+                        "base32": "G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA",
+                        "otpauth_url": "otpauth://totp/VikkiVuk%20LLC%3A%20user-1233c533%2FVikkiVuk?secret=G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA"
+                      },
+                      "drcode": "string"
+                      "code": 200
+                    }
+                 */
 
-                let newUser = await new factorschema({
-                    id: id,
-                    temp_secret: temp_secret.base32,
-                    secret: "waiting"
-                }).save()
-
-                await userschema.updateOne({ userid: user.id }, { uuid: id })
+                await userschema.updateOne({ userid: user.id }, { authid: content["id"] })
 
                 // @ts-ignore
                 async function createStream() {
@@ -291,12 +290,12 @@ export class UserModule {
                             callback()
                         }
                     })
-                    await qrcode.toFileStream(stream, temp_secret.otpauth_url)
+                    await qrcode.toFileStream(stream, content["otpauth_url"])
                     return stream
                 }
                 let scan = await createStream()
 
-                return { userid: id, temp_secret: temp_secret, qrcode: scan }
+                return { userid: content["id"], temp_secret: content["secret"]["base32"], qrcode: scan }
             } catch (err) {
                 return "ERROR"
             }
@@ -311,23 +310,13 @@ export class UserModule {
      * @param token - The code
      * @returns boolean - Returns if the user is verified now or not
      */
-    public verify2fa = async(user: any, token: number) => {
+    public verify2fa = async(user: any, token: string) => {
         try {
-            const uuid = await userschema.findOne({ userid: user.id }).then(result => { return result.uuid })
-            const acu = await factorschema.findOne({ id: uuid })
+            let api = "https://2fa.vikkivuk.xyz/confirm"
+            let response = await fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}'})
+            let content = await response.json()
 
-            const secret = acu.temp_secret;
-            const verified = speakeasy.totp.verify({
-                secret,
-                encoding: "base32",
-                token
-            });
-
-            if (verified) {
-                await factorschema.updateOne({ id: uuid }, { id: uuid, temp_secret: "invalidated", secret: secret });
-            }
-
-            return verified
+            return content["verified"]
         } catch (err) {
             console.log(err);
             return "ERROR"

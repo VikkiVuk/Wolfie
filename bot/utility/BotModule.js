@@ -48,15 +48,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.GuildConfigurations = exports.UserModule = void 0;
+var node_fetch_1 = require("node-fetch");
 var userschema = require('./schemas/user-schema');
-var factorschema = require('./schemas/2fa-schema');
 var guildschema = require('./schemas/guild-schema');
 var Stream = require('stream');
-var speakeasy = require('speakeasy');
 var qrcode = require('qrcode');
-var uuid = require('uuid');
 var config = require('../config.json');
-function UserObject(res, guildId) {
+function UserObject(res, guildId, discorduser) {
     var _this = this;
     this.modify = function (key, value, operation) { return __awaiter(_this, void 0, void 0, function () {
         var updatedresult, obj, guildobj;
@@ -132,38 +130,35 @@ function UserObject(res, guildId) {
         });
     }); };
     this.has2fa = function () { return __awaiter(_this, void 0, void 0, function () {
-        var result;
+        var api, response, content;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, userschema.findOne({ userid: res.userid })];
+                case 0:
+                    api = "https://2fa.vikkivuk.xyz/has2FA?uuid=" + res.authid;
+                    return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'GET', redirect: 'follow' })];
                 case 1:
-                    result = _a.sent();
-                    if (result) {
-                        return [2 /*return*/, !!result.uuid];
-                    }
-                    return [2 /*return*/];
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    content = _a.sent();
+                    return [2 /*return*/, content["has2FA"]];
             }
         });
     }); };
     this.validate2fa = function (token) { return __awaiter(_this, void 0, void 0, function () {
-        var uuid_1, acu, secret, err_1;
+        var api, response, content, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, userschema.findOne({ userid: res.userid }).then(function (result) { return result.uuid; })];
+                    api = "https://2fa.vikkivuk.xyz/check";
+                    return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: "POST", redirect: 'follow', body: '{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}' })];
                 case 1:
-                    uuid_1 = _a.sent();
-                    return [4 /*yield*/, factorschema.findOne({ id: uuid_1 })];
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
                 case 2:
-                    acu = _a.sent();
-                    secret = acu.secret;
-                    return [2 /*return*/, speakeasy.totp.verify({
-                            secret: secret,
-                            encoding: "base32",
-                            token: token,
-                            window: 1
-                        })];
+                    content = _a.sent();
+                    return [2 /*return*/, content["validated"]];
                 case 3:
                     err_1 = _a.sent();
                     console.error(err_1);
@@ -327,7 +322,7 @@ var UserModule = /** @class */ (function () {
          * @param guildid - The guild id, used for warning and other guild-side stuff.
          * @returns UserObject - A user object that you can do functions on.
          */
-        this.getUser = function (userid, guildid) { return __awaiter(_this, void 0, void 0, function () {
+        this.getUser = function (userid, guildid, discorduser) { return __awaiter(_this, void 0, void 0, function () {
             var result, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -335,11 +330,11 @@ var UserModule = /** @class */ (function () {
                     case 1:
                         result = _a.sent();
                         if (!result) return [3 /*break*/, 2];
-                        return [2 /*return*/, new UserObject(result, guildid)];
+                        return [2 /*return*/, new UserObject(result, guildid, discorduser)];
                     case 2: return [4 /*yield*/, new userschema({ userid: userid, uuid: "", userdata: JSON.stringify({ money: 100, xp: 0, level: 1, inventory: [], note: "", messages: [], daily: 0 }), guilds: "{}" }).save()];
                     case 3:
                         user = _a.sent();
-                        return [2 /*return*/, new UserObject(user, guildid)];
+                        return [2 /*return*/, new UserObject(user, guildid, discorduser)];
                 }
             });
         }); };
@@ -362,7 +357,7 @@ var UserModule = /** @class */ (function () {
                                         callback();
                                     }
                                 });
-                                return [4 /*yield*/, qrcode.toFileStream(stream, temp_secret_1.otpauth_url)];
+                                return [4 /*yield*/, qrcode.toFileStream(stream, content_1["otpauth_url"])];
                             case 1:
                                 _a.sent();
                                 return [2 /*return*/, stream];
@@ -370,42 +365,84 @@ var UserModule = /** @class */ (function () {
                     });
                 });
             }
-            var aa, id, temp_secret_1, newUser, scan, err_2;
+            var aa, api, response, content_1, scan, err_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, userschema.findOne({ userid: user.id })];
                     case 1:
                         aa = _a.sent();
-                        if (!(aa.uuid === "" || !aa.uuid)) return [3 /*break*/, 8];
-                        id = uuid.v4();
+                        if (!(aa.authid === "" || !aa.authid)) return [3 /*break*/, 9];
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 6, , 7]);
-                        temp_secret_1 = speakeasy.generateSecret({
-                            name: "Wolfie: " + user.username
-                        });
-                        return [4 /*yield*/, new factorschema({
-                                id: id,
-                                temp_secret: temp_secret_1.base32,
-                                secret: "waiting"
-                            }).save()];
+                        _a.trys.push([2, 7, , 8]);
+                        api = "https://2fa.vikkivuk.xyz/create";
+                        return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })];
                     case 3:
-                        newUser = _a.sent();
-                        return [4 /*yield*/, userschema.updateOne({ userid: user.id }, { uuid: id })
-                            // @ts-ignore
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()
+                            /*
+                                body example:
+                                {
+                                  "customid": "user-1233c533/VikkiVuk",
+                                  "id": "0a1806d6-2824-4a92-86b9-5907a5cffa16",
+                                  "secret": {
+                                    "ascii": "7$CSE5;4.#n^tTPAlw<:rO%J0Hn]Ka0F",
+                                    "hex": "3724435345353b342e236e5e745450416c773c3a724f254a30486e5d4b613046",
+                                    "base32": "G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA",
+                                    "otpauth_url": "otpauth://totp/VikkiVuk%20LLC%3A%20user-1233c533%2FVikkiVuk?secret=G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA"
+                                  },
+                                  "drcode": "string"
+                                  "code": 200
+                                }
+                             */
                         ];
                     case 4:
+                        content_1 = _a.sent();
+                        /*
+                            body example:
+                            {
+                              "customid": "user-1233c533/VikkiVuk",
+                              "id": "0a1806d6-2824-4a92-86b9-5907a5cffa16",
+                              "secret": {
+                                "ascii": "7$CSE5;4.#n^tTPAlw<:rO%J0Hn]Ka0F",
+                                "hex": "3724435345353b342e236e5e745450416c773c3a724f254a30486e5d4b613046",
+                                "base32": "G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA",
+                                "otpauth_url": "otpauth://totp/VikkiVuk%20LLC%3A%20user-1233c533%2FVikkiVuk?secret=G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA"
+                              },
+                              "drcode": "string"
+                              "code": 200
+                            }
+                         */
+                        return [4 /*yield*/, userschema.updateOne({ userid: user.id }, { authid: content_1["id"] })
+                            // @ts-ignore
+                        ];
+                    case 5:
+                        /*
+                            body example:
+                            {
+                              "customid": "user-1233c533/VikkiVuk",
+                              "id": "0a1806d6-2824-4a92-86b9-5907a5cffa16",
+                              "secret": {
+                                "ascii": "7$CSE5;4.#n^tTPAlw<:rO%J0Hn]Ka0F",
+                                "hex": "3724435345353b342e236e5e745450416c773c3a724f254a30486e5d4b613046",
+                                "base32": "G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA",
+                                "otpauth_url": "otpauth://totp/VikkiVuk%20LLC%3A%20user-1233c533%2FVikkiVuk?secret=G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA"
+                              },
+                              "drcode": "string"
+                              "code": 200
+                            }
+                         */
                         _a.sent();
                         return [4 /*yield*/, createStream()];
-                    case 5:
-                        scan = _a.sent();
-                        return [2 /*return*/, { userid: id, temp_secret: temp_secret_1, qrcode: scan }];
                     case 6:
+                        scan = _a.sent();
+                        return [2 /*return*/, { userid: content_1["id"], temp_secret: content_1["secret"]["base32"], qrcode: scan }];
+                    case 7:
                         err_2 = _a.sent();
                         return [2 /*return*/, "ERROR"];
-                    case 7: return [3 /*break*/, 9];
-                    case 8: return [2 /*return*/, "ALREADY_REGISTERED"];
-                    case 9: return [2 /*return*/];
+                    case 8: return [3 /*break*/, 10];
+                    case 9: return [2 /*return*/, "ALREADY_REGISTERED"];
+                    case 10: return [2 /*return*/];
                 }
             });
         }); };
@@ -416,34 +453,24 @@ var UserModule = /** @class */ (function () {
          * @returns boolean - Returns if the user is verified now or not
          */
         this.verify2fa = function (user, token) { return __awaiter(_this, void 0, void 0, function () {
-            var uuid_2, acu, secret, verified, err_3;
+            var api, response, content, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 5, , 6]);
-                        return [4 /*yield*/, userschema.findOne({ userid: user.id }).then(function (result) { return result.uuid; })];
+                        _a.trys.push([0, 3, , 4]);
+                        api = "https://2fa.vikkivuk.xyz/confirm";
+                        return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}' })];
                     case 1:
-                        uuid_2 = _a.sent();
-                        return [4 /*yield*/, factorschema.findOne({ id: uuid_2 })];
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
                     case 2:
-                        acu = _a.sent();
-                        secret = acu.temp_secret;
-                        verified = speakeasy.totp.verify({
-                            secret: secret,
-                            encoding: "base32",
-                            token: token
-                        });
-                        if (!verified) return [3 /*break*/, 4];
-                        return [4 /*yield*/, factorschema.updateOne({ id: uuid_2 }, { id: uuid_2, temp_secret: "invalidated", secret: secret })];
+                        content = _a.sent();
+                        return [2 /*return*/, content["verified"]];
                     case 3:
-                        _a.sent();
-                        _a.label = 4;
-                    case 4: return [2 /*return*/, verified];
-                    case 5:
                         err_3 = _a.sent();
                         console.log(err_3);
                         return [2 /*return*/, "ERROR"];
-                    case 6: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const profileSchema = new mongoose.Schema({
     userid: String,
-    uuid: String,
+    authid: String,
     userdata: String,
     guilds: String,
     VikkiVukAccountID: String
