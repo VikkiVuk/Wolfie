@@ -16,8 +16,7 @@ router.get("/link", async(req,res, next) => {
                let response = await fetch("https://accounts.vikkivuk.xyz/api/getUser/" + params.uuid, {method: "GET",redirect:"follow"})
                let vikkiuser = await response.json()
                if (vikkiuser) {
-                   console.log(user)
-                   schema.findOneAndUpdate({userid: user.discordId}, {accountId:params.uuid})
+                   await schema.findOneAndUpdate({userid: user.discordId}, {accountId:params.uuid})
                    res.send("Your account has been linked! You can now safely return back to discord, and continue migrating your account.")
                }
            } catch(e) {
