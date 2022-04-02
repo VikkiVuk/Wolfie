@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 const userschema = require('./schemas/user-schema')
 const guildschema = require('./schemas/guild-schema')
 const Stream = require('stream')
@@ -93,7 +92,7 @@ function UserObject(res: any, guildId?: any, discorduser?: any) {
     }
 
     this.getkey = async(key: string): Promise<any> => {
-        const updatedresult = await userschema.findOne({ userid: res.userid })
+        const updatedresult = await userschema.findOne({userid: res.userid})
         const obj = JSON.parse(updatedresult.userdata)
 
         if (key == "warns") {
@@ -106,25 +105,6 @@ function UserObject(res: any, guildId?: any, discorduser?: any) {
             }
         } else {
             return obj[key]
-        }
-    }
-
-    this.has2fa = async(): Promise<boolean> => {
-        let api = "https://2fa.vikkivuk.xyz/has2FA?uuid=" + res.authid
-        let response = await fetch(api, {method:'GET',redirect:'follow'})
-        let content = await response.json()
-        return content["has2FA"]
-    }
-
-    this.validate2fa = async(token: string): Promise<boolean> => {
-        try {
-            let api = "https://2fa.vikkivuk.xyz/check"
-            let response = await fetch(api, {method:"POST", redirect:'follow',body:'{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}'})
-            let content = await response.json()
-            return content["validated"]
-        } catch (err) {
-            console.error(err)
-            return false
         }
     }
 
@@ -257,54 +237,6 @@ export class UserModule {
      * @param user - A discord user, not an id, a whole user.
      * @returns any - It can return the user object with the qr code needed to be scanned, or it can return the error.
      */
-    public setup2fa = async(user: any) => {
-        const aa = await userschema.findOne({userid: user.id})
-        if (aa.authid === "" || !aa.authid) {
-            try {
-                let api = "https://2fa.vikkivuk.xyz/create"
-                let response = await fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })
-                let content = await response.json()
-                /*
-                    body example:
-                    {
-                      "customid": "user-1233c533/VikkiVuk",
-                      "id": "0a1806d6-2824-4a92-86b9-5907a5cffa16",
-                      "secret": {
-                        "ascii": "7$CSE5;4.#n^tTPAlw<:rO%J0Hn]Ka0F",
-                        "hex": "3724435345353b342e236e5e745450416c773c3a724f254a30486e5d4b613046",
-                        "base32": "G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA",
-                        "otpauth_url": "otpauth://totp/VikkiVuk%20LLC%3A%20user-1233c533%2FVikkiVuk?secret=G4SEGU2FGU5TILRDNZPHIVCQIFWHOPB2OJHSKSRQJBXF2S3BGBDA"
-                      },
-                      "drcode": "string"
-                      "code": 200
-                    }
-                 */
-
-                await userschema.updateOne({ userid: user.id }, { authid: content["id"] })
-
-                // @ts-ignore
-                async function createStream() {
-                    const stream = new Stream.Transform({
-                        transform(chunk, encoding, callback) {
-                            this.push(chunk)
-                            callback()
-                        }
-                    })
-                    await qrcode.toFileStream(stream, content["otpauth_url"])
-                    return stream
-                }
-                let scan = await createStream()
-
-                return { userid: content["id"], temp_secret: content["secret"]["base32"], qrcode: scan }
-            } catch (err) {
-                console.log(err)
-                return {}
-            }
-        } else {
-            return "ALREADY_REGISTERED"
-        }
-    }
-
     /**
      * Complete the 2fa setup with this
      * @param user - A discord user
