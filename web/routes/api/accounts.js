@@ -13,7 +13,7 @@ router.get("/link", async(req,res, next) => {
         let params = await req.query
         if (params.uuid) {
            try {
-               let response = await fetch("https://accounts.vikkivuk.xyz/getuser/" + params.uuid, {method: "GET",redirect:"follow"})
+               let response = await fetch("https://accounts.vikkivuk.xyz/api/getUser/" + params.uuid, {method: "GET",redirect:"follow"})
                let user = await response.json()
                if (user) {
                    schema.findOneAndUpdate({userid: user.discordId}, {VikkiVukAccountID:params.uuid}, {new:true})

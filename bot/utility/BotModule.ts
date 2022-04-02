@@ -1,5 +1,4 @@
-// @ts-ignore
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+import fetch from 'node-fetch'
 const userschema = require('./schemas/user-schema')
 const guildschema = require('./schemas/guild-schema')
 const Stream = require('stream')
@@ -298,7 +297,8 @@ export class UserModule {
 
                 return { userid: content["id"], temp_secret: content["secret"]["base32"], qrcode: scan }
             } catch (err) {
-                return "ERROR"
+                console.log(err)
+                return {}
             }
         } else {
             return "ALREADY_REGISTERED"

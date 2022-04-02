@@ -9,6 +9,8 @@ module.exports = {
         .setDescription('Used to verify user ownership of the account.'),
 
     async execute(interaction) {
+        await interaction.reply({content:`Hello, this command is deprecated and will be removed in future versions, since we are migrating to another account system, this command will also be moved. Currently this command is disabled.`})
+        return;
         await interaction.deferReply()
         const botuser = await handler.getUser(`${interaction.user.id}`, null, interaction.user)
         const result = await handler.setup2fa(interaction.user)
@@ -38,6 +40,7 @@ module.exports = {
                 await interaction.editReply({content: `❌ I can't send you a DM, did you block me?`})
             })
         } else {
+            console.log(result)
             const x = await new MessageAttachment(result.qrcode, "QRCode.png")
             await interaction.user.send({content: "Scan this QRCode in **Google Authenticator** or **Authy**. \n \n**This message will be deleted in 20 seconds due to security reasons.**", files: [x], ephemeral: false, fetchReply: true}).then(async() => {
                 await interaction.editReply({ content: `✅ Check your DMs.`})

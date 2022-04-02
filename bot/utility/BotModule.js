@@ -48,8 +48,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.GuildConfigurations = exports.UserModule = void 0;
-// @ts-ignore
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+var node_fetch_1 = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 var userschema = require('./schemas/user-schema');
 var guildschema = require('./schemas/guild-schema');
 var Stream = require('stream');
@@ -136,7 +136,7 @@ function UserObject(res, guildId, discorduser) {
             switch (_a.label) {
                 case 0:
                     api = "https://2fa.vikkivuk.xyz/has2FA?uuid=" + res.authid;
-                    return [4 /*yield*/, fetch(api, { method: 'GET', redirect: 'follow' })];
+                    return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'GET', redirect: 'follow' })];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -153,7 +153,7 @@ function UserObject(res, guildId, discorduser) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
                     api = "https://2fa.vikkivuk.xyz/check";
-                    return [4 /*yield*/, fetch(api, { method: "POST", redirect: 'follow', body: '{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}' })];
+                    return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: "POST", redirect: 'follow', body: '{"customid":"' + discorduser.username + '(' + discorduser.id + ')' + ',"code":"' + token + '"}' })];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -345,7 +345,6 @@ var UserModule = /** @class */ (function () {
          * @returns any - It can return the user object with the qr code needed to be scanned, or it can return the error.
          */
         this.setup2fa = function (user) { return __awaiter(_this, void 0, void 0, function () {
-            // @ts-ignore
             function createStream() {
                 return __awaiter(this, void 0, void 0, function () {
                     var stream;
@@ -377,7 +376,7 @@ var UserModule = /** @class */ (function () {
                     case 2:
                         _a.trys.push([2, 7, , 8]);
                         api = "https://2fa.vikkivuk.xyz/create";
-                        return [4 /*yield*/, fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })];
+                        return [4 /*yield*/, (0, node_fetch_1(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"servicename":"Wolfie"}' })];
                     case 3:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()
@@ -440,7 +439,8 @@ var UserModule = /** @class */ (function () {
                         return [2 /*return*/, { userid: content_1["id"], temp_secret: content_1["secret"]["base32"], qrcode: scan }];
                     case 7:
                         err_2 = _a.sent();
-                        return [2 /*return*/, "ERROR"];
+                        console.log(err_2);
+                        return [2 /*return*/, {}];
                     case 8: return [3 /*break*/, 10];
                     case 9: return [2 /*return*/, "ALREADY_REGISTERED"];
                     case 10: return [2 /*return*/];
@@ -460,7 +460,7 @@ var UserModule = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         api = "https://2fa.vikkivuk.xyz/confirm";
-                        return [4 /*yield*/, fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}' })];
+                        return [4 /*yield*/, (0, node_fetch_1["default"])(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}' })];
                     case 1:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()];
