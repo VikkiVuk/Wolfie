@@ -23,16 +23,6 @@ interface UserObject {
      * Check if the user has 2fa enabled.
      * @returns boolean
      */
-    has2fa: () => Promise<boolean>,
-    /**
-     * Validate a users authenticity for more secure interactions.
-     * @param token - The code from the authenticator app
-     * @returns boolean
-     */
-    validate2fa: (token: number) => Promise<boolean>,
-    /**
-     * @deprecated Warn someone for misbehaving in a server or something like that. Warns are per-guild, bots cannot be warned. Warns the user in the guild the user object was requested.
-     */
     warn: () => Promise<void>,
     /**
      * Check how many days have passed since the last time the user has claimed the daily reward.
@@ -229,30 +219,6 @@ export class UserModule {
         } else {
             let user = await new userschema({ userid: userid, uuid: "", userdata: JSON.stringify({ money: 100, xp: 0, level: 1, inventory: [], note: "", messages: [], daily: 0 }), guilds: "{}" }).save()
             return new UserObject(user, guildid, discorduser)
-        }
-    }
-
-    /**
-     * Get a user 2FA Auth qr code that they need to scan and register them. Use verify2FA to verify the user and complete the 2FA Setup.
-     * @param user - A discord user, not an id, a whole user.
-     * @returns any - It can return the user object with the qr code needed to be scanned, or it can return the error.
-     */
-    /**
-     * Complete the 2fa setup with this
-     * @param user - A discord user
-     * @param token - The code
-     * @returns boolean - Returns if the user is verified now or not
-     */
-    public verify2fa = async(user: any, token: string) => {
-        try {
-            let api = "https://2fa.vikkivuk.xyz/confirm"
-            let response = await fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}'})
-            let content = await response.json()
-
-            return content["verified"]
-        } catch (err) {
-            console.log(err);
-            return "ERROR"
         }
     }
 

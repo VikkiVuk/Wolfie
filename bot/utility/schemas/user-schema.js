@@ -5,7 +5,7 @@ const profileSchema = new mongoose.Schema({
     authid: String,
     userdata: String,
     guilds: String,
-    VikkiVukAccountID: String
+    accountId: String
 })
 
 module.exports = mongoose.model('users', profileSchema)
