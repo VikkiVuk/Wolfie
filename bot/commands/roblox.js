@@ -17,21 +17,20 @@ module.exports = {
             let response = await fetch(api + "getuserinfo", { body: { discorduuid: user.user.id }, method: 'POST', redirect: 'follow'})
             let content = await response.json()
             if (content.userinfo) {
-                got(usersapi + content.userinfo.roblox).then(async rblxus => {
-                    let rblxuser = JSON.parse(rblxus.body)
-                    const embed = new MessageEmbed().setTitle(`@${interaction.member.user.username} (${interaction.member.displayName})`).setDescription("This user has a connected account, more details down below.").setColor('#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0')).setTimestamp().setFooter("Roblox Verification").setURL(`https://www.roblox.com/users/${content.userinfo.roblox}/profile`)
-                        .addField("Roblox Id", rblxuser.id.toString(), true)
-                        .addField("Username", rblxuser.name, true)
-                        .addField("Display Name", rblxuser.displayName, true)
-                        .addField("About me", rblxuser.description)
-                        .addField("Joined at", new Date(rblxuser.created).toString(), true)
-                    if (rblxuser.isBanned == true) {
-                        embed.addField("Banned", "Yes", true)
-                    } else {
-                        embed.addField("Banned", "No", true)
-                    }
-                    await interaction.editReply({ embeds: [embed] })
-                })
+                let rblxus = await fetch(usersapi + content.userinfo.roblox, {method:"GET", redirect: 'follow'})
+                let rblxuser = await rblxus.json()
+                const embed = new MessageEmbed().setTitle(`@${interaction.member.user.username} (${interaction.member.displayName})`).setDescription("This user has a connected account, more details down below.").setColor('#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0')).setTimestamp().setFooter("Roblox Verification").setURL(`https://www.roblox.com/users/${content.userinfo.roblox}/profile`)
+                    .addField("Roblox Id", rblxuser.id.toString(), true)
+                    .addField("Username", rblxuser.name, true)
+                    .addField("Display Name", rblxuser.displayName, true)
+                    .addField("About me", rblxuser.description)
+                    .addField("Joined at", new Date(rblxuser.created).toString(), true)
+                if (rblxuser.isBanned == true) {
+                    embed.addField("Banned", "Yes", true)
+                } else {
+                    embed.addField("Banned", "No", true)
+                }
+                await interaction.editReply({ embeds: [embed] })
             } else {
                 await interaction.editReply({ content: `User <@${user.user.id}> hasnt connected their roblox account yet.` })
             }
