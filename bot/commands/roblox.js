@@ -14,7 +14,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: false })
         const user = interaction.options.getMember("user")
         if (user.roles.cache.has('895753436941942795')) {
-            let response = await fetch(api + "getuserinfo", { body: { discorduuid: user.user.id }, method: 'POST', redirect: 'follow'})
+            let response = await fetch(api + "getuserinfo", { body: `{ "discorduuid": ${user.user.id} }`, method: 'POST', redirect: 'follow'})
             let content = await response.json()
             if (content.userinfo) {
                 let rblxus = await fetch(usersapi + content.userinfo.roblox, {method:"GET", redirect: 'follow'})

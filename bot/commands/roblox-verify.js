@@ -10,14 +10,14 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         if (interaction.member.roles.cache.has('895753436941942795')) {
-            let response = await fetch(api + "getuserinfo", {body: {discorduuid: interaction.member.user.id}, method:'POST', redirect: 'follow'})
+            let response = await fetch(api + "getuserinfo", {body: `{"discorduuid": ${interaction.member.user.id}}`, method:'POST', redirect: 'follow'})
             let content = await response.json()
 
             if (content.userinfo) {
                 await interaction.editReply({ content: '❌ You already have an account connected, your discord account is connected to: https://www.roblox.com/users/' + content.userinfo.roblox + '/profile. \n \nIf you think this is a mistake please contact our support team using `/support`.', ephemeral: true })
             }
         } else {
-            let response = await fetch(api + "getuserinfo", {body: {discorduuid: interaction.member.user.id}, method:'POST', redirect: 'follow'})
+            let response = await fetch(api + "getuserinfo", {body: `{"discorduuid": ${interaction.member.user.id}}`, method:'POST', redirect: 'follow'})
             let content = await response.json()
 
             if (content.userinfo) {
@@ -28,7 +28,7 @@ module.exports = {
                     await interaction.editReply({ content: "You have successfully connected your discord account: **" + interaction.member.user.tag + "** with your roblox account: https://www.roblox.com/users/" + content.userinfo.roblox + "/profile", ephemeral: true })
                 }
             } else {
-                let response = await fetch(api + "getcode", {body: {discorduuid: interaction.member.user.id}, method:'POST', redirect: 'follow'})
+                let response = await fetch(api + "getcode", {body: `{"discorduuid": ${interaction.member.user.id}}`, method:'POST', redirect: 'follow'})
                 let content = await response.json()
 
                 await interaction.editReply({ content: "Join this roblox game: https://www.roblox.com/games/6052251836 (Choose Standard/v1) and type this code: " + content.code + ". \n \nAfter you verify yourself, you will get a role in all eligible servers, if you join a new eligible server just use this command again.", ephemeral: true })
