@@ -21,7 +21,7 @@ module.exports = {
             .addField("MONEY", `You have **W$ ${coins}**`, true)
             .addField("LEVEL", `You're at **LVL ${level}**`, true)
             .addField("XP", `You have **${xp}/${reqxp}**`, true)
-            .addField("DAILY", `You've **${(daily < 1) ? "CLAIMED" : "NOT CLAIMED"}** your daily reward.`, true)
+            .addField("DAILY", `You've **${(daily < 1) ? "CLAIMED" : "NOT CLAIMED"}** your reward for today.`, true)
             .addField("OTHER", `Everything else has it's separate command, you can find them easily.`, true)
 
         await interaction.reply({embeds: [embed], ephemeral: true})
