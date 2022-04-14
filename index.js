@@ -56,7 +56,7 @@ client.on('interactionCreate', async (interaction) => {
 		if (!command) return;
 		try { await command.execute(interaction, client); } catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'An error has occured, if this continues happening please contact us at support@vikkivuk.xyz', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'Doslo je do greske, vise detalja je poslato korisniku **NotVikki**.', ephemeral: true }) })
+			await interaction.reply({ content: 'An error has occured, if this continues happening please contact us at support@vikkivuk.xyz', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'An error has occured, if this continues happening please contact us at support@vikkivuk.xyz', ephemeral: true }) })
 		}
 	}
 });
