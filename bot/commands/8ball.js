@@ -16,7 +16,7 @@ module.exports = {
         const response = await fetch(`https://8ball.delegator.com/magic/JSON/`+question, {method:"GET",redirect:"follow"})
         let a = await response.json()
         let content = a.magic
-        const embed = new MessageEmbed().setTitle(question + "?").setDescription("<:reply:884528743673135144> " + (content) ? content["answer"] : "I dont know...")
+        const embed = new MessageEmbed().setTitle(question + "?").setDescription("<:reply:884528743673135144> " + (content) ? content["answer"] : "I dont know")
         await wait(3000)
         await interaction.editReply({ embeds: [embed] })
     },

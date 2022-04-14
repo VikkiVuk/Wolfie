@@ -14,11 +14,6 @@ module.exports = {
         const rate = interaction.options.getSubcommand()
         const randomRate = await random.randomNumber(0, 100)
 
-
-        if (rate === "gay") {
-            await interaction.reply({ content: `You are **${randomRate}% ${rate}**` });
-        } else {
-            await interaction.reply({ content: `You are **${randomRate}% ${rate}**` });
-        }
+        await interaction.reply({ content: `You are **${randomRate}% ${rate}**` });
     },
 };

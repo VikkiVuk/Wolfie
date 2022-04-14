@@ -7,7 +7,7 @@ const handler = new botmodule.UserModule()
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('guess')
-        .setDescription('Guess a number for MONEY MONEY MONEY'),
+        .setDescription('Guess a number for MONEY'),
 
     async execute(interaction) {
         let options = []

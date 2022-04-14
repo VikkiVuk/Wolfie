@@ -22,7 +22,7 @@ module.exports = {
 
             if (content.userinfo) {
                 if (content.userinfo.roblox === "AWAITING") {
-                    await interaction.editReply({ content: "You still havent connected your account! Go here: https://www.roblox.com/games/6052251836/RDV-Verification and type this code: " + content.code, ephemeral: true })
+                    await interaction.editReply({ content: "You still haven't connected your account! Go here: https://www.roblox.com/games/6052251836 and type this code: " + content.code, ephemeral: true })
                 } else {
                     interaction.member.roles.add("895753436941942795")
                     await interaction.editReply({ content: "You have successfully connected your discord account: **" + interaction.member.user.tag + "** with your roblox account: https://www.roblox.com/users/" + content.userinfo.roblox + "/profile", ephemeral: true })

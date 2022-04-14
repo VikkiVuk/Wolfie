@@ -12,12 +12,11 @@ module.exports = {
 
   async execute(interaction) {
     if (talkedRecently.includes(interaction.user.id)) {
-      interaction.reply({ content: `chill out there bruh, wait for the cooldown to end.`})
+      interaction.reply({ content: `Wait for the cooldown to end, it's 10 seconds.`})
     } else {
       const randomNum = Math.floor(Math.random() * 250)
       const intuser = await handler.getUser(interaction.user.id)
       await intuser.modify("money", randomNum, "ADD")
-
 
       const embed = new MessageEmbed()
           .setTitle('BEGGING')

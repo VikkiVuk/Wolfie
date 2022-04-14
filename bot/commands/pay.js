@@ -16,16 +16,9 @@ module.exports = {
             return
         }
 
-
         const amnt = interaction.options.getInteger("amount")
-
-        await handler(interaction.user.id).then(async () => {
-            await handler.modify(interaction.user.id, "money", amnt, "remove")
-        })
-
-        await handler(user.id).then(async() => {
-            await handler.modify(user.id, "money", amnt, "add")
-        })
+        await handler(interaction.user.id).then(async () => { await handler.modify(interaction.user.id, "money", amnt, "remove") })
+        await handler(user.id).then(async() => { await handler.modify(user.id, "money", amnt, "add") })
 
         await interaction.reply(`✅ You sent **W$ ${amnt}** to <@${user.id}>.`);
     },

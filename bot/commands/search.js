@@ -9,10 +9,10 @@ const talkedRecently = []
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('search')
-        .setDescription('Get money, from searching stuf....'),
+        .setDescription('Get money, from searching stuff...'),
     async execute(interaction) {
         if (talkedRecently.includes(interaction.user.id)) {
-            interaction.reply({ content: `HAVE PATIENCE!`})
+            interaction.reply({ content: `bro, theres a cooldown, haven't you heard?`})
         } else {
             const locations = config.searchZones
             const chosenLocations = locations.sort(() => Math.random() - Math.random()).slice(0, 3)

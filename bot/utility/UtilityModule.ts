@@ -33,7 +33,6 @@ function firstMessage(client: any, id: string, text: string, reactions = []): vo
         })
     }
 }
-
 interface firstMessage {
     /**
      * Get the first message module
@@ -43,6 +42,29 @@ interface firstMessage {
      * @param reactions
      */
     firstMessage: (client: any, id: string, text: string, reactions: any) => void
+}
+
+/** Shuffle things around in an array */
+async function shuffle(array: any) {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex != 0) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+interface shuffle {
+    /**
+     * @returns array - shuffled array
+     * @param array - normal array
+     * */
+    shuffle: (array: any) => any
 }
 
 function Modules() {
@@ -55,6 +77,10 @@ function Modules() {
      */
     this.firstMessage = async(client: any, id: string, text: string, reactions = []): Promise<firstMessage> => {
         return new firstMessage(client, id, text, reactions)
+    }
+    /** Shuffle things around in an array */
+    this.shuffle = async(array: any) : Promise<shuffle> => {
+        return await shuffle(array)
     }
 }
 

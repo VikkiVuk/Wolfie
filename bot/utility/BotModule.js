@@ -50,8 +50,6 @@ exports.__esModule = true;
 exports.GuildConfigurations = exports.UserModule = void 0;
 var userschema = require('./schemas/user-schema');
 var guildschema = require('./schemas/guild-schema');
-var Stream = require('stream');
-var qrcode = require('qrcode');
 var config = require('../config.json');
 function UserObject(res, guildId, discorduser) {
     var _this = this;
@@ -296,39 +294,6 @@ var UserModule = /** @class */ (function () {
                     case 3:
                         user = _a.sent();
                         return [2 /*return*/, new UserObject(user, guildid, discorduser)];
-                }
-            });
-        }); };
-        /**
-         * Get a user 2FA Auth qr code that they need to scan and register them. Use verify2FA to verify the user and complete the 2FA Setup.
-         * @param user - A discord user, not an id, a whole user.
-         * @returns any - It can return the user object with the qr code needed to be scanned, or it can return the error.
-         */
-        /**
-         * Complete the 2fa setup with this
-         * @param user - A discord user
-         * @param token - The code
-         * @returns boolean - Returns if the user is verified now or not
-         */
-        this.verify2fa = function (user, token) { return __awaiter(_this, void 0, void 0, function () {
-            var api, response, content, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        api = "https://2fa.vikkivuk.xyz/confirm";
-                        return [4 /*yield*/, fetch(api, { method: 'POST', redirect: 'follow', body: '{"customid":"' + user.username + '(' + user.id + ')' + ',"code":"' + token + '"}' })];
-                    case 1:
-                        response = _a.sent();
-                        return [4 /*yield*/, response.json()];
-                    case 2:
-                        content = _a.sent();
-                        return [2 /*return*/, content["verified"]];
-                    case 3:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        return [2 /*return*/, "ERROR"];
-                    case 4: return [2 /*return*/];
                 }
             });
         }); };

@@ -82,6 +82,24 @@ function firstMessage(client, id, text, reactions) {
         });
     };
 }
+/** Shuffle things around in an array */
+function shuffle(array) {
+    return __awaiter(this, void 0, void 0, function () {
+        var currentIndex, randomIndex;
+        var _a;
+        return __generator(this, function (_b) {
+            currentIndex = array.length;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                _a = [
+                    array[randomIndex], array[currentIndex]
+                ], array[currentIndex] = _a[0], array[randomIndex] = _a[1];
+            }
+            return [2 /*return*/, array];
+        });
+    });
+}
 function Modules() {
     var _this = this;
     /**
@@ -99,5 +117,14 @@ function Modules() {
             });
         });
     };
+    /** Shuffle things around in an array */
+    this.shuffle = function (array) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, shuffle(array)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
 }
 module.exports.modules = Modules;

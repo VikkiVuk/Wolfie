@@ -1,7 +1,5 @@
 const userschema = require('./schemas/user-schema')
 const guildschema = require('./schemas/guild-schema')
-const Stream = require('stream')
-const qrcode = require('qrcode')
 const config = require('../config.json')
 
 interface UserObject {
@@ -47,6 +45,17 @@ interface UserObject {
      * @returns boolean - If the item is in the inventory.
      */
     findItem: (itemname: string) => Promise<void>
+}
+interface GuildConfig {
+    lockrole: string,
+    /** The role for that people will get after completing verification */
+    verifiedRole: string,
+    /** Roles that bypass the discord permissions */
+    botmasters: object,
+    /** Should messages be checked and deleted for inappropriate stuff */
+    filterEnabled: boolean,
+    /** The role for people that are muted */
+    mutedRole: string
 }
 
 function UserObject(res: any, guildId?: any, discorduser?: any) {
@@ -241,14 +250,13 @@ export class UserModule {
         }
     }
 }
-
 export class GuildConfigurations {
     /**
      * Get the guild configuration in a javascript array
      * @param guildId - The id of the guild you want to get the configuration of
      * @returns configuration - The guild config
      */
-    public configuration = async(guildId: string) => {
+    public configuration = async(guildId: string) : Promise<GuildConfig> => {
         const result = await guildschema.findOne({ guildId: guildId })
         if (result) { return JSON.parse(result.config) } else {
             let ec = await new guildschema({ guildId: guildId, config: "{}", customitems: "{}", commandsOn: [], commandOptions: [] })
