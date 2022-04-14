@@ -22,7 +22,7 @@ module.exports = {
             .addField("LEVEL", `You're at **LVL ${level}**`, true)
             .addField("XP", `You have **${xp}/${reqxp}**`, true)
             .addField("DAILY", `You've **${(daily < 1) ? "CLAIMED" : "NOT CLAIMED"}** your reward for today.`, true)
-            .addField("OTHER", `Everything else has it's separate command, you can find them easily.`, true)
+            .addField("OTHER", `Everything else has a separate command.`, true)
 
         await interaction.reply({embeds: [embed], ephemeral: true})
     },
