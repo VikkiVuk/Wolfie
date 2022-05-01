@@ -74,7 +74,7 @@ function UserObject(res: any, guildId?: any, discorduser?: any) {
             }
             await userschema.updateOne({ userid: res.userid }, { guilds: JSON.stringify(guildobj) })
         } else if(key == "inventory" || key == "messages") {
-            throw new Error("The function user.modify does not support modifying the inventory or the messages. Use users.sendMail and user.addItem/removeItem instead.")
+            throw new Error("The function user#modify does not support modifying the inventory or the messages. Use users#sendMail and user#addItem/removeItem instead.")
         } else if (key == "xp" || key == "money" || key == "level"){
             if (operation == "ADD") {
                 obj[key] += value
@@ -276,8 +276,8 @@ export class GuildConfigurations {
     public modify = async(guildId: string, key: string, value: any) => {
         const res = await guildschema.findOne({ guildId: guildId })
         const obj = JSON.parse(res.config)
-
         obj[key] = value
+
         await guildschema.updateOne({ userid: res.userid }, { config: JSON.stringify(obj) })
     }
 

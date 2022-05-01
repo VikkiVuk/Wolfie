@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, Permissions, MessageEmbed } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { Permissions, MessageEmbed } = require("discord.js")
 const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
 const handler = new BotModule.UserModule()
@@ -25,33 +26,33 @@ module.exports = {
 
             let lockrole = interaction.options.getRole("lock-role")
             let filterEnabled = interaction.options.getBoolean("filter-enabled")
-            await configHand.modify(`${interaction.guild.id}`, "lockrole", lockrole)
+            await configHand.modify(`${interaction.guild.id}`, "lockrole", lockrole.id)
             await configHand.modify(`${interaction.guild.id}`, "filterEnabled", filterEnabled)
 
             let memberRole = interaction.options.getRole("member-role")
-            let greetingChannel = interaction.options.getChannel("filter-enabled")
-            if (memberRole) { await configHand.modify(`${interaction.guild.id}`, "verifiedRole", memberRole) }
-            if (greetingChannel) { await configHand.modify(`${interaction.guild.id}`, "greetingChannel", greetingChannel) }
+            let greetingChannel = interaction.options.getChannel("greeting-channel")
+            if (memberRole) { await configHand.modify(`${interaction.guild.id}`, "verifiedRole", memberRole.id) }
+            if (greetingChannel) { await configHand.modify(`${interaction.guild.id}`, "greetingChannel", greetingChannel.id) }
 
             let botmasters = []
             if (interaction.options.getRole("botmaster1")) {
-                botmasters.push(interaction.options.getRole("botmaster1"))
+                botmasters.push(interaction.options.getRole("botmaster1").id)
             }
 
             if (interaction.options.getRole("botmaster2")) {
-                botmasters.push(interaction.options.getRole("botmaster2"))
+                botmasters.push(interaction.options.getRole("botmaster2").id)
             }
 
             if (interaction.options.getRole("botmaster3")) {
-                botmasters.push(interaction.options.getRole("botmaster3"))
+                botmasters.push(interaction.options.getRole("botmaster3").id)
             }
 
             if (interaction.options.getRole("botmaster4")) {
-                botmasters.push(interaction.options.getRole("botmaster4"))
+                botmasters.push(interaction.options.getRole("botmaster4").id)
             }
 
             if (interaction.options.getRole("botmaster5")) {
-                botmasters.push(interaction.options.getRole("botmaster5"))
+                botmasters.push(interaction.options.getRole("botmaster5").id)
             }
 
             await configHand.modify(`${interaction.guild.id}`, "botmasters", botmasters)

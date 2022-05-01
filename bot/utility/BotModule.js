@@ -75,7 +75,7 @@ function UserObject(res, guildId, discorduser) {
                     return [3 /*break*/, 4];
                 case 3:
                     if (key == "inventory" || key == "messages") {
-                        throw new Error("The function user.modify does not support modifying the inventory or the messages. Use users.sendMail and user.addItem/removeItem instead.");
+                        throw new Error("The function user#modify does not support modifying the inventory or the messages. Use users#sendMail and user#addItem/removeItem instead.");
                     }
                     else if (key == "xp" || key == "money" || key == "level") {
                         if (operation == "ADD") {
@@ -352,15 +352,26 @@ var GuildConfigurations = /** @class */ (function () {
             });
         }); };
         /**
-         * Modify the guild data. (currently doesnt work)
+         * Modify the guild data.
          * @param guildId - The id of the guild you want to modify
-         * @param name - The name of the key you want to modify
+         * @param key
          * @param value - The value you want to set the key
          * @returns null
          */
-        this.modify = function (guildId, name, value) { return __awaiter(_this, void 0, void 0, function () {
+        this.modify = function (guildId, key, value) { return __awaiter(_this, void 0, void 0, function () {
+            var res, obj;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, guildschema.findOne({ guildId: guildId })];
+                    case 1:
+                        res = _a.sent();
+                        obj = JSON.parse(res.config);
+                        obj[key] = value;
+                        return [4 /*yield*/, guildschema.updateOne({ userid: res.userid }, { config: JSON.stringify(obj) })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         }); };
         /**
