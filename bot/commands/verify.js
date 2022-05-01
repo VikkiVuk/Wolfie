@@ -4,7 +4,6 @@ const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
 const util = require("../utility/UtilityModule").modules
 const random = require('../utility/generateRandom')
-const Captcha = require('discord.js-captcha').Captcha;
 const wait = require('util').promisify(setTimeout)
 
 module.exports = {
@@ -38,24 +37,13 @@ module.exports = {
 
                         reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 30000}).then(async button => {
                             if (button.customId === "rightver") {
-                                // Step 3
-                                const captcha = new Captcha(interaction.client, {
-                                    guildID: interaction.guild.id,
-                                    roleID: (config.verifiedRole) ? config.verifiedRole : "",
-                                    channelID: interaction.channel.id,
-                                    kickOnFailure: false,
-                                    sendToTextChannel: true,
-                                    caseSensitive: false,
-                                    attempts: 5,
-                                    timeout: 30000,
-                                    showAttemptCount: true,
-                                    customPromptEmbed: new MessageEmbed().setTitle("VERIFICATION").setDescription("Please type and send what you see in the picture down below.").setFooter({text: "Wolfie • I AM A HUMAN"}).setColor("BLURPLE").setTimestamp(),
-                                    customSuccessEmbed: new MessageEmbed().setTitle('VERIFICATION PASSED').setDescription(`<@${interaction.member.user.id}>, you have passed our verification, congrats! \n \nPlease comply with the server, discord and bot rules to avoid getting banned from the bot.`).setTimestamp().setFooter({text: "Wolfie • I AM A HUMAN"}).setColor('#00ff9d'),
-                                    customFailureEmbed: failembed
-                                });
+                                let successEmbed = new MessageEmbed().setTitle('VERIFICATION PASSED').setDescription(`<@${interaction.member.user.id}>, you have passed our verification, congrats! \n \nPlease comply with the server, discord and bot rules to avoid getting banned from the bot.`).setTimestamp().setFooter({text: "Wolfie • I AM A HUMAN"}).setColor('#00ff9d')
 
-                                await captcha.present(interaction.member)
-                                await interaction.deleteReply()
+                                if (config.verifiedRole) {
+                                    interaction.member.roles.add(config.verifiedRole)
+                                }
+
+                                await interaction.editReply({ content: "", embeds: [successEmbed] })
                             } else { await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply(); }
                         }).catch(async() => {await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply();})
                     }).catch(async() => {await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply();})

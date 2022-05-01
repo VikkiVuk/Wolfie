@@ -54,8 +54,10 @@ interface GuildConfig {
     botmasters: object,
     /** Should messages be checked and deleted for inappropriate stuff */
     filterEnabled: boolean,
-    /** The role for people that are muted */
-    mutedRole: string
+    /** @deprecated The role for people that are muted */
+    mutedRole: string,
+    /** Channel were welcome messages will be sent */
+    greetingChannel: string
 }
 
 function UserObject(res: any, guildId?: any, discorduser?: any) {
@@ -265,14 +267,18 @@ export class GuildConfigurations {
     }
 
     /**
-     * @deprecated Modify the guild data. (currently doesnt work)
+     * Modify the guild data.
      * @param guildId - The id of the guild you want to modify
-     * @param name - The name of the key you want to modify
+     * @param key
      * @param value - The value you want to set the key
      * @returns null
      */
-    public modify = async(guildId: string, name: string, value: any) => {
-        // for now this is nothing.
+    public modify = async(guildId: string, key: string, value: any) => {
+        const res = await guildschema.findOne({ guildId: guildId })
+        const obj = JSON.parse(res.config)
+
+        obj[key] = value
+        await guildschema.updateOne({ userid: res.userid }, { config: JSON.stringify(obj) })
     }
 
     /**

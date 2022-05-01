@@ -352,7 +352,7 @@ var GuildConfigurations = /** @class */ (function () {
             });
         }); };
         /**
-         * @deprecated Modify the guild data. (currently doesnt work)
+         * Modify the guild data. (currently doesnt work)
          * @param guildId - The id of the guild you want to modify
          * @param name - The name of the key you want to modify
          * @param value - The value you want to set the key

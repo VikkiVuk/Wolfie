@@ -5,7 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
       .setName('scan')
       .setDescription('medbay scan sus amogus')
-      .addUserOption(option => option.setName('target').setDescription('who do you want to um... scan?').setRequired(false)),
+      .addUserOption(option => option.setName('target').setDescription('who do you want to um... scan?').setRequired(true)),
 
   async execute(interaction) {
     await interaction.deferReply()

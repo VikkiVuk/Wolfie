@@ -15,6 +15,8 @@ module.exports = {
                 .addField("Official Discord Server", "https://discord.gg/djfGfHYCdw")
                 .addField("Official Guilded Server", "https://guilded.gg/rain")
                 .addField("Bot Website", "https://wolfie.pro")
+                .addField("Bot Creator", "https://vikkivuk.xyz")
+                .addField("APIs", "https://status.vikkivuk.xyz")
                 .setFooter({text:require("../config.json").defaultFooter})
                 .setTimestamp()
                 .setURL("https://wolfie.pro")

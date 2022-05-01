@@ -2,15 +2,13 @@ require("./web/strategies/discord")
 require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
 const { Client, Collection } = require('discord.js');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "english", type: "LISTENING" }] } })
-const fs = require('fs');const config = require('./bot/config.json');const express = require("express");const app = express();const passport = require("passport");const session = require("express-session");const Store = require('connect-mongo');
+const fs = require('fs');const config = require('./bot/config.json');const express = require("express");const app = express();const passport = require("passport");
 
-app.use(express.json());app.use(express.urlencoded({ extended: false }));app.use(session({secret: "our_little_secret~.122hhzhC898978dDNmmMU89", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 * 60 * 24 }, store: new Store({ mongoUrl: config.mongoPath, mongooseConnection: require('mongoose').connection })}))
+app.use(express.json());app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize({}));app.use(passport.session({}));app.use(express.static(__dirname + "/web/routes/root/construction"));
 
 app.use("/auth", require("./web/routes/root/auth.js"));app.use("/api", require("./web/routes/api/main.js"))
-app.use("/", (req, res) => {
-	res.sendFile(__dirname + "/web/routes/root/construction/page.html")
-})
+app.use("/", (req, res) => {res.sendFile(__dirname + "/web/routes/root/construction/page.html")})
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./bot/commands').filter(file => file.endsWith('.js'));
@@ -36,18 +34,14 @@ client.once('ready', async () => {
 
 		if (exists == null) {
 			await require("./bot/utility/backend").joinedGuild(realguild)
-			await realguild.members.cache.get(realguild.ownerId).send({content: "Your guild is now in our database."}).catch(err => {
-				// user has closed dms or has blocked the bot
-			})
+			await realguild.members.cache.get(realguild.ownerId).send({content: "Your guild is now in our database."}).catch(err => {})
 		}
 	}
 })
 
 client.on('guildCreate', (guild) => {
 	require("./bot/utility/backend").joinedGuild(guild)
-	guild.members.cache.get(guild.ownerId).send({ content: "Hey! Thanks for adding me, I hope I will be of use to you. \n \nCurrently you cannot configure me. We are working and expanding constantly, and you will be able to configure me soon."}).catch(err => {
-		// cannot send message, owner has dms closed.
-	})
+	guild.members.cache.get(guild.ownerId).send({ content: "Hey! Thanks for adding me, I hope I will be of use to you. \n \nCurrently you cannot configure me. We are working and expanding constantly, and you will be able to configure me soon."}).catch(err => {})
 })
 
 client.on('interactionCreate', async (interaction) => {

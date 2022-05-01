@@ -36,9 +36,15 @@ module.exports = {
                 new MessageEmbed().setTitle('ACCESS DENIED').setDescription(`Looks like <@${user.id}> has a firewall. Better luck next time ig`).setTimestamp().setFooter({text: config.defaultFooter}).setColor('#FF0000')
             ];
 
-            const response = responses[Math.floor(Math.random() * responses.length)];
-            await interaction.editReply({embeds: [response]})
-            if (response === responses[0]) { await intuser.modify("money", await randomNumber(100, 1000), "ADD") }
+
+            if (user.bot) {
+                const response = responses[1];
+                await interaction.editReply({embeds: [response]})
+            } else {
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                await interaction.editReply({embeds: [response]})
+                if (response === responses[0]) { await intuser.modify("money", await randomNumber(100, 1000), "ADD") }
+            }
 
             await wait(20000)
             const index = talkedRecently.indexOf(interaction.user.id)
