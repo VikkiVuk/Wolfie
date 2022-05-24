@@ -67,7 +67,7 @@ interface shuffle {
     shuffle: (array: any) => any
 }
 
-function Modules() {
+export class Modules {
     /**
      * Get the first message module
      * @param client
@@ -75,13 +75,11 @@ function Modules() {
      * @param text
      * @param reactions
      */
-    this.firstMessage = async(client: any, id: string, text: string, reactions = []): Promise<firstMessage> => {
+    public firstMessage = async(client: any, id: string, text: string, reactions = []): Promise<firstMessage> => {
         return new firstMessage(client, id, text, reactions)
     }
     /** Shuffle things around in an array */
-    this.shuffle = async(array: any) : Promise<shuffle> => {
+    public shuffle = async(array: any) : Promise<shuffle> => {
         return await shuffle(array)
     }
 }
-
-module.exports.modules = Modules

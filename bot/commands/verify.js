@@ -2,7 +2,8 @@ const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
-const util = require("../utility/UtilityModule").modules
+const utila = require("../utility/UtilityModule.js")
+const util = new utila.Modules()
 const random = require('../utility/generateRandom')
 const wait = require('util').promisify(setTimeout)
 
@@ -36,17 +37,19 @@ module.exports = {
                         await interaction.editReply({ content: `What is ${x} + ${y}?`, ephemeral: false, components: [secondrow] })
 
                         reply.awaitMessageComponent({ filter, componentType: "BUTTON", time: 30000}).then(async button => {
-                            if (button.customId === "rightver") {
+                            if (button.customId == "rightver") {
                                 let successEmbed = new MessageEmbed().setTitle('VERIFICATION PASSED').setDescription(`<@${interaction.member.user.id}>, you have passed our verification, congrats! \n \nPlease comply with the server, discord and bot rules to avoid getting banned from the bot.`).setTimestamp().setFooter({text: "Wolfie • I AM A HUMAN"}).setColor('#00ff9d')
 
                                 if (config.verifiedRole) {
                                     interaction.member.roles.add(config.verifiedRole)
                                 }
 
-                                await interaction.editReply({ content: "", embeds: [successEmbed] })
-                            } else { await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply(); }
-                        }).catch(async() => {await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply();})
-                    }).catch(async() => {await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply();})
+                                await interaction.editReply({ content: null, embeds: [successEmbed], components: [] })
+                            } else {await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply(); }
+                        }).catch(async(err) => { console.log(err); await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply();})
+                    }).catch(async(reason) => {
+                        console.log(reason)
+                        await interaction.editReply({ embeds: [failembed], components: [] });await wait(5000);await interaction.deleteReply();})
                 })
             }
         } else {

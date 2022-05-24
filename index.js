@@ -1,8 +1,10 @@
 require("./web/strategies/discord")
 require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, MessageEmbed} = require('discord.js');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "english", type: "LISTENING" }] } })
 const fs = require('fs');const config = require('./bot/config.json');const express = require("express");const app = express();const passport = require("passport");
+const Trello = require("trello")
+const trello = new Trello(config.trello_appkey, config.trello_token);
 
 app.use(express.json());app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize({}));app.use(passport.session({}));app.use(express.static(__dirname + "/web/routes/root/construction"));
@@ -51,6 +53,21 @@ client.on('interactionCreate', async (interaction) => {
 		try { await command.execute(interaction, client); } catch (error) {
 			console.error(error);
 			await interaction.reply({ content: 'An error has occured, if this continues happening please contact us at support@vikkivuk.xyz', ephemeral: true }).catch(async() => { await interaction.editReply({ content: 'An error has occured, if this continues happening please contact us at support@vikkivuk.xyz', ephemeral: true }) })
+		}
+	} else if (interaction.isModalSubmit()) {
+		if (interaction.customId == "suggestion") {
+			let name = interaction.fields.getTextInputValue("name")
+			let type = interaction.fields.getTextInputValue("type")
+			let inquiry = interaction.fields.getTextInputValue("request")
+
+			await trello.addCard(type, inquiry, "628d2482d4f95b6b4c48f468", function (error, trelloCard) {
+				if (error) {
+					console.log(error)
+					interaction.reply({embeds: [new MessageEmbed().setTitle("Error").setDescription("Your suggestion could not be sent for review, please try again later.").setColor("RED").setTimestamp().setFooter({text: config.defaultFooter})]})
+				} else {
+					interaction.reply({embeds: [new MessageEmbed().setTitle("Suggestion").setDescription("Your request has been forwarded to our team, please do not expect any follow ups, though your suggestion will be reviewed and processed.").setColor("BLURPLE").setTimestamp().setFooter({text: config.defaultFooter})]})
+				}
+			})
 		}
 	}
 });

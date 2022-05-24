@@ -47,23 +47,7 @@ module.exports = {
                     try {
                         const config = await configHand.configuration(`${message.guild.id}`)
                         if (config.filterEnabled === true) {
-                            const requestOptions = {
-                                method: 'POST',
-                                redirect: 'follow',
-                                headers: new Headers({"apikey": "Y75B5ak6sda24a5qBK07PBpwdCNyZq9m"}),
-                                body: message.content
-                            };
 
-                            fetch("https://api.apilayer.com/bad_words?censor_character=#", requestOptions).then(result => {
-                                console.log("s")
-                                if (result.bad_words_total === 0) {
-                                    //Message not censored.
-                                } else {
-                                    message.delete().then(() => {
-                                        message.channel.send(`${message.author} hey we keep it pg here.`)
-                                    })
-                                }
-                            }).catch(error => console.log(error));
                         }
                     } catch {
                         // no permissions.
