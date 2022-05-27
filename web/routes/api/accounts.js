@@ -1,9 +1,8 @@
 const router = require('express').Router()
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-let api = "https://accounts.vikkivuk.xyz/user/"
 let schema = require("../../../bot/utility/schemas/user-schema")
 
-router.get("/link", async(req,res, next) => {
+router.get("/link", async(req,res) => {
     let params = await req.query
 
     if (params.discord_id) {

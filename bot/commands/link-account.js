@@ -18,6 +18,6 @@ module.exports = {
             .setColor("#fff200")
             .setFooter({text:"VikkiVuk LLC"})
             .setTimestamp()
-        await interaction.reply({embeds:[embed], components: [row]});
+        await interaction.reply({embeds:[embed], components: [row], ephemeral: true});
     },
 };
