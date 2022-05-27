@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Link your account to continue enjoying Wolfies features.'),
 
     async execute(interaction) {
-        const row = new MessageActionRow().setComponents(new MessageButton().setURL("https://wolfie.pro/api/accounts/link").setStyle("LINK").setLabel("Link your account"))
+        const row = new MessageActionRow().setComponents(new MessageButton().setURL("https://wolfie.pro/api/accounts/link?discord_id=" + interaction.user.id).setStyle("LINK").setLabel("Link your account"))
         const embed = new MessageEmbed()
             .setTitle("Link your account")
             .setDescription("We have made a new accounts system that our projects will utilize, starting with Wolfie. To make your FREE account please go to https://accounts.vikkivuk.xyz,")
