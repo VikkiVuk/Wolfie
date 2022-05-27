@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const passport = require("passport")
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 let api = "https://accounts.vikkivuk.xyz/user/"
 let schema = require("../../../bot/utility/schemas/user-schema")
