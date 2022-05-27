@@ -4,7 +4,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 let api = "https://accounts.vikkivuk.xyz/user/"
 let schema = require("../../../bot/utility/schemas/user-schema")
 
-router.get("/link/redirect", passport.authenticate('discord'), (req, res, next) => {
+router.get("/link/redirect", passport.authorize('discord'), (req, res, next) => {
     res.redirect("https://accounts.vikkivuk.xyz/authorize.html?client_id=431d40b5-4ed6-48cf-b134-975aeef1e678&redirect_uri=https://wolfie.pro/api/accounts/link&scopes=profile+email&response_type=code")
 })
 router.get("/link", async(req,res, next) => {
@@ -28,10 +28,10 @@ router.get("/link", async(req,res, next) => {
                res.send("An error has occured")
            }
         } else {
-            res.redirect("https://accounts.vikkivuk.xyz/authorize?callback=https://wolfie.pro/api/accounts/link")
+            res.redirect("https://accounts.vikkivuk.xyz/authorize.html?client_id=431d40b5-4ed6-48cf-b134-975aeef1e678&redirect_uri=https://wolfie.pro/api/accounts/link&scopes=profile+email&response_type=code")
         }
     } else {
-        passport.authenticate('discord')(req, res, next)
+        passport.authorize('discord')(req, res, next)
     }
 })
 
