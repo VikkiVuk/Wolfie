@@ -1,15 +1,14 @@
-require("./web/strategies/discord")
 require('./bot/utility/mongo.js')().then(() => console.log(">>> Connected to mongo."))
 const { Client, Collection, MessageEmbed} = require('discord.js');
 const client = new Client({ intents: 32767, presence: { status: "idle", afk: false, activities: [{ name: "english", type: "LISTENING" }] } })
-const fs = require('fs');const config = require('./bot/config.json');const express = require("express");const app = express();const passport = require("passport");
+const fs = require('fs');const config = require('./bot/config.json');const express = require("express");const app = express();
 const Trello = require("trello")
 const trello = new Trello(config.trello_appkey, config.trello_token);
 
 app.use(express.json());app.use(express.urlencoded({ extended: false }));
-app.use(passport.initialize({}));app.use(passport.session({}));app.use(express.static(__dirname + "/web/routes/root/construction"));
+app.use(express.static(__dirname + "/web/routes/root/construction"));
 
-app.use("/auth", require("./web/routes/root/auth.js"));app.use("/api", require("./web/routes/api/main.js"))
+app.use("/api", require("./web/routes/api/main.js"))
 app.use("/", (req, res) => {res.sendFile(__dirname + "/web/routes/root/construction/page.html")})
 
 client.commands = new Collection();
