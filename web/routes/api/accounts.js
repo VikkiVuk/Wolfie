@@ -5,15 +5,19 @@ let api = "https://accounts.vikkivuk.xyz/user/"
 let schema = require("../../../bot/utility/schemas/user-schema")
 
 router.get("/link/redirect", passport.authenticate('discord'), (req, res, next) => {
-    res.redirect("https://accounts.vikkivuk.xyz/authorize?callback=https://wolfie.pro/api/accounts/link")
+    res.redirect("https://accounts.vikkivuk.xyz/authorize.html?client_id=431d40b5-4ed6-48cf-b134-975aeef1e678&redirect_uri=https://wolfie.pro/api/accounts/link&scopes=profile+email&response_type=code")
 })
 router.get("/link", async(req,res, next) => {
     let user = await req.user
     if (user) {
         let params = await req.query
-        if (params.uuid) {
+        if (params.code) {
            try {
-               let response = await fetch("https://accounts.vikkivuk.xyz/api/getUser/" + params.uuid, {method: "GET",redirect:"follow"})
+               let exchangedResponse = await fetch(`https://accounts.vikkivuk.xyz/api/exchange_token`, {method:'POST',redirect:'follow',headers:{"content-type": "application/json"},body:`{"client_id": "431d40b5-4ed6-48cf-b134-975aeef1e678","secret":"c4ac806a-7a81-480b-ae4e-5fbaf701aa17","token":"${params.code}"}`})
+               let exchangedJson = await exchangedResponse.json()
+               let uuid = exchangedJson.uuid
+
+               let response = await fetch("https://accounts.vikkivuk.xyz/api/getUser/" + uuid, {method: "GET",redirect:"follow"})
                let vikkiuser = await response.json()
                if (vikkiuser) {
                    await schema.findOneAndUpdate({userid: user.discordId}, {accountId:params.uuid})
