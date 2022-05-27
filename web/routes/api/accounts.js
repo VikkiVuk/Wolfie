@@ -5,7 +5,7 @@ let schema = require("../../../bot/utility/schemas/user-schema")
 router.get("/link", async(req,res) => {
     let params = await req.query
 
-    if (params.discord_id) {
+    if (params.discord_id || params.state) {
         if (params.code) {
            try {
                let exchangedResponse = await fetch(`https://accounts.vikkivuk.xyz/api/exchange_token`, {method:'POST',redirect:'follow',headers:{"content-type": "application/json"},body:`{"client_id": "431d40b5-4ed6-48cf-b134-975aeef1e678","secret":"c4ac806a-7a81-480b-ae4e-5fbaf701aa17","token":"${params.code}"}`})
