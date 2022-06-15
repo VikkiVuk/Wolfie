@@ -59,11 +59,7 @@ client.on('interactionCreate', async (interaction) => {
 			let type = interaction.fields.getTextInputValue("type")
 			let inquiry = interaction.fields.getTextInputValue("request")
 
-			await trello.addCard(type, `
-				Submitted by: ${name} @ ${interaction.user.tag} (${interaction.user.id})
-				Type: ${type}
-				Inquiry: ${inquiry}
-			`, "628d2482d4f95b6b4c48f468", function (error, trelloCard) {
+			await trello.addCard(type, `Submitted by: ${name} @ ${interaction.user.tag} (${interaction.user.id})\nType: ${type}\nInquiry:\n ${inquiry}`, "628d2482d4f95b6b4c48f468", function (error, trelloCard) {
 				if (error) {
 					console.log(error)
 					interaction.reply({embeds: [new MessageEmbed().setTitle("Error").setDescription("Your suggestion could not be sent for review, please try again later.").setColor("RED").setTimestamp().setFooter({text: config.defaultFooter})]})
