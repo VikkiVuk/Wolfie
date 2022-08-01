@@ -58,15 +58,25 @@ client.on('interactionCreate', async (interaction) => {
 			let name = interaction.fields.getTextInputValue("name")
 			let type = interaction.fields.getTextInputValue("type")
 			let inquiry = interaction.fields.getTextInputValue("request")
-
-			await trello.addCard(type, `Submitted by: ${name} @ ${interaction.user.tag} (${interaction.user.id})\nType: ${type}\nInquiry:\n ${inquiry}`, "628d2482d4f95b6b4c48f468", function (error, trelloCard) {
-				if (error) {
-					console.log(error)
-					interaction.reply({embeds: [new MessageEmbed().setTitle("Error").setDescription("Your suggestion could not be sent for review, please try again later.").setColor("RED").setTimestamp().setFooter({text: config.defaultFooter})]})
-				} else {
-					interaction.reply({embeds: [new MessageEmbed().setTitle("Suggestion").setDescription("Your request has been forwarded to our team, please do not expect any follow ups, though your suggestion will be reviewed and processed.").setColor("BLURPLE").setTimestamp().setFooter({text: config.defaultFooter})]})
-				}
-			})
+			if(type == "PChaos") {
+				await trello.addCard("Open for more information", `Submitted by: ${name} @ ${interaction.user.tag} (${interaction.user.id})\nType: ${type}\nInquiry:\n ${inquiry}`, "62e7cd5433c2f25494837451", function (error, trelloCard) {
+					if (error) {
+						console.log(error)
+						interaction.reply({embeds: [new MessageEmbed().setTitle("Error").setDescription("Your suggestion could not be sent for review, please try again later.").setColor("RED").setTimestamp().setFooter({text: config.defaultFooter})]})
+					} else {
+						interaction.reply({embeds: [new MessageEmbed().setTitle("Suggestion").setDescription("Your request has been forwarded to Pure Chaos - Developer Team, please do not expect any follow ups, though your suggestion will be reviewed and processed.").setColor("BLURPLE").setTimestamp().setFooter({text: config.defaultFooter})]})
+					}
+				})
+			} else {
+				await trello.addCard(type, `Submitted by: ${name} @ ${interaction.user.tag} (${interaction.user.id})\nType: ${type}\nInquiry:\n ${inquiry}`, "628d2482d4f95b6b4c48f468", function (error, trelloCard) {
+					if (error) {
+						console.log(error)
+						interaction.reply({embeds: [new MessageEmbed().setTitle("Error").setDescription("Your suggestion could not be sent for review, please try again later.").setColor("RED").setTimestamp().setFooter({text: config.defaultFooter})]})
+					} else {
+						interaction.reply({embeds: [new MessageEmbed().setTitle("Suggestion").setDescription("Your request has been forwarded to our team, please do not expect any follow ups, though your suggestion will be reviewed and processed.").setColor("BLURPLE").setTimestamp().setFooter({text: config.defaultFooter})]})
+					}
+				})
+			}
 		}
 	}
 });
