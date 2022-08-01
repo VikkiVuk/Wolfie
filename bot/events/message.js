@@ -2,7 +2,6 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const BotModule = require("../utility/BotModule")
 const configHand = new BotModule.GuildConfigurations()
 const handler = new BotModule.UserModule()
-const nofilterrole = "896730099901169665"
 
 module.exports = {
     name: 'messageCreate',
@@ -41,7 +40,7 @@ module.exports = {
         const serbianNsfwStuff = ["blyat","picka", "kurac", "sperme", "spermatozoid", "sperma", "vadzina", "vajayjay", "vadzajdzaj", "pičk", "dupe", "pickica"]
 
         if (message.member) {
-            if (!message.member.roles.cache.has(nofilterrole)) {
+            //if (!message.member.roles.cache.has(nofilterrole)) {
                 //if (englishInsults.some(s => loweredMsg.includes(s)) || englishNsfwStuff.some(s => loweredMsg.includes(s)) || serbianInsults.some(s => loweredMsg.includes(s)) || serbianNsfwStuff.some(s => loweredMsg.includes(s))) {
                     if (message.author.id === client.user.id || message.member.roles.cache.has('873680682096947210')) return;
                     try {
@@ -54,6 +53,6 @@ module.exports = {
                     }
                // }
             }
-        }
+        //}
     }
 }

@@ -2,18 +2,18 @@ const firstmessage = require('./first-message.js')
 const Discord = require('discord.js')
 
 module.exports = async (client) => {
-    const channelId = "879842580907585596"
+    const channelId = "1003708183149297674" // raintm community, self role channel
 
     const getEmoji = key => client.emojis.cache.find(emoji => emoji.name === key)
 
     const emojies = {
-        naughtycat: "[🔞] Perverzan",
-        thumbsup_cry: "[🔥] Bruh Gang",
+        naughtycat: "[🔞] Pervert",
+        thumbsup_cry: "[🌧] Rain Gang",
         cuteturtle: "[🏅] Gold Role",
-        flames: "Youtube Videos Ping",
+        flames: "YouTube Videos Ping",
         imgoingcrazy: "Random Pings",
         animatedexclamation: "Wolfie Updates Ping",
-        Minecraft: "[🎮] Gejmer"
+        Minecraft: "[🎮] Gamer"
     }
 
     const items = []
@@ -32,7 +32,7 @@ module.exports = async (client) => {
   
     channel.messages.fetch().then((messages) => {
       if (messages.size === 0) {
-        channel.send({ content: `@everyone, ovde mozete da dobijete vase rolove koje zelite, samo kliknite na ovaj select menu ispod i izaberite rolove, mozete da izaberete vise od jednom.`, components: [sclMenu] })
+        channel.send({ content: `@everyone, here you can select your roles, you can select more than 1.`, components: [sclMenu] })
       } else {
         for (const message of messages) {
             // un comment this code to update self roles
@@ -58,7 +58,7 @@ module.exports = async (client) => {
                     member.roles.add(interaction.guild.roles.cache.find(r => r.name === id))
                 }
 
-                await interaction.reply({ content: `Rolovi su ti promenjeni!`, ephemeral: true })
+                await interaction.reply({ content: `Your roles have been changed!`, ephemeral: true })
             }
         }
     })
