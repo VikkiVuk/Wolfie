@@ -1,12 +1,12 @@
 {
-    "testingtoken": "OTM3NjE1NTkwMDM2NzU0NDMy.YfeUkA.itxAoA2QDANiDBVqWFBXRt4MM5w",
-    "token": "ODgwMDQ5NDcyMjQ2Mjg0MzI4.YSYn8A.BdvTutPpbxMGzOO6T_MsH3dGp60",
-    "mongoPath": "mongodb+srv://vikkivuk:vikimiki123@discord.lb9th.mongodb.net/bot?retryWrites=true&w=majority",
+    "testingtoken": "",
+    "token": "",
+    "mongoPath": "",
     "ytChannelId": ["UCEKi4EGLAk7ernGGrlPSNkw"],
     "ytServerChannelIdNotify": "878774622135418990",
     "defaultFooter": "Wolfie",
     "shopItems": {"Laptop":15000, "Fishing Rod":10000, "Golden Trophy":50000, "Broom":1500, "Poop":69420, "Phone":7000, "Shovel":5000},
     "searchZones": ["Car", "Bathroom", "Park", "Truck", "Taxi", "Pocket", "PC", "Bushes", "Bank", "Vacuum", "Closet", "Sink", "Sewers", "Basement", "Street", "Washing Machine", "Air"],
-    "trello_appkey": "03a9e1dbf3c557e05b45fecc95f68913",
-    "trello_token": "1e5e621c8093255ae0752a7e67defc8384729a4fbc480fd7b01ec5923372b970"
+    "trello_appkey": "",
+    "trello_token": ""
 }
